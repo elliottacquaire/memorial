@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp">
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:text="手机号"
+        android:textSize="15.3sp"
+        android:layout_centerVertical="true"
+        android:textColor="@color/color_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/edt_phone"
+        android:layout_toRightOf="@+id/tv_phone"
+        android:layout_toLeftOf="@+id/img_cancel"
+        android:textSize="15.3sp"
+        android:paddingLeft="10dp"
+        android:inputType="phone"
+        android:maxLength="11"
+        android:maxLines="1"
+        android:textCursorDrawable="@null"
+        android:layout_centerVertical="true"
+        android:textColor="@color/color_white"
+        android:textColorHint="@color/color_999"
+        android:background="#0E1418"
+        android:hint="请输入手机号"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/img_cancel"
+        android:src="@drawable/icon_clear"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:id="@+id/view_line"
+        android:alpha="0.2"
+        android:background="@color/color_white"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+</RelativeLayout>

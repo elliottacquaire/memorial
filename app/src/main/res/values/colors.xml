@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="porsche_pos_main_color">#2193FF</color>
+
+    <color name="colorPrimary">#0E1418</color>
+    <color name="colorPrimaryDark">#0E1418</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="tab_text_normal">#FF999999</color>
+    <color name="tab_text_selected">@color/porsche_pos_main_color</color>
+    <color name="tab_indicator_color">@color/porsche_pos_main_color</color>
+    <color name="card_view_background">#1A2023</color>
+    <color name="page_bg">#FF1A2023</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_black">#0E1418</color>
+    <color name="color_999">#999999</color>
+    <color name="option_bg">#282E32</color>
+    <color name="empty_view_bg">#0E1418</color>
+
+    <color name="code_text_color">#3F99CC</color>
+
+    <color name="color_196">#2193FF</color>
+
+    <color name="color_41">#414141</color>
+
+    <color name="color_e5">#E5E5E5</color>
+    <color name="colorWindowBackground">#0E1418</color>
+    <color name="color_b0">#B0B1B2</color>
+    <color name="color_d5">#D5001C</color>
+    <color name="pop_bg">#b3000000</color>
+    <color name="color_2ca">#2193FF</color>
+    <color name="color_262">#262B2E</color>
+    <color name="color_252c">#252C2F</color>
+    <color name="color_white_8c">#8CFFFFFF</color>
+    <color name="color_1a2">#1A2023</color>
+
+    <color name="color_50e">#9c50E3C2</color>
+    <color name="color_9797">#979797</color>
+    <color name="color_9c2ca">#9c2CA2CF</color>
+
+    <color name="gps_bg">#4A4E51</color>
+    <color name="route_bg">#2193FF</color>
+</resources>

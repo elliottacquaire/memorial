@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PosVerificationCodeLoginActivity">
+
+    <include
+        android:id="@+id/top_toolbar"
+        layout="@layout/layout_base_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:gravity="center"
+        android:text="@string/login_tv_tips"
+        android:textColor="@color/color_white"
+        android:textSize="23sp" />
+
+    <TextView
+        android:id="@+id/tv_code_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_tips"
+        android:layout_marginLeft="15.3dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginBottom="14dp"
+        android:alpha="0.5"
+        android:text="@string/login_code_tips"
+        android:textColor="@color/color_white"
+        android:textSize="17sp" />
+
+    <com.exae.memorialapp.widget.PhoneInputView
+        android:id="@+id/phoneInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_code_title"
+        android:layout_marginLeft="15.3dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15.3dp" />
+
+    <com.exae.memorialapp.widget.CodeInputView
+        android:id="@+id/codeInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/phoneInput"
+        android:layout_marginLeft="15.3dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15.3dp" />
+
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/codeInput"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/pos_btn_confirm_bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/login_btn"
+        android:textColor="@color/color_white"
+        android:textSize="13.3sp" />
+
+
+    <TextView
+        android:id="@+id/tv_login_ppn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/login_tv_contents"
+        android:textColor="@color/tab_text_selected"
+        android:textSize="15.3sp" />
+
+</RelativeLayout>
