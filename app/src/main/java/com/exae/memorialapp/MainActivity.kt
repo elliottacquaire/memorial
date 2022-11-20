@@ -31,7 +31,7 @@ class MainActivity : PosBaseActivity<ActivityMainBinding>() {
 //        binding = ActivityMainBinding.inflate(layoutInflater)
 //        setContentView(binding.root)
         setToolTitle(getString(R.string.title_to_do))
-
+        setBackState(false)
         binding.apply {
             mMainTabLayout.addTab(
                 mMainTabLayout.newTab().setCustomView(
