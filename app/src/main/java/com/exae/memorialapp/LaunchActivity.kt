@@ -1,5 +1,6 @@
 package com.exae.memorialapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -19,13 +20,13 @@ class LaunchActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             Handler(Looper.getMainLooper()).postDelayed({
 //                startActivity(Intent(this,MainActivity::class.java))
-//                startActivity(Intent(this,PosVerificationCodeLoginActivity::class.java))
-                ARouter.getInstance()
+                startActivity(Intent(this,PosVerificationCodeLoginActivity::class.java))
+//                ARouter.getInstance()
 //                    .build("/login/login")
-                    .build("/app/main")
+//                    .build("/app/main")
 ////            .withString("ROLE", role)
 //                    .withTransition(0, 0)
-                    .navigation()
+//                    .navigation()
                 finish()
             }, 1000)
         }

@@ -12,6 +12,7 @@ const val DRS_FLOW_SERVICE_NAME = "drs-flow-service"
 const val POS_SALES_BUSINESS_NAME = "drs-sales-service"
 const val BUSINESS_PATH = "/$GATEWAY/$DRS_MOBILE_BUSINESS_NAME/$API_VERSION"
 const val REQUESTCARPATH = "/api/v1/vehicle"
+const val REQUESLOGINPATH = "/prod-api/login"
 
 open class BaseRequest(@Transient open var path: String)
 
@@ -25,12 +26,19 @@ data class VerificationCodeRequest(
     var phone: String = ""
 ) : BaseRequest("$BUSINESS_PATH/mbff/sms/code")
 
-data class VerificationCodeLoginRequest(
+data class PasswordCodeLoginRequest(
     @SerializedName("phone")
     var phone: String = "",
     @SerializedName("verifyCode")
     var verify_code: String = ""
 ) : BaseRequest("$BUSINESS_PATH/mbff/sms/token")
+
+data class VerificationCodeLoginRequest(
+    @SerializedName("username")
+    var phone: String = "",
+    @SerializedName("password")
+    var verify_code: String = ""
+) : BaseRequest("/prod-api/login")
 
 data class UserRequest(
     @SerializedName("id")

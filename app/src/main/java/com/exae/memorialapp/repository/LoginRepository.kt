@@ -1,5 +1,6 @@
 package com.exae.memorialapp.repository
 
+import android.util.Log
 import com.exae.memorialapp.animation.RetrofitAnno
 import com.exae.memorialapp.api.VerificationCodeService
 import com.exae.memorialapp.bean.GetCodeResponse
@@ -29,9 +30,10 @@ class LoginRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofit) 
     }
 
     suspend fun verificationCodeLogin(request: VerificationCodeLoginRequest): ResultBean<LoginResultResponse> {
+        Log.i("sss","-------${request.phone}---------")
         return ResultBean.success(
             retrofit.create(VerificationCodeService::class.java)
-                .codeLoginRequest(request.path, request.verify_code, request.phone)
+                .codeLoginRequest(request.path, request)
         )
     }
 

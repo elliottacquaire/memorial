@@ -1,5 +1,6 @@
 package com.exae.memorialapp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.exae.memorialapp.animation.TokenPreference
@@ -90,6 +91,8 @@ class PosLoginModel @Inject constructor(
     fun codeLoginRequest(phone: String, code: String) {
 
 //        setUserPhone(phone)
+
+        Log.i("sss","--------$phone---------")
 
         state.verificationCodeLoginRequest.also {
             it.phone = phone

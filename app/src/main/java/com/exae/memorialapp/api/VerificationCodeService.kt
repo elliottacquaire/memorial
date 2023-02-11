@@ -2,6 +2,7 @@ package com.exae.memorialapp.api
 
 import com.exae.memorialapp.bean.GetCodeResponse
 import com.exae.memorialapp.bean.LoginResultResponse
+import com.exae.memorialapp.requestData.VerificationCodeLoginRequest
 import com.exae.memorialapp.requestData.VerificationCodeRequest
 import retrofit2.http.*
 
@@ -13,12 +14,19 @@ interface VerificationCodeService {
         @Body request: VerificationCodeRequest
     ): GetCodeResponse
 
-    @FormUrlEncoded
+
     @POST("{path}")
     suspend fun codeLoginRequest(
         @Path(value = "path", encoded = true) url: String,
-        @Field("verifyCode") verify_code: String,
-        @Field("phone") phone: String
+        @Body request: VerificationCodeLoginRequest
+    ): LoginResultResponse
+
+    @FormUrlEncoded
+    @POST("{path}")
+    suspend fun codeLoginRequest1(
+        @Path(value = "path", encoded = true) url: String,
+        @Field("password") verify_code: String,
+        @Field("username") phone: String
 
     ): LoginResultResponse
 
