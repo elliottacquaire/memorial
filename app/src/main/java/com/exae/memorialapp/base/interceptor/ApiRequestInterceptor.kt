@@ -3,6 +3,7 @@ package com.exae.memorialapp.base.interceptor
 import android.content.Context
 import android.text.TextUtils
 import com.exae.memorialapp.common.ShareUtil
+import com.exae.memorialapp.utils.StringPreferenceType
 import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
 import okhttp3.Request
@@ -11,7 +12,7 @@ import okhttp3.internal.closeQuietly
 
 class ApiRequestInterceptor(
   private val context: Context,
-//  private val tokenStringPreference: StringPreferenceType,
+  private val tokenStringPreference: StringPreferenceType,
 ) : Interceptor {
 
   override fun intercept(chain: Chain): Response {
@@ -46,7 +47,8 @@ class ApiRequestInterceptor(
     val builder = request.newBuilder()
 //    builder.header("Accept-Language", I18nUtils.language())
     builder.addHeader("channel", "01")
-    builder.addHeader("Authorization", "Bearer ${ShareUtil.getToken()}")
+//    builder.addHeader("Authorization", "${ShareUtil.getToken()}")
+    builder.addHeader("Authorization", tokenStringPreference.get())
     builder.addHeader("platform", "android")
 //    builder.addHeader("clientId", build.applicationId)
 //    builder.addHeader("version", build.versionCode.toString())

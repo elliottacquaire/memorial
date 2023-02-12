@@ -3,7 +3,7 @@ package com.exae.memorialapp.bean
 import com.google.gson.annotations.SerializedName
 
 open class ProtocolResponse<T> {
-    @SerializedName("message")
+    @SerializedName("msg")
     val message: String? = null
 
     @SerializedName("code")

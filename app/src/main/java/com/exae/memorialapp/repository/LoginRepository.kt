@@ -30,7 +30,6 @@ class LoginRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofit) 
     }
 
     suspend fun verificationCodeLogin(request: VerificationCodeLoginRequest): ResultBean<LoginResultResponse> {
-        Log.i("sss","-------${request.phone}---------")
         return ResultBean.success(
             retrofit.create(VerificationCodeService::class.java)
                 .codeLoginRequest(request.path, request)

@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
+
 public final class StringPreference implements StringPreferenceType {
   private final SecurePreferences securePreferences;
   private final String key;

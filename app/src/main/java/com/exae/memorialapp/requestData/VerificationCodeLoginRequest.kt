@@ -20,6 +20,9 @@ open class BaseRequest(@Transient open var path: String)
 data class LoginRequest(var code: String = "") :
     BaseRequest("$BUSINESS_PATH/permission/token/$code")
 
+data class BannerRequest(var code: String = "") :
+    BaseRequest("/prod-api/banner/listAll")
+
 //手机验证码获取
 data class VerificationCodeRequest(
     @SerializedName("phone")
@@ -38,7 +41,7 @@ data class VerificationCodeLoginRequest(
     var phone: String = "",
     @SerializedName("password")
     var verify_code: String = ""
-) : BaseRequest("/prod-api/login")
+) : BaseRequest("/prod-api/loginApp")
 
 data class UserRequest(
     @SerializedName("id")

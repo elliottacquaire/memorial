@@ -12,6 +12,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.exae.memorialapp.base.PosBaseActivity
 import com.exae.memorialapp.base.handleResponse
+import com.exae.memorialapp.common.ShareUtil
 import com.exae.memorialapp.databinding.ActivityPosVerificationCodeLoginBinding
 import com.exae.memorialapp.viewmodel.PosLoginModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,7 +48,12 @@ class PosVerificationCodeLoginActivity :
                 dismissLoading()
                 ToastUtil.showCenter("登录成功")
                 longViewModel.handleLoginResult(it.data)
+                ShareUtil.putToken("token-sssss")
+                ARouter.getInstance()
+                    .build("/app/main")
+                    .navigation()
 
+                finish()
 //                judgeRole(userRole)
 //                userPermissionJump()
             },
@@ -78,7 +84,7 @@ class PosVerificationCodeLoginActivity :
 
         }
 
-//        phoneInput.setEditText(longViewModel.getUser().phoneNum.trim())
+    binding.phoneInput.setEditText(longViewModel.getUser().trim())
 
     }
 

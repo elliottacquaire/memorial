@@ -3,12 +3,12 @@ package com.exae.memorialapp.bean
 import com.google.gson.annotations.SerializedName
 
 class LoginResultModel(
-    @SerializedName("code")
-    val code: Int,
-    @SerializedName("msg")
-    val msg: String?,
+//    @SerializedName("code")
+//    val code: Int,
+//    @SerializedName("msg")
+//    val msg: String?,
     @SerializedName("token")
-    val data: String = ""
+    val token: String = ""
 )
 
 class LoginResultModel1(
@@ -22,4 +22,13 @@ class LoginResultModel1(
     var district: String = "",
     @SerializedName("vehicle_model")
     val vehicle_model: String = ""
+)
+class BannerResponse : ProtocolResponse<ArrayList<BannerModel>>()
+class BannerModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("linkUrl")
+    val linkUrl: String = ""
 )

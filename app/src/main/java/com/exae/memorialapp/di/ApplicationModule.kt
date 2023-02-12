@@ -7,9 +7,14 @@ import com.exae.memorialapp.animation.ApiServiceAnno
 import com.exae.memorialapp.animation.OkHttpAnnotation
 import com.exae.memorialapp.animation.RetrofitAnno
 import com.exae.memorialapp.animation.RetrofitAnnoOther
+import com.exae.memorialapp.animation.TokenPreference
+import com.exae.memorialapp.animation.UserPreference
 import com.exae.memorialapp.api.NetwrokService
 import com.exae.memorialapp.base.interceptor.ApiRequestInterceptor
 import com.exae.memorialapp.common.Constants.URL_SERVICE
+import com.exae.memorialapp.utils.SecurePreferences
+import com.exae.memorialapp.utils.StringPreference
+import com.exae.memorialapp.utils.StringPreferenceType
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,16 +38,39 @@ object ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideApiRequestInterceptor(
-        @ApplicationContext context: Context,
-//        @TokenPreference stringPreference: StringPreferenceType,
-    ): ApiRequestInterceptor {
-        return ApiRequestInterceptor(
-            context
-//            stringPreference,
+    fun provideSecurePreferences(@ApplicationContext context: Context): SecurePreferences {
+        return SecurePreferences(
+            context,
+            "1zUowAj8DjWokhPh4x7OkfHb6JbCDv2f",
+            "porsche_prefs"
         )
     }
 
+    @Provides
+    @Singleton
+    fun provideApiRequestInterceptor(
+        @ApplicationContext context: Context,
+        @TokenPreference stringPreference: StringPreferenceType,
+    ): ApiRequestInterceptor {
+        return ApiRequestInterceptor(
+            context,
+            stringPreference
+        )
+    }
+    @Provides
+    @TokenPreference
+    fun provideTokenPreference(
+        securePreferences: SecurePreferences
+    ): StringPreferenceType {
+        return StringPreference(securePreferences, "Secrets.TOKEN", "")
+    }
+    @Provides
+    @UserPreference
+    fun provideUserPreference(
+        securePreferences: SecurePreferences
+    ): StringPreferenceType {
+        return StringPreference(securePreferences, "Secrets.USER", "")
+    }
     @Provides
     @Singleton
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {

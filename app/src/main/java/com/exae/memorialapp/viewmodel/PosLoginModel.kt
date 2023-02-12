@@ -16,6 +16,7 @@ import com.exae.memorialapp.bean.LoginResultResponse
 import com.exae.memorialapp.bean.ProtocolResponse
 import com.exae.memorialapp.bean.ResultBean
 import com.exae.memorialapp.bean.SmsCodeResourceModel
+import com.exae.memorialapp.common.ShareUtil
 import com.exae.memorialapp.repository.LoginRepository
 import com.exae.memorialapp.requestData.LoginRequest
 import com.exae.memorialapp.requestData.VerificationCodeRequest
@@ -31,9 +32,9 @@ data class PosLoginState(
 
 @HiltViewModel
 class PosLoginModel @Inject constructor(
-    private val loginRepository: LoginRepository
-//    @TokenPreference val tokenPref: StringPreferenceType,
-//    @UserPreference val users: StringPreferenceType
+    private val loginRepository: LoginRepository,
+    @TokenPreference val tokenPref: StringPreferenceType,
+    @UserPreference val users: StringPreferenceType,
 ) : ViewModel() {
 
     var state = PosLoginState()
@@ -41,8 +42,10 @@ class PosLoginModel @Inject constructor(
     //    var registerResponse = MutableLiveData<Resource<DeviceRegisterResponse>>()
     fun handleLoginResult(loginResultModel: LoginResultModel?) {
         loginResultModel?.let {
-//            tokenPref.set(it.accessToken)
-//            Log.i("DealerApp", devicePref.get())
+            tokenPref.set(it.token)
+//            tokenPref.set("eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjlmZmZiNmE2LTEyNzctNDVlMC1iMmZhLTU3NDVjZTY1OGU5NCJ9.J9fUWW96j7qUNGukJ4FCUPXTyVuZg532ApTUjssvTFlBrVmTf8huAITgR0yP16LLNh2Oig6JhCIvMwfQbqcouQ")
+//            ShareUtil.putToken("token-sssss")
+            Log.i("DealerApp", tokenPref.get())
 //            state.registerDeviceRequest = DeviceRegsiterRequest(
 //                deviceId = devicePref.get(),
 //                userId = it.userDetailResource?.uid ?: ""
@@ -90,7 +93,7 @@ class PosLoginModel @Inject constructor(
     var loginCodeResponse = MutableLiveData<ResultBean<LoginResultResponse>>()
     fun codeLoginRequest(phone: String, code: String) {
 
-//        setUserPhone(phone)
+        setUserPhone(phone)
 
         Log.i("sss","--------$phone---------")
 
@@ -122,9 +125,13 @@ class PosLoginModel @Inject constructor(
 //        )
 //    }
 
-//    fun setUserPhone(phone: String) {
+    private fun setUserPhone(phone: String) {
 //        val userBean = getUser()
 //        userBean.phoneNum = phone
 //        user.set(Gson().toJson(userBean))
-//    }
+        users.set(phone)
+    }
+    fun getUser():String{
+        return users.get()
+    }
 }

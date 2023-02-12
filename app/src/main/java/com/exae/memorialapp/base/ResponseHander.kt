@@ -6,7 +6,7 @@ import com.exae.memorialapp.bean.ResultBean
 fun <T : ProtocolResponse<*>> handleResponse(resource: ResultBean<T>, successHandler: (T) -> Unit) {
     if (resource.isSuccess()) {
         if (resource.data?.code == "200") {
-            successHandler.invoke(resource.data!!)
+            successHandler.invoke(resource.data)
         } else {
             if (resource.data?.code == "401") {
                 jumpToLogin()
@@ -30,7 +30,7 @@ fun <T : ProtocolResponse<*>> handleResponse(
 ) {
     if (resource.isSuccess()) {
         if (resource.data?.code == "200") {
-            successHandler.invoke(resource.data!!)
+            successHandler.invoke(resource.data)
         } else {
             if (resource.data?.code == "401") {
                 jumpToLogin()
