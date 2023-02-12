@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.exae.memorialapp.base.errorHandle
 import com.exae.memorialapp.base.launch
 import com.exae.memorialapp.bean.BannerResponse
+import com.exae.memorialapp.bean.ManageMemorialResponse
 import com.exae.memorialapp.bean.ResultBean
 import com.exae.memorialapp.repository.MemorialRepository
 import com.exae.memorialapp.requestData.BannerRequest
@@ -28,6 +29,19 @@ class MemorialModel @Inject constructor(
             },
             {
                 bannerResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var manageMerioResponse = MutableLiveData<ResultBean<ManageMemorialResponse>>()
+    fun manageMerioRequest() {
+//        state.request = BannerRequest(code)
+        launch(
+            {
+                manageMerioResponse.value = repository.getManageMerioList(BannerRequest(""))
+            },
+            {
+                manageMerioResponse.value = errorHandle(it)
             }
         )
     }

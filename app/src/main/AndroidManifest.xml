@@ -18,17 +18,32 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.MemorialApp">
+        android:theme="@style/Theme.MemorialApp"
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".SingleHallActivity"
+            android:name=".hall.UploadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".hall.ChooseTableStyleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".hall.ChooseHallStyleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".hall.ChooseMemorialActivity"
+            android:exported="false" />
+        <activity
+            android:name=".hall.ManageMemorialActivity"
+            android:exported="false" />
+        <activity
+            android:name=".hall.SingleHallActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".CreateHallActivity"
+            android:name=".hall.CreateHallActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

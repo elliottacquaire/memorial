@@ -5,6 +5,7 @@ import com.exae.memorialapp.api.MemorialService
 import com.exae.memorialapp.api.VerificationCodeService
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.LoginResultResponse
+import com.exae.memorialapp.bean.ManageMemorialResponse
 import com.exae.memorialapp.bean.ResultBean
 import com.exae.memorialapp.requestData.BannerRequest
 import com.exae.memorialapp.requestData.BaseRequest
@@ -21,6 +22,13 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
                 .bannerRequest(request.path)
+        )
+    }
+
+    suspend fun getManageMerioList(request: BannerRequest): ResultBean<ManageMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .manageMerioRequest(request.path)
         )
     }
 }

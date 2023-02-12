@@ -7,13 +7,11 @@ import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.BaseFragment
-import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.databinding.FragmentMyProfileBinding
-import com.exae.memorialapp.databinding.FragmentTestDriveBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MyProfileFragment : BaseFragment<FragmentMyProfileBinding>() ,View.OnClickListener{
+class MyProfileFragment : BaseFragment<FragmentMyProfileBinding>(), View.OnClickListener {
 
 
 //    private var _binding: FragmentMyProfileBinding? = null
@@ -31,14 +29,11 @@ class MyProfileFragment : BaseFragment<FragmentMyProfileBinding>() ,View.OnClick
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        EventBus.getDefault().register(this)
-        binding.apply {
-//            myApprovalPrice.setOnClickListener(context)
-//            myApprovalContract.setOnClickListener(this)
-//            linPersistence.setOnClickListener(this)
-//            linTestDrive.setOnClickListener(this)
-//            linTestRecord.setOnClickListener(this)
-        }
-
+        binding.accountMoney.setOnClickListener(this)
+        binding.accountAdd.setOnClickListener(this)
+        binding.hallManage.setOnClickListener(this)
+        binding.helpCenter.setOnClickListener(this)
+        binding.message.setOnClickListener(this)
     }
 
     override fun onResume() {
@@ -54,29 +49,28 @@ class MyProfileFragment : BaseFragment<FragmentMyProfileBinding>() ,View.OnClick
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.myApprovalPrice -> {
+            R.id.accountMoney -> {
                 ARouter.getInstance().build("/pos/history/record")
-                    .withInt("clickType", 1)  //报价单
+                    .withInt("clickType", 1)  //
                     .navigation(activity)
             }
-            R.id.myApprovalContract -> {
+            R.id.accountAdd -> {
                 ARouter.getInstance().build("/pos/history/record")
-                    .withInt("clickType", 2) //合同
+                    .withInt("clickType", 2) //
                     .navigation(activity)
             }
-            R.id.lin_persistence -> {
-                ARouter.getInstance().build("/pos/history/record")
-                    .withInt("clickType", 6) //暂留
+            R.id.hallManage -> {
+                ARouter.getInstance().build("/app/manage/hall")
                     .navigation(activity)
             }
-            R.id.lin_test_drive -> {
+            R.id.helpCenter -> {
                 ARouter.getInstance().build("/pos/history/record")
-                    .withInt("clickType",101) //试驾历史
+                    .withInt("clickType", 101) //
                     .navigation(activity)
             }
-            R.id.lin_test_record -> {
+            R.id.message -> {
                 ARouter.getInstance().build("/pos/drive/route")
-                    .withInt("clickType",101) //试驾路线录制
+                    .withInt("clickType", 101) //
                     .navigation(activity)
             }
         }
