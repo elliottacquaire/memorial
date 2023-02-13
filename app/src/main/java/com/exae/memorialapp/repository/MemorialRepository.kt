@@ -7,8 +7,12 @@ import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.LoginResultResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
 import com.exae.memorialapp.bean.ResultBean
+import com.exae.memorialapp.bean.StyleMemorialResponse
 import com.exae.memorialapp.requestData.BannerRequest
 import com.exae.memorialapp.requestData.BaseRequest
+import com.exae.memorialapp.requestData.ChooseHallRequest
+import com.exae.memorialapp.requestData.ChooseMemorialRequest
+import com.exae.memorialapp.requestData.ChooseTableRequest
 import com.exae.memorialapp.requestData.VerificationCodeLoginRequest
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
@@ -29,6 +33,25 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
                 .manageMerioRequest(request.path)
+        )
+    }
+
+    suspend fun getStyleMerioList(request: ChooseMemorialRequest): ResultBean<StyleMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .chooseMemorialRequestRequest(request.path)
+        )
+    }
+    suspend fun getStyleHallList(request: ChooseHallRequest): ResultBean<StyleMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .chooseHallRequestRequest(request.path)
+        )
+    }
+    suspend fun getStyleTableList(request: ChooseTableRequest): ResultBean<StyleMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .chooseTableRequestRequest(request.path)
         )
     }
 }

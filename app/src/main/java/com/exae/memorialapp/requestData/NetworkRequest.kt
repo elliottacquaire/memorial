@@ -110,17 +110,17 @@ data class FindCarToUse(
 
 data class ChooseHallRequest(
     @SerializedName("type")
-    var type: String
+    var type: Int
 ) : BaseRequest("/prod-api/hall/listAll/$type")
 
 data class ChooseTableRequest(
     @SerializedName("type")
-    var type: String
+    var type: Int
 ) : BaseRequest("/prod-api/tablet/listAll/")
 
 data class ChooseMemorialRequest(
     @SerializedName("type")
-    var type: String
+    var type: Int
 ) : BaseRequest("/prod-api/memorial/listAll/$type")
 data class FindOrder(
     @SerializedName("phone")

@@ -20,8 +20,7 @@
             android:id="@+id/mListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp" />
+            android:layout_marginStart="18dp" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
     <RelativeLayout

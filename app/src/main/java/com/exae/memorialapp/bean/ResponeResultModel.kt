@@ -51,3 +51,15 @@ class ManageMemorialModel(
     @SerializedName("linkUrl")
     val linkUrl: String = ""
 )
+
+class StyleMemorialResponse : ProtocolResponse<ArrayList<StyleMemorialModel>>()
+class StyleMemorialModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)

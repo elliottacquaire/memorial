@@ -107,7 +107,8 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
 
     override fun rightImageClick() {
         super.rightImageClick()
-        ARouter.getInstance().build("/pos/setting").navigation(this)
+//        ARouter.getInstance().build("/pos/setting").navigation(this)
+        ARouter.getInstance().build("/app/choose/table").navigation(this)
     }
 
     private fun requestNetData() {

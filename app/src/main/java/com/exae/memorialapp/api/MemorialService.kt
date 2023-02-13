@@ -2,6 +2,7 @@ package com.exae.memorialapp.api
 
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
+import com.exae.memorialapp.bean.StyleMemorialResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -29,7 +30,7 @@ interface MemorialService {
             value = "path",
             encoded = true
         ) url: String
-    ): BannerResponse
+    ): StyleMemorialResponse
 
     @GET("{path}")
     suspend fun chooseTableRequestRequest(
@@ -37,7 +38,7 @@ interface MemorialService {
             value = "path",
             encoded = true
         ) url: String
-    ): BannerResponse
+    ): StyleMemorialResponse
 
     @GET("{path}")
     suspend fun chooseMemorialRequestRequest(
@@ -45,5 +46,5 @@ interface MemorialService {
             value = "path",
             encoded = true
         ) url: String
-    ): BannerResponse
+    ): StyleMemorialResponse
 }
