@@ -68,7 +68,6 @@ class ChooseHallStyleActivity : PosBaseActivity<ActivityChooseHallStyleBinding>(
                 }
             )
         })
-
     }
 
     private fun requestNetData() {
@@ -82,7 +81,7 @@ class ChooseHallStyleActivity : PosBaseActivity<ActivityChooseHallStyleBinding>(
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         when(view.id){
             R.id.choose -> {
-                ARouter.getInstance().build("/app/choose/hall").navigation(this)
+                ARouter.getInstance().build("/app/upload/img").navigation(this)
             }
         }
     }

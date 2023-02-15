@@ -34,3 +34,18 @@
   public static ** inflate(...);
   public static ** bind(***);
 }
+
+-keep class com.luck.picture.lib.** { *; }
+
+# use Camerax
+-keep class com.luck.lib.camerax.** { *; }
+
+# use uCrop
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }
+-dontwarn com.lxj.xpopup.widget.**
+-keep class com.lxj.xpopup.widget.**{*;}
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }
