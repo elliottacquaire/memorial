@@ -1,8 +1,5 @@
 package com.exae.memorialapp.hall
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -10,12 +7,10 @@ import com.exae.memorialapp.base.PosBaseActivity
 import com.exae.memorialapp.databinding.ActivityUploadBinding
 import com.exae.memorialapp.util.GlideEngine
 import com.luck.picture.lib.basic.PictureSelector
-import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.SelectMimeType
 import com.luck.picture.lib.config.SelectModeConfig
 import com.luck.picture.lib.engine.CompressFileEngine
 import com.luck.picture.lib.entity.LocalMedia
-import com.luck.picture.lib.interfaces.OnKeyValueResultCallbackListener
 import com.luck.picture.lib.interfaces.OnResultCallbackListener
 import com.luck.picture.lib.utils.ToastUtils
 import com.lxj.xpopup.XPopup
@@ -36,7 +31,6 @@ class UploadActivity : PosBaseActivity<ActivityUploadBinding>() {
         binding.dialog.setOnClickListener {
             val pop = XPopup.Builder(this)
                 .asBottomList("请选择一项", arrayOf("拍照","相册")){ position , text ->
-                    ToastUtils.showToast(this, text)
                     when(position){
                         0 -> openCamera()
                         1 -> openGallery()
@@ -51,12 +45,12 @@ class UploadActivity : PosBaseActivity<ActivityUploadBinding>() {
             .setSelectionMode(SelectModeConfig.SINGLE)
             .setMaxSelectNum(1)
             .setImageSpanCount(3)
-
             .setImageEngine(GlideEngine.createGlideEngine())
             .setCropEngine { fragment, srcUri, destinationUri, dataSource, requestCode ->
 //                UCrop.of(srcUri, destinationUri).start(this@UploadActivity)
 //                fragment.activity?.finish()
                 val uCrop = UCrop.of(srcUri,destinationUri,dataSource)
+                uCrop.withAspectRatio(1f,1f)
                 fragment.activity?.let { uCrop.start(it,fragment,requestCode) }
             }
             .setCompressEngine(CompressFileEngine { context, source, call ->
@@ -102,29 +96,23 @@ class UploadActivity : PosBaseActivity<ActivityUploadBinding>() {
                 fragment.activity?.let { uCrop.start(it,fragment,requestCode) }
 //                fragment.activity?.finish()
             }
-            .setCompressEngine(object : CompressFileEngine{
-                override fun onStartCompress(
-                    context: Context?,
-                    source: ArrayList<Uri>?,
-                    call: OnKeyValueResultCallbackListener?
-                ) {
-                    Luban.with(context).load(source).ignoreBy(100).setCompressListener(object : OnNewCompressListener{
-                        override fun onStart() {
-                            Log.i("sss","----compress-----start-------")
-                        }
+            .setCompressEngine(CompressFileEngine { context, source, call ->
+                Luban.with(context).load(source).ignoreBy(100).setCompressListener(object : OnNewCompressListener{
+                    override fun onStart() {
+                        Log.i("sss","----compress-----start-------")
+                    }
 
-                        override fun onSuccess(source: String?, compressFile: File?) {
-                            call?.onCallback(source, compressFile?.absolutePath)
-                            Log.i("sss","----compress-----success---${compressFile?.absolutePath}----")
-                        }
+                    override fun onSuccess(source: String?, compressFile: File?) {
+                        call?.onCallback(source, compressFile?.absolutePath)
+                        Log.i("sss","----compress-----success---${compressFile?.absolutePath}----")
+                    }
 
-                        override fun onError(source: String?, e: Throwable?) {
-                            call?.onCallback(source, null)
-                            Log.i("sss","----compress-----error-------")
-                        }
+                    override fun onError(source: String?, e: Throwable?) {
+                        call?.onCallback(source, null)
+                        Log.i("sss","----compress-----error-------")
+                    }
 
-                    }).launch()
-                }
+                }).launch()
             })
             .forResult(object : OnResultCallbackListener<LocalMedia> {
                 override fun onResult(result: ArrayList<LocalMedia>?) {
