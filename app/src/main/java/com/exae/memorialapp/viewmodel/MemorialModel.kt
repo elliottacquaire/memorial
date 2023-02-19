@@ -13,6 +13,7 @@ import com.exae.memorialapp.requestData.BannerRequest
 import com.exae.memorialapp.requestData.ChooseHallRequest
 import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
+import com.exae.memorialapp.requestData.UploadImageRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -79,6 +80,18 @@ class MemorialModel @Inject constructor(
         launch(
             {
                 styleTableResponse.value = repository.getStyleTableList(ChooseTableRequest(type))
+            },
+            {
+                styleTableResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var styleTableResponse1 = MutableLiveData<ResultBean<StyleMemorialResponse>>()
+    fun uploadImageRequest(type:Int) {
+        launch(
+            {
+                styleTableResponse.value = repository.uploadImageRequest(UploadImageRequest("11","00"))
             },
             {
                 styleTableResponse.value = errorHandle(it)

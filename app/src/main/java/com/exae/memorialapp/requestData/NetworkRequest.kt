@@ -122,6 +122,12 @@ data class ChooseMemorialRequest(
     @SerializedName("type")
     var type: Int
 ) : BaseRequest("/prod-api/memorial/listAll/$type")
+data class UploadImageRequest(
+    @SerializedName("username")
+    var phone: String = "",
+    @SerializedName("password")
+    var verify_code: String = ""
+) : BaseRequest("/prod-api/loginApp")
 data class FindOrder(
     @SerializedName("phone")
     var phone: String = "",

@@ -36,6 +36,7 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
         setToolTitle("管理纪念馆")
         setBackState(true)
         setSettingImage(true)
+        setRightImg(R.mipmap.add)
         bannerList.add(
             ManageMemorialModel(
                 11,

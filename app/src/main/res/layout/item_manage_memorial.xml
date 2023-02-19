@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#1A2023"
+    android:background="@mipmap/itembg"
     android:paddingLeft="12dp"
     android:paddingRight="12dp"
     android:paddingTop="12dp"
@@ -84,6 +84,7 @@
                 android:id="@+id/modify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/chip_yellow_bg"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
                 android:text="编辑"
@@ -93,6 +94,7 @@
                 android:id="@+id/hall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/chip_yellow_bg"
                 android:layout_centerVertical="true"
                 android:text="祭拜大厅"
                 android:textColor="@color/color_b0"

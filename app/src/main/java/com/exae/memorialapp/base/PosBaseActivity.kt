@@ -94,7 +94,9 @@ abstract class PosBaseActivity<T : ViewBinding>: AppCompatActivity() {
             tvCancel?.visibility = View.GONE
         }
     }
-
+    open fun setRightImg(resourceId: Int) {
+        imgHead?.setImageResource(resourceId)
+    }
     open fun setSettingImage(isShow: Boolean){
         if (isShow){
             imgHead?.visibility = View.VISIBLE

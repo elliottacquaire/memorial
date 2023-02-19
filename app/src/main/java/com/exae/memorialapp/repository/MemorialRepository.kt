@@ -13,6 +13,7 @@ import com.exae.memorialapp.requestData.BaseRequest
 import com.exae.memorialapp.requestData.ChooseHallRequest
 import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
+import com.exae.memorialapp.requestData.UploadImageRequest
 import com.exae.memorialapp.requestData.VerificationCodeLoginRequest
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
@@ -52,6 +53,12 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
                 .chooseTableRequestRequest(request.path)
+        )
+    }
+    suspend fun uploadImageRequest(request: UploadImageRequest): ResultBean<StyleMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .uploadImageRequest(request.path)
         )
     }
 }
