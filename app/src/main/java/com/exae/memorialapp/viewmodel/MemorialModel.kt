@@ -91,7 +91,7 @@ class MemorialModel @Inject constructor(
     fun uploadImageRequest(type:Int) {
         launch(
             {
-                styleTableResponse.value = repository.uploadImageRequest(UploadImageRequest("11","00"))
+//                styleTableResponse.value = repository.uploadImageRequest(UploadImageRequest("11","00"))
             },
             {
                 styleTableResponse.value = errorHandle(it)

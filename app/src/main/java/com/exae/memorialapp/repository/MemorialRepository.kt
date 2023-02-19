@@ -55,10 +55,10 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
                 .chooseTableRequestRequest(request.path)
         )
     }
-    suspend fun uploadImageRequest(request: UploadImageRequest): ResultBean<StyleMemorialResponse> {
-        return ResultBean.success(
-            retrofit.create(MemorialService::class.java)
-                .uploadImageRequest(request.path)
-        )
-    }
+//    suspend fun uploadImageRequest(request: UploadImageRequest): ResultBean<StyleMemorialResponse> {
+//        return ResultBean.success(
+//            retrofit.create(MemorialService::class.java)
+//                .uploadImageRequest(request.path)
+//        )
+//    }
 }

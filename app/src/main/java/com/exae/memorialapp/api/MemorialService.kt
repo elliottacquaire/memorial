@@ -62,16 +62,16 @@ interface MemorialService {
      * @param parts 每个part代表一个
      * @return
      */
-    @Multipart
-    @POST("users/image")
-    open fun uploadFilesWithParts(@Part parts: List<Part?>?): Call<BaseResponse<String?>?>?
+//    @Multipart
+//    @POST("users/image")
+//    open fun uploadFilesWithParts(@Part parts: List<Part?>?): Call<BaseResponse<String?>?>?
 
     /**
      * 通过 MultipartBody和@body作为参数来上传
      * @param multipartBody MultipartBody包含多个Part
      * @return*/
-    @POST("users/image")
-    fun uploadFileWithRequestBody(@Body body: MultipartBody): Call<BaseResponse<String>>
+//    @POST("users/image")
+//    fun uploadFileWithRequestBody(@Body body: MultipartBody): Call<BaseResponse<String>>
 
     @Multipart
     @POST("{path}")

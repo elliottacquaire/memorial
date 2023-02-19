@@ -1,8 +1,10 @@
 package com.exae.memorialapp.hall
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.provider.FontsContractCompat.Columns.RESULT_CODE
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -16,6 +18,7 @@ import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.bean.ManageMemorialModel
 import com.exae.memorialapp.databinding.ActivityManageMemorialBinding
 import com.exae.memorialapp.viewmodel.MemorialModel
+import com.luck.picture.lib.utils.ToastUtils
 import com.scwang.smart.refresh.header.BezierRadarHeader
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -123,7 +126,7 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         when(view.id){
             R.id.modify -> {
-                ARouter.getInstance().build("/app/choose/hall").navigation(this)
+                ARouter.getInstance().build("/app/choose/hall").navigation(this,101)
             }
             R.id.hall -> {
                 ARouter.getInstance().build("/app/choose/memorial").navigation(this)
@@ -131,4 +134,11 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 101 && resultCode == 1) {
+            val ss = data?.getStringExtra("data")?:"qq"
+            ToastUtils.showToast(this@ManageMemorialActivity, ss)
+        }
+    }
 }
