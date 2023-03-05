@@ -1,5 +1,6 @@
 package com.exae.memorialapp.hall
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -13,6 +14,7 @@ import com.exae.memorialapp.R
 import com.exae.memorialapp.adapter.MemorialStyleAdapter
 import com.exae.memorialapp.base.PosBaseActivity
 import com.exae.memorialapp.base.handleResponse
+import com.exae.memorialapp.bean.StyleMemorialModel
 import com.exae.memorialapp.databinding.ActivityChooseMemorialBinding
 import com.exae.memorialapp.viewmodel.MemorialModel
 import com.scwang.smart.refresh.header.BezierRadarHeader
@@ -83,9 +85,14 @@ class ChooseMemorialActivity : PosBaseActivity<ActivityChooseMemorialBinding>() 
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val itemData = adapter.data[position] as StyleMemorialModel
         when(view.id){
             R.id.choose -> {
-                ARouter.getInstance().build("/app/choose/hall").navigation(this)
+                val intent = Intent()
+                intent.putExtra("name", itemData.name)
+                intent.putExtra("ids", itemData.ids)
+                setResult(1, intent)
+                finish()
             }
         }
     }

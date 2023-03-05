@@ -1,9 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".hall.CreateHallActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include
+        android:id="@+id/top_toolbar"
+        layout="@layout/layout_base_toolbar" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="纪念馆类型："
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="end"
+            android:layout_height="wrap_content"/>
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:orientation="horizontal"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/oneHall"
+                android:text="个人馆"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:checked="true"
+                android:textSize="16sp"
+                android:textColor="#959595"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/moreHall"
+                android:text="家族馆"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:textSize="16sp"
+                android:textColor="#959595"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/twoHall"
+                android:text="双人馆"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:textSize="16sp"
+                android:textColor="#959595"
+                android:layout_marginEnd="8dp"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+    </LinearLayout>
+    <View
+        android:background="#333"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+
+   <include
+       android:visibility="gone"
+       android:id="@+id/layout_more_view"
+       layout="@layout/layout_more_view"/>
+
+    <include
+        android:id="@+id/layout_one_view"
+        layout="@layout/layout_one_view"/>
+
+    <include
+        android:visibility="gone"
+        android:id="@+id/layout_two_view"
+        layout="@layout/layout_two_view"/>
+
+</LinearLayout>

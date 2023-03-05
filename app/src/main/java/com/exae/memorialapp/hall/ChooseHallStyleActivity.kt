@@ -86,7 +86,8 @@ class ChooseHallStyleActivity : PosBaseActivity<ActivityChooseHallStyleBinding>(
             R.id.choose -> {
 //                ARouter.getInstance().build("/app/upload/img").navigation(this)
                 val intent = Intent()
-                intent.putExtra("data", itemData.name)
+                intent.putExtra("name", itemData.name)
+                intent.putExtra("ids", itemData.ids)
                 setResult(1, intent)
                 finish()
             }

@@ -112,7 +112,6 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="消息公告"
-            android:textColor="#959595"
             android:textSize="16sp" />
 
     </LinearLayout>
