@@ -30,14 +30,14 @@ class MainActivity : PosBaseActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
 //        binding = ActivityMainBinding.inflate(layoutInflater)
 //        setContentView(binding.root)
-        setToolTitle(getString(R.string.title_to_do))
+        setToolTitle(getString(R.string.title_name))
         setBackState(false)
         binding.apply {
             mMainTabLayout.addTab(
                 mMainTabLayout.newTab().setCustomView(
                     getTabView(
                         getString(R.string.tab_to_do),
-                        R.drawable.tab_icon_index_drawable
+                        R.drawable.tab_icon_home
                     )
                 )
             )
@@ -129,7 +129,7 @@ class MainActivity : PosBaseActivity<ActivityMainBinding>() {
 
             override fun getPageTitle(position: Int): CharSequence {
                 return when (position) {
-                    0 -> resources.getString(R.string.title_to_do)
+                    0 -> resources.getString(R.string.tab_to_do)
                     1 -> resources.getString(R.string.title_to_test_drive)
                     else -> ""
                 }

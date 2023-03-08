@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">MemorialApp</string>
 
-    <string name="tab_to_do">审批</string>
+    <string name="tab_to_do">首页</string>
     <string name="tab_message">销售数据</string>
     <string name="tab_drive">试乘试驾</string>
     <string name="tab_my_profile">我的</string>
     <string name="tab_to_task">任务</string>
 
-    <string name="title_to_do">待我审批</string>
+    <string name="title_name">怀恩纪念</string>
     <string name="title_approval_detail">折扣申请审批</string>
     <string name="title_approval_detail_h">折扣申请详情</string>
     <string name="title_to_test_drive">待办试乘试驾</string>

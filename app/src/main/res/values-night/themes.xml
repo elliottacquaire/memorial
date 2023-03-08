@@ -10,11 +10,18 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorOnSecondary</item>
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:editTextColor">@color/porsche_primary</item>
+        <item name="android:editTextStyle">@style/EditStyle</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="android:windowBackground">@color/colorWindowBackground</item>
+    </style>
+
+    <style name="EditStyle" parent="@android:style/Widget.EditText">
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="activityAnim">

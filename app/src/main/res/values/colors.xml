@@ -48,4 +48,5 @@
 
     <color name="gps_bg">#4A4E51</color>
     <color name="route_bg">#2193FF</color>
+    <color name="porsche_primary">#959595</color>
 </resources>

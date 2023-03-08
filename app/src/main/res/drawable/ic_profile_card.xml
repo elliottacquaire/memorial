@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="@color/porsche_primary"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M3.9998,6.2C3.9998,6.089 4.0898,6 4.1998,6H19.7998C19.9098,6 19.9998,6.089 19.9998,6.2V9.0001H3.9998V6.2ZM3.9998,11.0001V17.8C3.9998,17.91 4.0898,18 4.1998,18H19.7998C19.9098,18 19.9998,17.91 19.9998,17.8V11.0001H3.9998ZM4.1998,19H19.7998C20.4618,19 20.9998,18.461 20.9998,17.8V6.2C20.9998,5.538 20.4618,5 19.7998,5H4.1998C3.5378,5 2.9998,5.538 2.9998,6.2V17.8C2.9998,18.461 3.5378,19 4.1998,19Z"
+      android:fillColor="#000000"
+      android:fillType="evenOdd"/>
+</vector>

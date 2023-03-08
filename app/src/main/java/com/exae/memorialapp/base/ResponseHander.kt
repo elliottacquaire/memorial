@@ -1,5 +1,7 @@
 package com.exae.memorialapp.base
 
+import android.content.Intent
+import com.alibaba.android.arouter.launcher.ARouter
 import com.exae.memorialapp.bean.ProtocolResponse
 import com.exae.memorialapp.bean.ResultBean
 
@@ -50,7 +52,7 @@ fun <T : ProtocolResponse<*>> handleResponse(
 }
 
 private fun jumpToLogin() {
-//    ARouter.getInstance().build(CoreRes.LOGIN)
-//        .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-//        .navigation()
+    ARouter.getInstance().build("/login/login")
+        .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        .navigation()
 }

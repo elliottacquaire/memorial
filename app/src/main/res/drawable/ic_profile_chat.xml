@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="@color/porsche_primary"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M7,18H12H20H21V17V6V5H20H4H3V6V18V19.75V21L4,20.25L7,18ZM4,19L6.4,17.2L6.6667,17H7H12H20V6H4V18V19ZM7,10H17V9H7V10ZM14,13H7V12H14V13Z"
+      android:fillColor="#000000"
+      android:fillType="evenOdd"/>
+</vector>
