@@ -225,4 +225,9 @@ object CommonUtils {
         return format.format(Date(time))
     }
 
+    fun getTime(time: Long): String {
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)
+        return format.format(Date(time))
+    }
+
 }

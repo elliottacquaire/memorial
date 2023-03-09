@@ -10,6 +10,10 @@ import com.exae.memorialapp.base.PosBaseActivity
 import com.exae.memorialapp.databinding.ActivityCreateHallBinding
 import com.exae.memorialapp.requestData.HallType
 import com.exae.memorialapp.requestData.*
+import com.exae.memorialapp.utils.CommonUtils.getTime
+import com.loper7.date_time_picker.DateTimePicker
+import com.loper7.date_time_picker.dialog.CardDatePickerDialog
+import com.luck.picture.lib.utils.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,10 +57,6 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
     }
 
     private fun initMoreCreate() {
-
-    }
-
-    private fun initOneCreate() {
         binding.layoutMoreView.tvMemorialStyle.setOnClickListener {
             ARouter.getInstance().build("/app/choose/memorial").navigation(this,requestCodeMemorialStyle)
         }
@@ -68,6 +68,43 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
         }
         binding.layoutMoreView.butCreateOne.setOnClickListener {
 
+        }
+    }
+
+    private fun initOneCreate() {
+        binding.layoutOneView.tvBrithData.setOnClickListener{
+            CardDatePickerDialog.builder(this).setTitle("请选择日期")
+                .setLabelText("年", "月", "日")
+                .setDisplayType(
+                    mutableListOf(
+                        DateTimePicker.YEAR,
+                        DateTimePicker.MONTH,
+                        DateTimePicker.DAY
+                    )
+                )
+                .setOnChoose(listener = object : CardDatePickerDialog.OnChooseListener {
+                    override fun onChoose(millisecond: Long) {
+                        binding.layoutOneView.tvBrithData.text = getTime(millisecond)
+                    }
+                }).build().show()
+        }
+
+        binding.layoutOneView.tvDeathData.setOnClickListener{
+            CardDatePickerDialog.builder(this).setTitle("请选择日期")
+                .setLabelText("年", "月", "日")
+                .setDisplayType(
+                    mutableListOf(
+                        DateTimePicker.YEAR,
+                        DateTimePicker.MONTH,
+                        DateTimePicker.DAY
+                    )
+                )
+                .setOnChoose(listener = object : CardDatePickerDialog.OnChooseListener {
+                    override fun onChoose(millisecond: Long) {
+                        binding.layoutOneView.tvDeathData.text = getTime(millisecond)
+                    }
+
+                }).build().show()
         }
     }
 
@@ -91,4 +128,5 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
     override fun getViewBinding(): ActivityCreateHallBinding {
         return ActivityCreateHallBinding.inflate(layoutInflater)
     }
+
 }

@@ -34,6 +34,7 @@ class MyProfileFragment : BaseFragment<FragmentMyProfileBinding>(), View.OnClick
         binding.hallManage.setOnClickListener(this)
         binding.helpCenter.setOnClickListener(this)
         binding.message.setOnClickListener(this)
+        binding.mAvatar.setOnClickListener(this)
     }
 
     override fun onResume() {
@@ -70,6 +71,11 @@ class MyProfileFragment : BaseFragment<FragmentMyProfileBinding>(), View.OnClick
             }
             R.id.message -> {
                 ARouter.getInstance().build("/pos/drive/route")
+                    .withInt("clickType", 101) //
+                    .navigation(activity)
+            }
+            R.id.mAvatar -> {
+                ARouter.getInstance().build("/app/modify/userinfo")
                     .withInt("clickType", 101) //
                     .navigation(activity)
             }

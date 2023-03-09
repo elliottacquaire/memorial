@@ -9,3 +9,9 @@ enum class HallType(val type: Int) {
 const val requestCodeMemorialStyle = 1000
 const val requestCodeHallStyle = 1001
 const val requestCodeTableStyle = 1002
+
+enum class SexType(val type: Int) {
+    MAN(0),
+    WOMAN(1),
+    SECRET(2),
+}

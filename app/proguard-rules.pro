@@ -49,3 +49,6 @@
 -dontwarn com.yalantis.ucrop**
 -keep class com.yalantis.ucrop** { *; }
 -keep interface com.yalantis.ucrop** { *; }
+
+-dontwarn com.loper7.date_time_picker.**
+-keep class com.loper7.date_time_picker.**{*;}

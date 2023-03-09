@@ -12,18 +12,16 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许程序读写手机状态和身份 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <queries package="${applicationId}">
         <intent>
-            <action android:name="android.media.action.IMAGE_CAPTURE">
-
-            </action>
+            <action android:name="android.media.action.IMAGE_CAPTURE"></action>
         </intent>
         <intent>
-            <action android:name="android.media.action.ACTION_VIDEO_CAPTURE">
-
-            </action>
+            <action android:name="android.media.action.ACTION_VIDEO_CAPTURE"></action>
         </intent>
     </queries>
+
     <application
         android:name=".CusApplication"
         android:allowBackup="true"
@@ -33,6 +31,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MemorialApp"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".user.ModifyUserInfoActivity"
+            android:exported="false" />
         <activity
             android:name=".hall.UploadActivity"
             android:exported="false" />
@@ -58,7 +59,7 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".hall.CreateHallActivity"
             android:exported="false">
