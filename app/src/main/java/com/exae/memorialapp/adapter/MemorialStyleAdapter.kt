@@ -14,7 +14,7 @@ class MemorialStyleAdapter @Inject constructor() :
     BaseQuickAdapter<StyleMemorialModel, BaseViewHolder>(R.layout.item_memorial_style) {
 
     override fun convert(holder: BaseViewHolder, item: StyleMemorialModel) {
-        holder.setText(R.id.userNum, "使用人数：" + item.repeatUse.toString())
+        holder.setText(R.id.userNum, item.repeatUse.toString())
             .setText(R.id.name, item.name)
 
         val img = holder.getView<ImageView>(R.id.headerPic)

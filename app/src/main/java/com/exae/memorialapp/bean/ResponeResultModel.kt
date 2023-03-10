@@ -63,3 +63,18 @@ class StyleMemorialModel(
     @SerializedName("repeatUse")
     val repeatUse: Int = 0
 )
+
+class ChargeMoneyModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("name")
+    val name: String?,
+    @SerializedName("num")
+    val num: String = "",
+    @SerializedName("coinNum")
+    val coinNum: String = "",
+    @SerializedName("tips")
+    val tips: String = "",
+    @SerializedName("price")
+    val price: String = "",
+)

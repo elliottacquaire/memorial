@@ -7,11 +7,10 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.exae.memorialapp.R
-import com.exae.memorialapp.adapter.MemorialStyleAdapter
+import com.exae.memorialapp.adapter.MemorialTabletStyleAdapter
 import com.exae.memorialapp.base.PosBaseActivity
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.bean.StyleMemorialModel
@@ -25,7 +24,7 @@ import javax.inject.Inject
 @Route(path = "/app/choose/table")
 class ChooseTableStyleActivity : PosBaseActivity<ActivityChooseTableStyleBinding>(), OnItemChildClickListener {
     @Inject
-    lateinit var listAdapter: MemorialStyleAdapter
+    lateinit var listAdapter: MemorialTabletStyleAdapter
 
     private val viewModel: MemorialModel by viewModels()
 

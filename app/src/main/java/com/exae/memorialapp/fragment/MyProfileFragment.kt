@@ -56,7 +56,7 @@ class MyProfileFragment : BaseFragment<FragmentMyProfileBinding>(), View.OnClick
                     .navigation(activity)
             }
             R.id.accountAdd -> {
-                ARouter.getInstance().build("/pos/history/record")
+                ARouter.getInstance().build("/app/charge/money")
                     .withInt("clickType", 2) //
                     .navigation(activity)
             }

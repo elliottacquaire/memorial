@@ -26,4 +26,6 @@
     <string name="code_edt_tips">请输入短信验证码</string>
     <string name="login_tv_contents">PPN证书登录</string>
 
+    <string name="charge_money_tips">1，暂时只支持支付宝在线支付\n2，需要通过其它方式充值或在线充值过程中遇到问题的请致电 <font color="#2193FF">400-911-911</font></string>
+
 </resources>
