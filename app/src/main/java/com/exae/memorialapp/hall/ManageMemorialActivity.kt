@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.core.provider.FontsContractCompat.Columns.RESULT_CODE
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -15,7 +14,6 @@ import com.exae.memorialapp.R
 import com.exae.memorialapp.adapter.ManageMemorialAdapter
 import com.exae.memorialapp.base.PosBaseActivity
 import com.exae.memorialapp.base.handleResponse
-import com.exae.memorialapp.bean.ManageMemorialModel
 import com.exae.memorialapp.databinding.ActivityManageMemorialBinding
 import com.exae.memorialapp.viewmodel.MemorialModel
 import com.luck.picture.lib.utils.ToastUtils
@@ -32,36 +30,12 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
 
     private val viewModel: MemorialModel by viewModels()
 
-    val bannerList = mutableListOf<ManageMemorialModel>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setToolTitle("管理纪念馆")
         setBackState(true)
         setSettingImage(true)
         setRightImg(R.mipmap.add)
-        bannerList.add(
-            ManageMemorialModel(
-                11,
-                "ee1",
-                "1232321",
-                "name1",
-                "2000-11-111",
-                "level 11",
-                "eee1"
-            )
-        )
-        bannerList.add(
-            ManageMemorialModel(
-                1,
-                "ee",
-                "123232",
-                "name",
-                "2000-11-11",
-                "level 1",
-                "eee"
-            )
-        )
         binding.apply {
             smartRefreshLayout.setRefreshHeader(BezierRadarHeader(this@ManageMemorialActivity))
             mListView.layoutManager = LinearLayoutManager(this@ManageMemorialActivity)
@@ -75,25 +49,22 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
                 requestNetData()
             }
         }
-        listAdapter.data.clear()
-        listAdapter.data.addAll(bannerList)
 
         listAdapter.setOnItemChildClickListener(this)
         listAdapter.addChildClickViewIds(R.id.modify)
-        listAdapter.addChildClickViewIds(R.id.hall)
 
         viewModel.manageMerioResponse.observe(this, Observer { resources ->
             handleResponse(resources) {
-                if (it.data != null && !it.data.isNullOrEmpty()) {
+                if (it.data != null && it.data.isNotEmpty()) {
                     listAdapter.data.clear()
                     listAdapter.data.addAll(it.data)
-//                    listAdapter.notifyDataSetChanged()
+                    listAdapter.notifyDataSetChanged()
                     listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
-//                    emptyView.visibility = View.GONE
-//                    smartRefreshLayout.visibility = View.VISIBLE
+                    binding.emptyView.visibility = View.GONE
+                    binding.smartRefreshLayout.visibility = View.VISIBLE
                 } else {
-//                    emptyView.visibility = View.VISIBLE
-//                    smartRefreshLayout.visibility = View.GONE
+                    binding.emptyView.visibility = View.VISIBLE
+                    binding.smartRefreshLayout.visibility = View.GONE
                 }
             }
         })
@@ -112,11 +83,10 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
     override fun rightImageClick() {
         super.rightImageClick()
         ARouter.getInstance().build("/app/create/hall").navigation(this)
-//        ARouter.getInstance().build("/app/choose/table").navigation(this)
     }
 
     private fun requestNetData() {
-//        viewModel.manageMerioRequest()
+        viewModel.manageMerioRequest()
     }
 
     override fun getViewBinding(): ActivityManageMemorialBinding {
@@ -128,9 +98,9 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
             R.id.modify -> {
                 ARouter.getInstance().build("/app/choose/hall").navigation(this,101)
             }
-            R.id.hall -> {
-                ARouter.getInstance().build("/app/choose/memorial").navigation(this)
-            }
+//            R.id.hall -> {
+//                ARouter.getInstance().build("/app/choose/memorial").navigation(this)
+//            }
         }
     }
 

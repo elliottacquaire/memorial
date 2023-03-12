@@ -177,6 +177,6 @@ class ToDoListFragment : BaseFragment<FragmentIndexBinding>() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding.banner.destroy()
+//        binding.banner.destroy()
     }
 }

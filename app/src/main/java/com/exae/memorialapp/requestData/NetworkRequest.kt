@@ -21,6 +21,9 @@ data class LoginRequest(var code: String = "") :
 data class BannerRequest(var code: String = "") :
     BaseRequest("/prod-api/banner/listAll")
 
+data class MemorialListAllRequest(var code: String = "") :
+    BaseRequest("/prod-api/user/ememorial/listAll")
+
 //手机验证码获取
 data class VerificationCodeRequest(
     @SerializedName("phone")
@@ -72,19 +75,34 @@ data class PublicCarRequest(
 
 ) : BaseRequest("$REQUESTCARPATH/publish")
 
-//查询可用车辆列表
-data class SearchCarRequest(
-    @SerializedName("province")
-    var province: String = "",
-    @SerializedName("city")
-    var city: String = "",
-    @SerializedName("carType")
-    var carType: String = "",
-    @SerializedName("startTime")
-    var startTime: Long = 0,
-    @SerializedName("endTime")
-    var endTime: Long = 0
-) : BaseRequest("$REQUESTCARPATH/available")
+data class SingleMemorialRequest(
+    @SerializedName("name")
+    var name: String = "",
+    @SerializedName("birthDate")
+    var birthDate: String = "",
+    @SerializedName("leaveDate")
+    var leaveDate: String = "",
+    @SerializedName("avatarPicUrl")
+    var avatarPicUrl: String = "",
+    @SerializedName("address")
+    var address: String = "",
+    @SerializedName("ememorialId")
+    var ememorialId: Int = -1,
+    @SerializedName("hallId")
+    var hallId: Int = -1,
+    @SerializedName("tabletId")
+    var tabletId: Int = -1,
+    @SerializedName("ememorialNo")
+    var ememorialNo: Int? = null,
+    @SerializedName("nation")
+    var nation: String = "",
+    @SerializedName("sex")
+    var sex: String = "",
+    @SerializedName("relationship")
+    var relationship: String = "",
+    @SerializedName("epitaph")
+    var epitaph: String = ""
+) : BaseRequest("/prod-api/user/ememorial/single-ememorial")
 
 data class SendForCarRequest(
     @SerializedName("message")
@@ -127,7 +145,7 @@ data class UploadImageRequest(
     var phone: String = "",
     @SerializedName("password")
     var verify_code: String = ""
-) : BaseRequest("/prod-api/loginApp")
+) : BaseRequest("/prod-api/common/uploadApp")
 data class FindOrder(
     @SerializedName("phone")
     var phone: String = "",

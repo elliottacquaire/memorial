@@ -2,13 +2,18 @@ package com.exae.memorialapp.api
 
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
+import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
+import com.exae.memorialapp.bean.UploadImageResponse
+import com.exae.memorialapp.requestData.SingleMemorialRequest
 import com.exae.memorialapp.requestData.UploadImageRequest
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 
@@ -73,14 +78,43 @@ interface MemorialService {
 //    @POST("users/image")
 //    fun uploadFileWithRequestBody(@Body body: MultipartBody): Call<BaseResponse<String>>
 
-    @Multipart
+//    @Multipart
     @POST("{path}")
-    suspend fun uploadImageRequest(
+    suspend fun uploadImageRequest1(
         @Path(
             value = "path",
             encoded = true
         ) url: String,
         @Body request: UploadImageRequest,
-        @Part file: MultipartBody.Part
-    ): StyleMemorialResponse
+        @Body file: MultipartBody?
+    ): UploadImageResponse
+
+    @POST("{path}")
+    @Multipart
+    suspend fun uploadImageRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+//        @Body request: UploadImageRequest,
+        @Part("file") file: MultipartBody?
+    ): UploadImageResponse
+
+    @POST("{path}")
+    suspend fun singleMemorialRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: SingleMemorialRequest,
+    ): SingleMemorialResponse
+    @PUT("{path}")
+    suspend fun singleMemorialModifyRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: SingleMemorialRequest,
+    ): SingleMemorialResponse
+
 }

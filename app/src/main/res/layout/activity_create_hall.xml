@@ -61,14 +61,14 @@
         android:layout_width="match_parent"
         android:layout_height="1px"/>
 
+    <include
+        android:id="@+id/layout_one_view"
+        layout="@layout/layout_one_view"/>
+
    <include
        android:visibility="gone"
        android:id="@+id/layout_more_view"
        layout="@layout/layout_more_view"/>
-
-    <include
-        android:id="@+id/layout_one_view"
-        layout="@layout/layout_one_view"/>
 
     <include
         android:visibility="gone"

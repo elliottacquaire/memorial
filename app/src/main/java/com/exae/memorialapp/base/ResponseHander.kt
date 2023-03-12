@@ -4,6 +4,7 @@ import android.content.Intent
 import com.alibaba.android.arouter.launcher.ARouter
 import com.exae.memorialapp.bean.ProtocolResponse
 import com.exae.memorialapp.bean.ResultBean
+import com.exae.memorialapp.utils.ToastUtil
 
 fun <T : ProtocolResponse<*>> handleResponse(resource: ResultBean<T>, successHandler: (T) -> Unit) {
     if (resource.isSuccess()) {
@@ -13,14 +14,14 @@ fun <T : ProtocolResponse<*>> handleResponse(resource: ResultBean<T>, successHan
             if (resource.data?.code == "401") {
                 jumpToLogin()
             } else {
-//                ToastUtil.showCenter(resource.data?.message)
+                ToastUtil.showCenter(resource.data?.message)
             }
         }
     } else {
         if (resource.code == "401") {
             jumpToLogin()
         } else {
-//            ToastUtil.showCenter(resource.message)
+            ToastUtil.showCenter(resource.message)
         }
     }
 }
@@ -37,7 +38,7 @@ fun <T : ProtocolResponse<*>> handleResponse(
             if (resource.data?.code == "401") {
                 jumpToLogin()
             } else {
-//                ToastUtil.showCenter(resource.data?.message)
+                ToastUtil.showCenter(resource.data?.message)
             }
             failedHandler.invoke(resource.data?.code.toString())
         }
@@ -46,7 +47,7 @@ fun <T : ProtocolResponse<*>> handleResponse(
         if (resource.code == "401") {
             jumpToLogin()
         } else {
-//            ToastUtil.showCenter(resource.message)
+            ToastUtil.showCenter(resource.message)
         }
     }
 }

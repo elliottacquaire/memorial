@@ -2,10 +2,8 @@ package com.exae.memorialapp.user
 
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.exae.memorialapp.R
@@ -72,9 +70,6 @@ class ChargeMoneyActivity : PosBaseActivity<ActivityChargeMoneyBinding>(),
         when(view.id){
             R.id.payMoney -> {
 //                ARouter.getInstance().build("/app/choose/hall").navigation(this,101)
-            }
-            R.id.hall -> {
-//                ARouter.getInstance().build("/app/choose/memorial").navigation(this)
             }
         }
     }
