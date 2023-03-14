@@ -32,6 +32,15 @@
         android:theme="@style/Theme.MemorialApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".detail.TwoDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".detail.MoreDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".detail.SingleDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".user.ChargeMoneyActivity"
             android:exported="false" />
         <activity

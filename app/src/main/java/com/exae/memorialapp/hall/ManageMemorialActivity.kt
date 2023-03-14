@@ -52,6 +52,7 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
 
         listAdapter.setOnItemChildClickListener(this)
         listAdapter.addChildClickViewIds(R.id.modify)
+        listAdapter.addChildClickViewIds(R.id.parent)
 
         viewModel.manageMerioResponse.observe(this, Observer { resources ->
             handleResponse(resources) {
@@ -68,6 +69,7 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
                 }
             }
         })
+
     }
 
     override fun onResume() {
@@ -98,9 +100,11 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
             R.id.modify -> {
                 ARouter.getInstance().build("/app/choose/hall").navigation(this,101)
             }
-//            R.id.hall -> {
-//                ARouter.getInstance().build("/app/choose/memorial").navigation(this)
-//            }
+            R.id.parent -> {
+                ARouter.getInstance().build("/app/single/detail")
+                    .withString("memorialNo", "ddd")
+                    .navigation(this)
+            }
         }
     }
 

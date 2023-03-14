@@ -13,6 +13,7 @@
     app:cardBackgroundColor="@color/card_view_background"
     >
     <RelativeLayout
+        android:id="@+id/parent"
         android:background="@color/card_view_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
