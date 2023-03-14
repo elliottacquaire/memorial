@@ -4,8 +4,10 @@ import com.exae.memorialapp.animation.RetrofitAnno
 import com.exae.memorialapp.api.MemorialService
 import com.exae.memorialapp.api.VerificationCodeService
 import com.exae.memorialapp.bean.BannerResponse
+import com.exae.memorialapp.bean.DoubleMemorialResponse
 import com.exae.memorialapp.bean.LoginResultResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
+import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.ResultBean
 import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
@@ -15,7 +17,9 @@ import com.exae.memorialapp.requestData.BaseRequest
 import com.exae.memorialapp.requestData.ChooseHallRequest
 import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
+import com.exae.memorialapp.requestData.DoubleMemorialRequest
 import com.exae.memorialapp.requestData.MemorialListAllRequest
+import com.exae.memorialapp.requestData.MoreMemorialRequest
 import com.exae.memorialapp.requestData.SingleMemorialRequest
 import com.exae.memorialapp.requestData.UploadImageRequest
 import com.exae.memorialapp.requestData.VerificationCodeLoginRequest
@@ -77,6 +81,33 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
                 .singleMemorialModifyRequest(request.path,request)
+        )
+    }
+
+    suspend fun moreMemorialRequest(request: MoreMemorialRequest): ResultBean<MoreMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .moreMemorialRequest(request.path,request)
+        )
+    }
+
+    suspend fun moreMemorialModifyRequest(request: MoreMemorialRequest): ResultBean<MoreMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .moreMemorialModifyRequest(request.path,request)
+        )
+    }
+
+    suspend fun twoMemorialRequest(request: DoubleMemorialRequest): ResultBean<DoubleMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .twoMemorialRequest(request.path,request)
+        )
+    }
+    suspend fun twoMemorialModifyRequest(request: DoubleMemorialRequest): ResultBean<DoubleMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .twoMemorialModifyRequest(request.path,request)
         )
     }
 }

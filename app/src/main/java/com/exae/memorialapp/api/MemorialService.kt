@@ -1,10 +1,14 @@
 package com.exae.memorialapp.api
 
 import com.exae.memorialapp.bean.BannerResponse
+import com.exae.memorialapp.bean.DoubleMemorialResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
+import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
 import com.exae.memorialapp.bean.UploadImageResponse
+import com.exae.memorialapp.requestData.DoubleMemorialRequest
+import com.exae.memorialapp.requestData.MoreMemorialRequest
 import com.exae.memorialapp.requestData.SingleMemorialRequest
 import com.exae.memorialapp.requestData.UploadImageRequest
 import okhttp3.MultipartBody
@@ -117,4 +121,39 @@ interface MemorialService {
         @Body request: SingleMemorialRequest,
     ): SingleMemorialResponse
 
+    @POST("{path}")
+    suspend fun moreMemorialRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: MoreMemorialRequest,
+    ): MoreMemorialResponse
+
+    @PUT("{path}")
+    suspend fun moreMemorialModifyRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: MoreMemorialRequest,
+    ): MoreMemorialResponse
+
+    @POST("{path}")
+    suspend fun twoMemorialRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: DoubleMemorialRequest,
+    ): DoubleMemorialResponse
+
+    @PUT("{path}")
+    suspend fun twoMemorialModifyRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: DoubleMemorialRequest,
+    ): DoubleMemorialResponse
 }

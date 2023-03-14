@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import com.exae.memorialapp.base.errorHandle
 import com.exae.memorialapp.base.launch
 import com.exae.memorialapp.bean.BannerResponse
+import com.exae.memorialapp.bean.DoubleMemorialResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
+import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.ResultBean
 import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
@@ -16,7 +18,9 @@ import com.exae.memorialapp.requestData.BannerRequest
 import com.exae.memorialapp.requestData.ChooseHallRequest
 import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
+import com.exae.memorialapp.requestData.DoubleMemorialRequest
 import com.exae.memorialapp.requestData.MemorialListAllRequest
+import com.exae.memorialapp.requestData.MoreMemorialRequest
 import com.exae.memorialapp.requestData.SingleMemorialRequest
 import com.exae.memorialapp.requestData.UploadImageRequest
 import com.orhanobut.logger.Logger
@@ -136,6 +140,54 @@ class MemorialModel @Inject constructor(
             },
             {
                 singleMemorialModifyResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var moreMemorialResponse = MutableLiveData<ResultBean<MoreMemorialResponse>>()
+    fun moreMemorialRequest(request: MoreMemorialRequest) {
+        launch(
+            {
+                moreMemorialResponse.value = repository.moreMemorialRequest(request)
+            },
+            {
+                moreMemorialResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var moreMemorialModifyResponse = MutableLiveData<ResultBean<MoreMemorialResponse>>()
+    fun moreMemorialModifyRequest(request: MoreMemorialRequest) {
+        launch(
+            {
+                moreMemorialModifyResponse.value = repository.moreMemorialModifyRequest(request)
+            },
+            {
+                moreMemorialModifyResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var twoMemorialResponse = MutableLiveData<ResultBean<DoubleMemorialResponse>>()
+    fun twoMemorialRequest(request: DoubleMemorialRequest) {
+        launch(
+            {
+                twoMemorialResponse.value = repository.twoMemorialRequest(request)
+            },
+            {
+                twoMemorialResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var twoMemorialModifyResponse = MutableLiveData<ResultBean<DoubleMemorialResponse>>()
+    fun twoMemorialModifyRequest(request: DoubleMemorialRequest) {
+        launch(
+            {
+                twoMemorialModifyResponse.value = repository.twoMemorialModifyRequest(request)
+            },
+            {
+                twoMemorialModifyResponse.value = errorHandle(it)
             }
         )
     }

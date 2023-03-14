@@ -4,7 +4,6 @@ import com.exae.memorialapp.bean.ProtocolResponse
 import com.exae.memorialapp.bean.LoginResultModel
 import com.exae.memorialapp.bean.TransferListModel
 import com.exae.memorialapp.requestData.PublicCarRequest
-import com.exae.memorialapp.requestData.SendForCarRequest
 import retrofit2.http.*
 
 interface NetwrokService {
@@ -35,7 +34,7 @@ interface NetwrokService {
     @POST("{path}")
     suspend fun sendForCarRequest(
         @Path(value = "path", encoded = true) url: String,
-        @Body request: SendForCarRequest
+//        @Body request: SendForCarRequest
 
     ): ProtocolResponse<Any>
 

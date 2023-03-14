@@ -142,3 +142,117 @@ class SingleMemorialModel(
     @SerializedName("ownerUser")
     var ownerUser: Int = -1,
 )
+
+class MoreMemorialResponse : ProtocolResponse<MoreMemorialModel>()
+class MoreMemorialModel(
+    @SerializedName("name")
+    var name: String = "",
+    @SerializedName("theme")
+    var theme: String? = "",
+    @SerializedName("monumentMaker")
+    var monumentMaker: String? = "",
+    @SerializedName("ancestralHome")
+    var ancestralHome: String? = "",
+    @SerializedName("avatarPicUrl")
+    var avatarPicUrl: String? = "",
+    @SerializedName("address")
+    var address: String = "",
+    @SerializedName("ememorialId")
+    var ememorialId: Int = -1,
+    @SerializedName("ememorialName")
+    var ememorialName: String = "",
+    @SerializedName("ememorialPicUrl")
+    var ememorialPicUrl: String = "",
+    @SerializedName("hallId")
+    var hallId: Int = -1,
+    @SerializedName("hallName")
+    var hallName: String = "",
+    @SerializedName("hallPicUrl")
+    var hallPicUrl: String = "",
+    @SerializedName("tabletId")
+    var tabletId: Int = -1,
+    @SerializedName("tabletName")
+    var tabletName: String = "",
+    @SerializedName("tabletPicUrl")
+    var tabletPicUrl: String = "",
+    @SerializedName("ememorialNo")
+    var ememorialNo: Int = -1,
+    @SerializedName("picUrlPrefix")
+    var picUrlPrefix: String = "",
+    @SerializedName("thumbPicUrl")
+    val thumbPicUrl: String = "",
+    @SerializedName("createTime")
+    var createTime: String = "",
+    @SerializedName("worshipValue")
+    var worshipValue: Int = -1,
+    @SerializedName("ownerUser")
+    var ownerUser: Int = -1,
+)
+
+class DoubleMemorialResponse : ProtocolResponse<DoubleMemorialModel>()
+class DoubleMemorialModel(
+    @SerializedName("name1")
+    var name1: String = "",
+    @SerializedName("sex1")
+    var sex1: String? = "",
+    @SerializedName("birthDate1")
+    var birthDate1: String? = "",
+    @SerializedName("leaveDate1")
+    var leaveDate1: String? = "",
+    @SerializedName("tabletId1")
+    var tabletId1: String? = "",
+    @SerializedName("tabletName1")
+    var tabletName1: String? = "",
+    @SerializedName("tabletPicUrl1")
+    var tabletPicUrl1: String? = "",
+    @SerializedName("avatarPicUrl1")
+    var avatarPicUrl1: String? = "",
+
+    @SerializedName("name2")
+    var name2: String = "",
+    @SerializedName("sex2")
+    var sex2: String? = "",
+    @SerializedName("birthDate2")
+    var birthDate2: String? = "",
+    @SerializedName("leaveDate2")
+    var leaveDate2: String? = "",
+    @SerializedName("tabletId2")
+    var tabletId2: String? = "",
+    @SerializedName("tabletName2")
+    var tabletName2: String? = "",
+    @SerializedName("tabletPicUrl2")
+    var tabletPicUrl2: String? = "",
+    @SerializedName("avatarPicUrl2")
+    var avatarPicUrl2: String? = "",
+
+    @SerializedName("name")
+    var name: String = "",
+    @SerializedName("relationship")
+    var relationship: String = "",
+    @SerializedName("description")
+    var description: String = "",
+    @SerializedName("ememorialId")
+    var ememorialId: Int = -1,
+    @SerializedName("ememorialName")
+    var ememorialName: String = "",
+    @SerializedName("ememorialPicUrl")
+    var ememorialPicUrl: String = "",
+    @SerializedName("hallId")
+    var hallId: Int = -1,
+    @SerializedName("hallName")
+    var hallName: String = "",
+    @SerializedName("hallPicUrl")
+    var hallPicUrl: String = "",
+    @SerializedName("ememorialNo")
+    var ememorialNo: Int = -1,
+    @SerializedName("picUrlPrefix")
+    var picUrlPrefix: String = "",
+    @SerializedName("thumbPicUrl")
+    val thumbPicUrl: String = "",
+    @SerializedName("createTime")
+    var createTime: String = "",
+    @SerializedName("worshipValue")
+    var worshipValue: Int = -1,
+    @SerializedName("ownerUser")
+    var ownerUser: Int = -1,
+)

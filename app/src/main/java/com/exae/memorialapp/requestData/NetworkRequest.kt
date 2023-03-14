@@ -59,7 +59,10 @@ data class UserRequest4(
     var id: Int = 0
 ) : BaseRequest("/api/v1/users/4")
 
-
+data class FindCarToUse(
+    @SerializedName("id")
+    var id: Int = 0
+) : BaseRequest("/api/v1/users/4")
 //发布车辆
 data class PublicCarRequest(
 //    @SerializedName("province")
@@ -104,27 +107,66 @@ data class SingleMemorialRequest(
     var epitaph: String = ""
 ) : BaseRequest("/prod-api/user/ememorial/single-ememorial")
 
-data class SendForCarRequest(
-    @SerializedName("message")
-    var message: String = "",
-    @SerializedName("owner_id")
-    var owner_id: Int = 0,
-    @SerializedName("city")
-    var city: String = "",
-    @SerializedName("request_vehicle_model")
-    var request_vehicle_model: String = "",
-    @SerializedName("start_time")
-    var startTime: Long = 0,
-    @SerializedName("end_time")
-    var endTime: Long = 0
-) : BaseRequest("$REQUESTCARPATH/requests")
+data class MoreMemorialRequest(
+    @SerializedName("name")
+    var name: String = "",
+    @SerializedName("ememorialId")
+    var ememorialId: Int = -1,
+    @SerializedName("hallId")
+    var hallId: Int = -1,
+    @SerializedName("tabletId")
+    var tabletId: Int = -1,
+    @SerializedName("ememorialNo")
+    var ememorialNo: Int? = null,
+    @SerializedName("theme")
+    var theme: String = "",
+    @SerializedName("monumentMaker")
+    var monumentMaker: String = "",
+    @SerializedName("ancestralHome")
+    var ancestralHome: String = "",
+) : BaseRequest("/prod-api/user/ememorial/family-ememorial")
 
-data class FindCarToUse(
-    @SerializedName("phone")
-    var phone: String = "",
-    @SerializedName("verifyCode")
-    var verify_code: String = ""
-) : BaseRequest("$REQUESTCARPATH/requests")
+data class DoubleMemorialRequest(
+    @SerializedName("name")
+    var name: String = "",
+    @SerializedName("ememorialId")
+    var ememorialId: Int = -1,
+    @SerializedName("ememorialNo")
+    var ememorialNo: Int? = null,
+    @SerializedName("hallId")
+    var hallId: Int = -1,
+    @SerializedName("relationship")
+    var relationship: String = "",
+    @SerializedName("description")
+    var description: String = "",
+
+    @SerializedName("name1")
+    var name1: String = "",
+    @SerializedName("avatarPicUrl1")
+    var avatarPicUrl1: String = "",
+    @SerializedName("sex1")
+    var sex1: String = "",
+    @SerializedName("birthDate1")
+    var birthDate1: String = "",
+    @SerializedName("leaveDate1")
+    var leaveDate1: String = "",
+    @SerializedName("tabletId1")
+    var tabletId1: Int = -1,
+
+    @SerializedName("name2")
+    var name2: String = "",
+    @SerializedName("avatarPicUrl2")
+    var avatarPicUrl2: String = "",
+    @SerializedName("sex2")
+    var sex2: String = "",
+    @SerializedName("birthDate2")
+    var birthDate2: String = "",
+    @SerializedName("leaveDate2")
+    var leaveDate2: String = "",
+    @SerializedName("tabletId2")
+    var tabletId2: Int = -1,
+
+) : BaseRequest("/prod-api/user/ememorial/double-ememorial")
 
 data class ChooseHallRequest(
     @SerializedName("type")
