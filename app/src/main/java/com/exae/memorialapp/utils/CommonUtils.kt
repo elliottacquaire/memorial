@@ -6,6 +6,7 @@ import com.exae.memorialapp.CusApplication
 import java.io.IOException
 import java.io.InputStream
 import java.math.BigDecimal
+import java.sql.Timestamp
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -228,6 +229,18 @@ object CommonUtils {
     fun getTime(time: Long): String {
         val format = SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)
         return format.format(Date(time))
+    }
+
+    fun getTime(time: String): String {
+        val format1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA)
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)
+        val timeS = Timestamp.valueOf(time)
+        return format.format(timeS)
+    }
+
+    fun getSplitTime(time: String): String {
+        if (time.isEmpty() || time.length < 11) return ""
+        return time.substring(0, 10)
     }
 
 }

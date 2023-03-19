@@ -9,13 +9,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 @Route(path = "/app/two/detail")
 class TwoDetailActivity : PosBaseActivity<ActivityTwoDetailBinding>() {
-    var memorialNo = ""
+    private var memorialNo = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setToolTitle("大厅风格选择")
         setBackState(true)
-        memorialNo = intent.getStringExtra("memorialNo") ?: ""
+        memorialNo = intent.getIntExtra("memorialNo", -1)
     }
 
     override fun getViewBinding(): ActivityTwoDetailBinding {

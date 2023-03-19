@@ -9,13 +9,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 @Route(path = "/app/more/detail")
 class MoreDetailActivity : PosBaseActivity<ActivityMoreDetailBinding>() {
-    var memorialNo = ""
+    var memorialNo = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setToolTitle("大厅风格选择")
         setBackState(true)
-        memorialNo = intent.getStringExtra("memorialNo") ?: ""
+        memorialNo = intent.getIntExtra("memorialNo", -1)
     }
 
     override fun getViewBinding(): ActivityMoreDetailBinding {

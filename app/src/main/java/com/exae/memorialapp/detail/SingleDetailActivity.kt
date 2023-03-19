@@ -16,13 +16,13 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
 //    @Autowired(name = "memorialNo")
 //    var memorialNo = "ss"
 
-    var memorialNo = ""
+    private var memorialNo = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        ARouter.getInstance().inject(this)
         setToolTitle("大厅风格选择")
         setBackState(true)
-        memorialNo = intent.getStringExtra("memorialNo") ?: ""
+        memorialNo = intent.getIntExtra("memorialNo", -1)
     }
 
     override fun getViewBinding(): ActivitySingleDetailBinding {

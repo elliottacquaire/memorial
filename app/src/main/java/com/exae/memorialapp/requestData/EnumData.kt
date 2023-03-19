@@ -1,8 +1,8 @@
 package com.exae.memorialapp.requestData
 
 enum class HallType(val type: Int) {
-    ONE_HALL(1),
-    MORE_HALL(3),
+    ONE_HALL(0),
+    MORE_HALL(1),
     TWO_HALL(2),
 }
 

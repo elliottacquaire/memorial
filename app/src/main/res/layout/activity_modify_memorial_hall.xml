@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".detail.MoreDetailActivity">
+    <include
+        android:id="@+id/top_toolbar"
+        layout="@layout/layout_base_toolbar" />
+
+    <LinearLayout
+        android:id="@+id/lin_persistence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/modifyInfo"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="修改个人资料"
+            android:textSize="16sp"
+            app:drawableEndCompat="@drawable/ic_arrow_head_enter_right"  />
+
+        <TextView
+            android:id="@+id/accountAdd"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="账户充值"
+            android:textSize="16sp"
+            app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+
+        <TextView
+            android:id="@+id/hallManage"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="管理纪念馆"
+            android:textSize="16sp"
+            app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+
+        <TextView
+            android:id="@+id/helpCenter"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="帮助中心"
+            android:textSize="16sp"
+            app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="消息公告"
+            android:textSize="16sp"
+            app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+
+    </LinearLayout>
+
+</LinearLayout>

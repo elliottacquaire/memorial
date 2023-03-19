@@ -14,6 +14,7 @@ import com.exae.memorialapp.R
 import com.exae.memorialapp.adapter.ManageMemorialAdapter
 import com.exae.memorialapp.base.PosBaseActivity
 import com.exae.memorialapp.base.handleResponse
+import com.exae.memorialapp.bean.ManageMemorialModel
 import com.exae.memorialapp.databinding.ActivityManageMemorialBinding
 import com.exae.memorialapp.viewmodel.MemorialModel
 import com.luck.picture.lib.utils.ToastUtils
@@ -96,14 +97,17 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        when(view.id){
+        val item = adapter.getItem(position) as ManageMemorialModel
+        when (view.id) {
             R.id.modify -> {
-                ARouter.getInstance().build("/app/choose/hall").navigation(this,101)
+                ARouter.getInstance().build("/app/modify/hall")
+                    .withInt("memorialNo", item.ememorialNo)
+                    .withString("memorialName", item.name)
+                    .withString("memorialType", item.type)
+                    .navigation(this)
             }
             R.id.parent -> {
-                ARouter.getInstance().build("/app/single/detail")
-                    .withString("memorialNo", "ddd")
-                    .navigation(this)
+
             }
         }
     }
