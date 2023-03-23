@@ -201,3 +201,18 @@ data class MyOredrCarToUse(
     @SerializedName("verifyCode")
     var verify_code: String = ""
 ) : BaseRequest("$REQUESTCARPATH/myorders")
+
+data class SingleDetailRequest(
+    @SerializedName("ememorialNo")
+    var ememorialNo: Int
+) : BaseRequest("/prod-api/user/ememorial/single-ememorial/$ememorialNo")
+
+data class MoreDetailRequest(
+    @SerializedName("ememorialNo")
+    var ememorialNo: Int
+) : BaseRequest("/prod-api/user/ememorial/family-ememorial/$ememorialNo")
+
+data class TwoDetailRequest(
+    @SerializedName("ememorialNo")
+    var ememorialNo: Int
+) : BaseRequest("/prod-api/user/ememorial/double-ememorial/$ememorialNo")

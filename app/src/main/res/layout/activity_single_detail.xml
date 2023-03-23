@@ -21,7 +21,6 @@
             android:gravity="end"
             android:layout_height="wrap_content"/>
         <RadioGroup
-            android:id="@+id/radioGroup"
             android:orientation="horizontal"
             android:layout_weight="2"
             android:layout_width="0dp"
@@ -61,6 +60,104 @@
                 android:background="@null"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <View
+            android:background="#333"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:text="性别："
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="end"
+                android:layout_height="wrap_content"/>
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:orientation="horizontal"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/man"
+                    android:text="男"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:checked="true"
+                    android:textSize="16sp"
+                    android:textColor="#959595"
+                    android:layout_height="wrap_content"/>
+                <RadioButton
+                    android:id="@+id/woman"
+                    android:text="女"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:textSize="16sp"
+                    android:textColor="#959595"
+                    android:layout_height="wrap_content"/>
+                <RadioButton
+                    android:id="@+id/secret"
+                    android:text="保密"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:textSize="16sp"
+                    android:textColor="#959595"
+                    android:layout_height="wrap_content"/>
+            </RadioGroup>
+        </LinearLayout>
+        <View
+            android:background="#333"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:text="民族："
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="end"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tvNation"
+                android:hint="可不填"
+                android:layout_weight="2"
+                android:textColorHint="#777777"
+                android:layout_width="0dp"
+                android:paddingEnd="10dp"
+                android:layout_height="wrap_content"
+                app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+        </LinearLayout>
+        <View
+            android:background="#333"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:text="关系："
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="end"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tvRelation"
+                android:hint="可不填"
+                android:layout_weight="2"
+                android:textColorHint="#777777"
+                android:layout_width="0dp"
+                android:paddingEnd="10dp"
+                android:layout_height="wrap_content"
+                app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
         </LinearLayout>
         <View
             android:background="#333"
@@ -188,6 +285,30 @@
                 android:layout_height="wrap_content"
                 app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
         </LinearLayout>
+        <View
+            android:background="#333"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:text="墓志铭："
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="end"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tvEpitaph"
+                android:hint="可不填"
+                android:layout_weight="2"
+                android:textColorHint="#777777"
+                android:layout_width="0dp"
+                android:paddingEnd="10dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <View
             android:background="#333"
@@ -196,7 +317,7 @@
 
         <Button
             android:id="@+id/butCreateOne"
-            android:text="创建"
+            android:text="保存"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="50dp"

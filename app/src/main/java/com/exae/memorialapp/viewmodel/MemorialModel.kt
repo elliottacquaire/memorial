@@ -11,7 +11,6 @@ import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.ResultBean
 import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
-import com.exae.memorialapp.bean.UploadImageModel
 import com.exae.memorialapp.bean.UploadImageResponse
 import com.exae.memorialapp.repository.MemorialRepository
 import com.exae.memorialapp.requestData.BannerRequest
@@ -20,22 +19,21 @@ import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
 import com.exae.memorialapp.requestData.MemorialListAllRequest
+import com.exae.memorialapp.requestData.MoreDetailRequest
 import com.exae.memorialapp.requestData.MoreMemorialRequest
+import com.exae.memorialapp.requestData.SingleDetailRequest
 import com.exae.memorialapp.requestData.SingleMemorialRequest
+import com.exae.memorialapp.requestData.TwoDetailRequest
 import com.exae.memorialapp.requestData.UploadImageRequest
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import javax.inject.Inject
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 
 data class BannerState(var request : BannerRequest)
 
-//var state = BannerState("")
 @HiltViewModel
 class MemorialModel @Inject constructor(
     private val repository: MemorialRepository
@@ -132,6 +130,20 @@ class MemorialModel @Inject constructor(
         )
     }
 
+    var singleMemorialDetailResponse = MutableLiveData<ResultBean<SingleMemorialResponse>>()
+    fun getSingleMemorialDetailRequest(ememorialNo: Int) {
+        launch(
+            {
+                singleMemorialDetailResponse.value = repository.getSingleMemorialDetailRequest(
+                    SingleDetailRequest(ememorialNo)
+                )
+            },
+            {
+                singleMemorialDetailResponse.value = errorHandle(it)
+            }
+        )
+    }
+
     var singleMemorialModifyResponse = MutableLiveData<ResultBean<SingleMemorialResponse>>()
     fun singleMemorialModifyRequest(request: SingleMemorialRequest) {
         launch(
@@ -152,6 +164,18 @@ class MemorialModel @Inject constructor(
             },
             {
                 moreMemorialResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var moreMemorialDetailResponse = MutableLiveData<ResultBean<MoreMemorialResponse>>()
+    fun getMoreDetailMemorialRequest(request: Int) {
+        launch(
+            {
+                moreMemorialDetailResponse.value = repository.getMoreDetailMemorialRequest(MoreDetailRequest(request))
+            },
+            {
+                moreMemorialDetailResponse.value = errorHandle(it)
             }
         )
     }
@@ -191,4 +215,17 @@ class MemorialModel @Inject constructor(
             }
         )
     }
+
+    var twoMemorialDetailResponse = MutableLiveData<ResultBean<DoubleMemorialResponse>>()
+    fun getTwoMemorialDetailRequest(request: Int) {
+        launch(
+            {
+                twoMemorialDetailResponse.value = repository.getTwoMemorialDetailRequest(TwoDetailRequest(request))
+            },
+            {
+                twoMemorialDetailResponse.value = errorHandle(it)
+            }
+        )
+    }
+
 }

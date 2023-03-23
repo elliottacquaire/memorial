@@ -112,6 +112,15 @@ interface MemorialService {
         ) url: String,
         @Body request: SingleMemorialRequest,
     ): SingleMemorialResponse
+
+    @GET("{path}")
+    suspend fun getSingleMemorialDetailRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+    ): SingleMemorialResponse
+
     @PUT("{path}")
     suspend fun singleMemorialModifyRequest(
         @Path(
@@ -130,6 +139,14 @@ interface MemorialService {
         @Body request: MoreMemorialRequest,
     ): MoreMemorialResponse
 
+    @GET("{path}")
+    suspend fun getMoreDetailMemorialRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+    ): MoreMemorialResponse
+
     @PUT("{path}")
     suspend fun moreMemorialModifyRequest(
         @Path(
@@ -146,6 +163,14 @@ interface MemorialService {
             encoded = true
         ) url: String,
         @Body request: DoubleMemorialRequest,
+    ): DoubleMemorialResponse
+
+    @GET("{path}")
+    suspend fun getTwoMemorialDetailRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
     ): DoubleMemorialResponse
 
     @PUT("{path}")

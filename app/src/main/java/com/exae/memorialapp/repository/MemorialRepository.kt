@@ -19,8 +19,11 @@ import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
 import com.exae.memorialapp.requestData.MemorialListAllRequest
+import com.exae.memorialapp.requestData.MoreDetailRequest
 import com.exae.memorialapp.requestData.MoreMemorialRequest
+import com.exae.memorialapp.requestData.SingleDetailRequest
 import com.exae.memorialapp.requestData.SingleMemorialRequest
+import com.exae.memorialapp.requestData.TwoDetailRequest
 import com.exae.memorialapp.requestData.UploadImageRequest
 import com.exae.memorialapp.requestData.VerificationCodeLoginRequest
 import dagger.hilt.android.scopes.ActivityScoped
@@ -77,6 +80,13 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
                 .singleMemorialRequest(request.path,request)
         )
     }
+
+    suspend fun getSingleMemorialDetailRequest(request: SingleDetailRequest): ResultBean<SingleMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .getSingleMemorialDetailRequest(request.path)
+        )
+    }
     suspend fun singleMemorialModifyRequest(request: SingleMemorialRequest): ResultBean<SingleMemorialResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
@@ -88,6 +98,13 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
                 .moreMemorialRequest(request.path,request)
+        )
+    }
+
+    suspend fun getMoreDetailMemorialRequest(request: MoreDetailRequest): ResultBean<MoreMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .getMoreDetailMemorialRequest(request.path)
         )
     }
 
@@ -104,6 +121,14 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
                 .twoMemorialRequest(request.path,request)
         )
     }
+
+    suspend fun getTwoMemorialDetailRequest(request: TwoDetailRequest): ResultBean<DoubleMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .getTwoMemorialDetailRequest(request.path)
+        )
+    }
+
     suspend fun twoMemorialModifyRequest(request: DoubleMemorialRequest): ResultBean<DoubleMemorialResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
