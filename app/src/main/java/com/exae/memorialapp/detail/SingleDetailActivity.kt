@@ -4,30 +4,20 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.exae.memorialapp.R
-import com.exae.memorialapp.base.PosBaseActivity
 import com.exae.memorialapp.base.handleResponse
+import com.exae.memorialapp.bean.SingleMemorialModel
 import com.exae.memorialapp.databinding.ActivitySingleDetailBinding
+import com.exae.memorialapp.hall.UploadImageActivity
 import com.exae.memorialapp.requestData.HallType
-import com.exae.memorialapp.requestData.SexType
 import com.exae.memorialapp.requestData.SingleMemorialRequest
 import com.exae.memorialapp.requestData.nationList
-import com.exae.memorialapp.requestData.requestCodeHallStyle
-import com.exae.memorialapp.requestData.requestCodeHallStyleDouble
-import com.exae.memorialapp.requestData.requestCodeHallStyleOne
-import com.exae.memorialapp.requestData.requestCodeMemorialStyle
-import com.exae.memorialapp.requestData.requestCodeMemorialStyleDouble
-import com.exae.memorialapp.requestData.requestCodeMemorialStyleOne
-import com.exae.memorialapp.requestData.requestCodeTableStyle
-import com.exae.memorialapp.requestData.requestCodeTableStyleDouble
-import com.exae.memorialapp.requestData.requestCodeTableStyleDouble1
-import com.exae.memorialapp.requestData.requestCodeTableStyleOne
+import com.exae.memorialapp.requestData.*
 import com.exae.memorialapp.requestData.shipList
 import com.exae.memorialapp.utils.CommonUtils
 import com.exae.memorialapp.utils.ToastUtil
@@ -35,12 +25,11 @@ import com.exae.memorialapp.viewmodel.MemorialModel
 import com.loper7.date_time_picker.DateTimePicker
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import com.lxj.xpopup.XPopup
-import com.lxj.xpopup.interfaces.OnSelectListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 @Route(path = "/app/single/detail")
-class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
+class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() {
 
 //    @JvmField
 //    @Autowired(name = "memorialNo")
@@ -49,6 +38,7 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
     private var memorialNo = -1
     private val viewModel: MemorialModel by viewModels()
     private var requestOne = SingleMemorialRequest()
+    private var resultData: SingleMemorialModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +52,7 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
         viewModel.singleMemorialDetailResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
                 val result = it.data
+                resultData = it.data
                 dismissLoading()
                 binding.apply {
                     tvBrithData.text = CommonUtils.getSplitTime(result?.birthDate ?: "")
@@ -79,8 +70,11 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
                     tvRelation.text = result?.relationship ?: ""
                     tvEpitaph.setText(result?.epitaph ?: "")
                     tvAddress.setText(result?.address ?: "")
-
+                    requestOne.avatarPicUrl = result?.avatarPicUrl ?: ""
                     requestOne.ememorialNo = result?.ememorialNo
+                    requestOne.ememorialId = result?.ememorialId ?: -1
+                    requestOne.hallId = result?.hallId ?: -1
+                    requestOne.tabletId = result?.tabletId ?: -1
 
                     Glide.with(this@SingleDetailActivity)
                         .load(result?.picUrlPrefix + result?.avatarPicUrl)
@@ -97,25 +91,51 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
         })
 
         initOneCreate()
+        upLoadImgResult()
+    }
+
+    override fun upLoadImgToService() {
+        super.upLoadImgToService()
+        if (chooseImageUrl.isEmpty()) return
+        viewModel.uploadImageRequest(chooseImageUrl)
+        showLoading()
+    }
+    private fun upLoadImgResult() {
+        viewModel.uploadImageResponse.observe(this, Observer { resources ->
+            handleResponse(resources, {
+                dismissLoading()
+                requestOne.avatarPicUrl = it.data?.fileName ?: ""
+                Glide.with(this)
+                    .load(it.data?.url)
+                    .placeholder(R.mipmap.headdd)
+                    .error(R.mipmap.headdd)
+                    .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                    .into(binding.headImg)
+            },
+                {
+                    dismissLoading()
+                }
+            )
+        })
     }
 
     private fun initOneCreate() {
         binding.radioGroup.setOnCheckedChangeListener { _, id ->
             when (id) {
                 R.id.man -> {
-                    requestOne.sex = "男"
+                    requestOne.sex = "0"
                 }
                 R.id.woman -> {
-                    requestOne.sex = "女"
+                    requestOne.sex = "1"
                 }
                 R.id.secret -> {
-                    requestOne.sex = "保密"
+                    requestOne.sex = "2"
                 }
             }
         }
 
         binding.headImg.setOnClickListener {
-
+            chooseImage()
         }
 
         binding.tvBrithData.setOnClickListener {
@@ -175,13 +195,20 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
             requestOne.nation = binding.tvNation.text.trim().toString()
             requestOne.relationship = binding.tvRelation.text.trim().toString()
             requestOne.address = binding.tvAddress.text.trim().toString()
-            viewModel.singleMemorialModifyRequest(requestOne)
-            showLoading()
+            if (isChanged()) {
+                viewModel.singleMemorialModifyRequest(requestOne)
+                showLoading()
+            } else {
+                ToastUtil.showCenter("修改成功")
+                finish()
+            }
         }
 
         viewModel.singleMemorialModifyResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
                 dismissLoading()
+                ToastUtil.showCenter("修改成功")
+                finish()
             },
                 {
                     dismissLoading()
@@ -190,6 +217,45 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
         })
         chooseNation()
         chooseRelationShip()
+    }
+
+    private fun isChanged(): Boolean {
+        if (resultData?.avatarPicUrl == requestOne.avatarPicUrl &&
+            resultData?.name == binding.edtPersonName.text.trim().toString() &&
+            resultData?.sex == requestOne.sex &&
+            resultData?.nation == binding.tvNation.text.trim().toString() &&
+            (resultData?.birthDate ?: "") == binding.tvBrithData.text.trim().toString() &&
+            (resultData?.leaveDate ?: "") == binding.tvDeathData.text.trim().toString() &&
+            resultData?.ememorialName == binding.tvMemorialStyle.text.trim().toString() &&
+            resultData?.hallName == binding.tvHallStyle.text.trim().toString() &&
+            resultData?.tabletName == binding.tvTableStyle.text.trim().toString() &&
+
+            resultData?.relationship == binding.tvRelation.text.trim().toString() &&
+            resultData?.address == binding.tvAddress.text.trim().toString() &&
+            resultData?.epitaph == binding.tvEpitaph.text.trim().toString()
+        ) {
+            return false
+        }
+        return true
+    }
+
+    override fun onBackPressed() {
+        if (isChanged()) {
+            confirmDialog()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    private fun confirmDialog(){
+        XPopup.Builder(this)
+            .hasStatusBarShadow(false)
+            .hasNavigationBar(false)
+            .isDestroyOnDismiss(true)
+            .isDarkTheme(true)
+            .asConfirm("温馨提示","退出当前页将不保存已修改的内容，\n确定返回吗？"){
+                finish()
+            }.show()
     }
 
     private fun chooseNation(){
