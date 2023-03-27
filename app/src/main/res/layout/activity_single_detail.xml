@@ -1,330 +1,434 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".detail.MoreDetailActivity">
-    <include
-        android:id="@+id/top_toolbar"
-        layout="@layout/layout_base_toolbar" />
+    android:layout_height="match_parent">
+
     <LinearLayout
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
-        <TextView
-            android:text="纪念馆类型："
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:gravity="end"
-            android:layout_height="wrap_content"/>
-        <RadioGroup
-            android:orientation="horizontal"
-            android:layout_weight="2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
-            <RadioButton
-                android:id="@+id/oneHall"
-                android:text="个人馆"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:checked="true"
-                android:textSize="16sp"
-                android:textColor="#959595"
-                android:layout_height="wrap_content"/>
-        </RadioGroup>
-    </LinearLayout>
-    <LinearLayout
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        tools:context=".detail.MoreDetailActivity">
+
+        <include
+            android:id="@+id/top_toolbar"
+            layout="@layout/layout_base_toolbar" />
+
+        <ImageView
+            android:id="@+id/head_img"
+            android:src="@mipmap/headdd"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_gravity="center_horizontal"
+            android:text="逝者照片" />
+
         <LinearLayout
-            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
             android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:orientation="horizontal">
+
             <TextView
-                android:text="逝者姓名："
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_width="0dp"
                 android:gravity="end"
-                android:layout_height="wrap_content"/>
-            <EditText
-                android:id="@+id/edtPersonName"
-                android:hint="请输入逝者姓名"
-                android:textColor="#959595"
-                android:textColorHint="#777777"
-                android:layout_weight="2"
-                android:background="@null"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <View
-            android:background="#333"
-            android:layout_width="match_parent"
-            android:layout_height="1px"/>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <TextView
-                android:text="性别："
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:gravity="end"
-                android:layout_height="wrap_content"/>
+                android:text="纪念馆类型：" />
+
             <RadioGroup
-                android:id="@+id/radioGroup"
-                android:orientation="horizontal"
-                android:layout_weight="2"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="horizontal">
+
                 <RadioButton
-                    android:id="@+id/man"
-                    android:text="男"
-                    android:layout_weight="1"
+                    android:id="@+id/oneHall"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:checked="true"
-                    android:textSize="16sp"
+                    android:text="个人馆"
                     android:textColor="#959595"
-                    android:layout_height="wrap_content"/>
-                <RadioButton
-                    android:id="@+id/woman"
-                    android:text="女"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:textSize="16sp"
-                    android:textColor="#959595"
-                    android:layout_height="wrap_content"/>
-                <RadioButton
-                    android:id="@+id/secret"
-                    android:text="保密"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:textSize="16sp"
-                    android:textColor="#959595"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="16sp" />
             </RadioGroup>
         </LinearLayout>
-        <View
-            android:background="#333"
-            android:layout_width="match_parent"
-            android:layout_height="1px"/>
+
         <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <TextView
-                android:text="民族："
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:gravity="end"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tvNation"
-                android:hint="可不填"
-                android:layout_weight="2"
-                android:textColorHint="#777777"
-                android:layout_width="0dp"
-                android:paddingEnd="10dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="逝者姓名：" />
+
+                <EditText
+                    android:id="@+id/edtPersonName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:hint="请输入逝者姓名"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:textColor="#959595"
+                    android:textColorHint="#777777" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="性别：" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/man"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="男"
+                        android:textColor="#959595"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/woman"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="女"
+                        android:textColor="#959595"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/secret"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="保密"
+                        android:textColor="#959595"
+                        android:textSize="16sp" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="民族：" />
+
+                <TextView
+                    android:id="@+id/tvNation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="可不填"
+                    android:paddingEnd="10dp"
+                    android:textColorHint="#777777"
+                    app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="出生日期：" />
+
+                <TextView
+                    android:id="@+id/tvBrithData"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="可不填"
+                    android:paddingEnd="10dp"
+                    android:textColorHint="#777777"
+                    app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="逝世日期：" />
+
+                <TextView
+                    android:id="@+id/tvDeathData"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="可不填"
+                    android:paddingEnd="10dp"
+                    android:textColorHint="#777777"
+                    app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="纪念馆风格：" />
+
+                <TextView
+                    android:id="@+id/tvMemorialStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="点击选择纪念馆风格"
+                    android:paddingEnd="10dp"
+                    android:textColorHint="#777777"
+                    app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="祭拜大厅风格：" />
+
+                <TextView
+                    android:id="@+id/tvHallStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="点击选择大厅风格"
+                    android:paddingEnd="10dp"
+                    android:textColorHint="#777777"
+                    app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="灵牌位样式：" />
+
+                <TextView
+                    android:id="@+id/tvTableStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="点击选择灵牌位样式"
+                    android:paddingEnd="10dp"
+                    android:textColorHint="#777777"
+                    app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="纪念关系：" />
+
+                <TextView
+                    android:id="@+id/tvRelation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="可不填"
+                    android:paddingEnd="10dp"
+                    android:textColorHint="#777777"
+                    app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="安息地：" />
+
+                <EditText
+                    android:id="@+id/tvAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:hint="可不填"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:textColor="#959595"
+                    android:textColorHint="#777777" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="墓志铭：" />
+
+                <EditText
+                    android:id="@+id/tvEpitaph"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:hint="可不填"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:textColor="#959595"
+                    android:textColorHint="#777777" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333" />
+
+            <Button
+                android:id="@+id/butCreateOne"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
-        </LinearLayout>
-        <View
-            android:background="#333"
-            android:layout_width="match_parent"
-            android:layout_height="1px"/>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <TextView
-                android:text="关系："
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:gravity="end"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tvRelation"
-                android:hint="可不填"
-                android:layout_weight="2"
-                android:textColorHint="#777777"
-                android:layout_width="0dp"
-                android:paddingEnd="10dp"
-                android:layout_height="wrap_content"
-                app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
-        </LinearLayout>
-        <View
-            android:background="#333"
-            android:layout_width="match_parent"
-            android:layout_height="1px"/>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <TextView
-                android:text="出生日期："
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:gravity="end"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tvBrithData"
-                android:hint="可不填"
-                android:layout_weight="2"
-                android:textColorHint="#777777"
-                android:layout_width="0dp"
-                android:paddingEnd="10dp"
-                android:layout_height="wrap_content"
-                app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
-        </LinearLayout>
-        <View
-            android:background="#333"
-            android:layout_width="match_parent"
-            android:layout_height="1px"/>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <TextView
-                android:text="逝世日期："
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:gravity="end"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tvDeathData"
-                android:hint="可不填"
-                android:layout_weight="2"
-                android:textColorHint="#777777"
-                android:layout_width="0dp"
-                android:paddingEnd="10dp"
-                android:layout_height="wrap_content"
-                app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/chip_check_bg"
+                android:text="保存"
+                android:textColor="@color/white" />
         </LinearLayout>
 
-        <View
-            android:background="#333"
-            android:layout_width="match_parent"
-            android:layout_height="1px"/>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <TextView
-                android:text="纪念馆风格："
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:gravity="end"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tvMemorialStyle"
-                android:hint="点击选择纪念馆风格"
-                android:textColorHint="#777777"
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:paddingEnd="10dp"
-                android:layout_height="wrap_content"
-                app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
-        </LinearLayout>
-        <View
-            android:background="#333"
-            android:layout_width="match_parent"
-            android:layout_height="1px"/>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <TextView
-                android:text="祭拜大厅风格："
-                android:gravity="end"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tvHallStyle"
-                android:hint="点击选择大厅风格"
-                android:textColorHint="#777777"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:paddingEnd="10dp"
-                android:layout_height="wrap_content"
-                app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
-        </LinearLayout>
-        <View
-            android:background="#333"
-            android:layout_width="match_parent"
-            android:layout_height="1px"/>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <TextView
-                android:text="灵牌位样式："
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:gravity="end"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tvTableStyle"
-                android:hint="点击选择灵牌位样式"
-                android:layout_weight="2"
-                android:textColorHint="#777777"
-                android:layout_width="0dp"
-                android:paddingEnd="10dp"
-                android:layout_height="wrap_content"
-                app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
-        </LinearLayout>
-        <View
-            android:background="#333"
-            android:layout_width="match_parent"
-            android:layout_height="1px"/>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <TextView
-                android:text="墓志铭："
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:gravity="end"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tvEpitaph"
-                android:hint="可不填"
-                android:layout_weight="2"
-                android:textColorHint="#777777"
-                android:layout_width="0dp"
-                android:paddingEnd="10dp"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <View
-            android:background="#333"
-            android:layout_width="match_parent"
-            android:layout_height="1px"/>
-
-        <Button
-            android:id="@+id/butCreateOne"
-            android:text="保存"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/chip_check_bg"
-            android:textColor="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

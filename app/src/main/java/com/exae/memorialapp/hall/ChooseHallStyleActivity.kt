@@ -28,10 +28,13 @@ class ChooseHallStyleActivity : PosBaseActivity<ActivityChooseHallStyleBinding>(
     lateinit var listAdapter: MemorialStyleAdapter
 
     private val viewModel: MemorialModel by viewModels()
+    private var clickType = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setToolTitle("大厅风格选择")
         setBackState(true)
+        clickType = intent.getIntExtra("clickType", -1)
         binding.apply {
             smartRefreshLayout.setRefreshHeader(BezierRadarHeader(this@ChooseHallStyleActivity))
             mListView.layoutManager = GridLayoutManager(this@ChooseHallStyleActivity,2)
@@ -73,7 +76,7 @@ class ChooseHallStyleActivity : PosBaseActivity<ActivityChooseHallStyleBinding>(
     }
 
     private fun requestNetData() {
-        viewModel.styleHallRequest(0)
+        viewModel.styleHallRequest(clickType)
     }
 
     override fun getViewBinding(): ActivityChooseHallStyleBinding {

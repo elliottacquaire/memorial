@@ -25,7 +25,7 @@
             android:layout_marginTop="8dp"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
-            android:text="修改个人资料"
+            android:text="编辑建馆资料"
             android:textSize="16sp"
             app:drawableEndCompat="@drawable/ic_arrow_head_enter_right"  />
 
@@ -36,7 +36,7 @@
             android:layout_marginTop="8dp"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
-            android:text="账户充值"
+            android:text="生平事迹"
             android:textSize="16sp"
             app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
 
@@ -47,7 +47,7 @@
             android:layout_marginTop="8dp"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
-            android:text="管理纪念馆"
+            android:text="追忆相册"
             android:textSize="16sp"
             app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
 
@@ -58,7 +58,7 @@
             android:layout_marginTop="8dp"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
-            android:text="帮助中心"
+            android:text="留言评论"
             android:textSize="16sp"
             app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
 
@@ -69,7 +69,18 @@
             android:layout_marginTop="8dp"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
-            android:text="消息公告"
+            android:text="用户管理"
+            android:textSize="16sp"
+            app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="删除纪念馆"
             android:textSize="16sp"
             app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
 

@@ -63,6 +63,8 @@
                     android:id="@+id/hallName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:text="挺好的" />
 
                 <TextView
@@ -102,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:text="level 1"
                     android:textColor="@color/color_b0"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 

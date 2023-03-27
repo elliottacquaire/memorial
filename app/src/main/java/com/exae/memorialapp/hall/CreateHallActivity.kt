@@ -66,16 +66,23 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
     private fun initTwoCreate() {
         binding.layoutTwoView.tvMemorialStyle.setOnClickListener {
             ARouter.getInstance().build("/app/choose/memorial")
+                .withInt("clickType", chooseType)
                 .navigation(this, requestCodeMemorialStyleDouble)
         }
         binding.layoutTwoView.tvHallStyle.setOnClickListener {
-            ARouter.getInstance().build("/app/choose/hall").navigation(this, requestCodeHallStyleDouble)
+            ARouter.getInstance().build("/app/choose/hall")
+                .withInt("clickType", chooseType)
+                .navigation(this, requestCodeHallStyleDouble)
         }
         binding.layoutTwoView.tvTableStyle.setOnClickListener {
-            ARouter.getInstance().build("/app/choose/table").navigation(this, requestCodeTableStyleDouble)
+            ARouter.getInstance().build("/app/choose/table")
+                .withInt("clickType", chooseType)
+                .navigation(this, requestCodeTableStyleDouble)
         }
         binding.layoutTwoView.tvTableStyle1.setOnClickListener {
-            ARouter.getInstance().build("/app/choose/table").navigation(this, requestCodeTableStyleDouble1)
+            ARouter.getInstance().build("/app/choose/table")
+                .withInt("clickType", chooseType)
+                .navigation(this, requestCodeTableStyleDouble1)
         }
         binding.layoutTwoView.butCreateOne.setOnClickListener {
             requestDouble.name = binding.layoutTwoView.edtMemorialName.text.trim().toString()
@@ -201,13 +208,18 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
     private fun initMoreCreate() {
         binding.layoutMoreView.tvMemorialStyle.setOnClickListener {
             ARouter.getInstance().build("/app/choose/memorial")
+                .withInt("clickType", chooseType)
                 .navigation(this, requestCodeMemorialStyle)
         }
         binding.layoutMoreView.tvHallStyle.setOnClickListener {
-            ARouter.getInstance().build("/app/choose/hall").navigation(this, requestCodeHallStyle)
+            ARouter.getInstance().build("/app/choose/hall")
+                .withInt("clickType", chooseType)
+                .navigation(this, requestCodeHallStyle)
         }
         binding.layoutMoreView.tvTableStyle.setOnClickListener {
-            ARouter.getInstance().build("/app/choose/table").navigation(this, requestCodeTableStyle)
+            ARouter.getInstance().build("/app/choose/table")
+                .withInt("clickType", chooseType)
+                .navigation(this, requestCodeTableStyle)
         }
         binding.layoutMoreView.butCreateOne.setOnClickListener {
             requestMore.name = binding.layoutMoreView.edtMemorialName.text.trim().toString()
@@ -265,14 +277,17 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
         }
         binding.layoutOneView.tvMemorialStyle.setOnClickListener {
             ARouter.getInstance().build("/app/choose/memorial")
+                .withInt("clickType", chooseType)
                 .navigation(this, requestCodeMemorialStyleOne)
         }
         binding.layoutOneView.tvHallStyle.setOnClickListener {
             ARouter.getInstance().build("/app/choose/hall")
+                .withInt("clickType", chooseType)
                 .navigation(this, requestCodeHallStyleOne)
         }
         binding.layoutOneView.tvTableStyle.setOnClickListener {
             ARouter.getInstance().build("/app/choose/table")
+                .withInt("clickType", chooseType)
                 .navigation(this, requestCodeTableStyleOne)
         }
         binding.layoutOneView.butCreateOne.setOnClickListener {

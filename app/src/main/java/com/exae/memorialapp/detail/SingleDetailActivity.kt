@@ -7,12 +7,17 @@ import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.PosBaseActivity
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.ActivitySingleDetailBinding
+import com.exae.memorialapp.requestData.HallType
 import com.exae.memorialapp.requestData.SexType
 import com.exae.memorialapp.requestData.SingleMemorialRequest
+import com.exae.memorialapp.requestData.nationList
 import com.exae.memorialapp.requestData.requestCodeHallStyle
 import com.exae.memorialapp.requestData.requestCodeHallStyleDouble
 import com.exae.memorialapp.requestData.requestCodeHallStyleOne
@@ -23,10 +28,14 @@ import com.exae.memorialapp.requestData.requestCodeTableStyle
 import com.exae.memorialapp.requestData.requestCodeTableStyleDouble
 import com.exae.memorialapp.requestData.requestCodeTableStyleDouble1
 import com.exae.memorialapp.requestData.requestCodeTableStyleOne
+import com.exae.memorialapp.requestData.shipList
 import com.exae.memorialapp.utils.CommonUtils
+import com.exae.memorialapp.utils.ToastUtil
 import com.exae.memorialapp.viewmodel.MemorialModel
 import com.loper7.date_time_picker.DateTimePicker
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.interfaces.OnSelectListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +45,7 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
 //    @JvmField
 //    @Autowired(name = "memorialNo")
 //    var memorialNo = "ss"
-
+    private var chooseType = HallType.ONE_HALL.type
     private var memorialNo = -1
     private val viewModel: MemorialModel by viewModels()
     private var requestOne = SingleMemorialRequest()
@@ -44,7 +53,7 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        ARouter.getInstance().inject(this)
-        setToolTitle("大厅风格选择")
+        setToolTitle("纪念馆资料")
         setBackState(true)
         memorialNo = intent.getIntExtra("memorialNo", -1)
         viewModel.getSingleMemorialDetailRequest(memorialNo)
@@ -67,7 +76,18 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
                         else -> secret.isChecked = true
                     }
                     tvNation.text = result?.nation ?: ""
-                    tvEpitaph.text = result?.epitaph ?: ""
+                    tvRelation.text = result?.relationship ?: ""
+                    tvEpitaph.setText(result?.epitaph ?: "")
+                    tvAddress.setText(result?.address ?: "")
+
+                    requestOne.ememorialNo = result?.ememorialNo
+
+                    Glide.with(this@SingleDetailActivity)
+                        .load(result?.picUrlPrefix + result?.avatarPicUrl)
+                        .placeholder(R.mipmap.headdd)
+                        .error(R.mipmap.headdd)
+                        .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                        .into(binding.headImg)
                 }
             },
                 {
@@ -92,6 +112,10 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
                     requestOne.sex = "保密"
                 }
             }
+        }
+
+        binding.headImg.setOnClickListener {
+
         }
 
         binding.tvBrithData.setOnClickListener {
@@ -130,14 +154,17 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
         }
         binding.tvMemorialStyle.setOnClickListener {
             ARouter.getInstance().build("/app/choose/memorial")
+                .withInt("clickType", chooseType)
                 .navigation(this, requestCodeMemorialStyleOne)
         }
         binding.tvHallStyle.setOnClickListener {
             ARouter.getInstance().build("/app/choose/hall")
+                .withInt("clickType", chooseType)
                 .navigation(this, requestCodeHallStyleOne)
         }
         binding.tvTableStyle.setOnClickListener {
             ARouter.getInstance().build("/app/choose/table")
+                .withInt("clickType", chooseType)
                 .navigation(this, requestCodeTableStyleOne)
         }
         binding.butCreateOne.setOnClickListener {
@@ -147,6 +174,7 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
             requestOne.epitaph = binding.tvEpitaph.text.trim().toString()
             requestOne.nation = binding.tvNation.text.trim().toString()
             requestOne.relationship = binding.tvRelation.text.trim().toString()
+            requestOne.address = binding.tvAddress.text.trim().toString()
             viewModel.singleMemorialModifyRequest(requestOne)
             showLoading()
         }
@@ -160,7 +188,50 @@ class SingleDetailActivity : PosBaseActivity<ActivitySingleDetailBinding>() {
                 }
             )
         })
+        chooseNation()
+        chooseRelationShip()
+    }
 
+    private fun chooseNation(){
+        binding.tvNation.setOnClickListener {
+            var position = -1
+            nationList.forEachIndexed { index, s ->
+                if (s == binding.tvNation.text) {
+                    position = index
+                    return@forEachIndexed
+                }
+            }
+            val pop = XPopup.Builder(this)
+                .isDarkTheme(true)
+                .hasShadowBg(false)
+                .popupHeight(1200)
+                .isViewMode(true)
+                .isDestroyOnDismiss(true)
+                .asBottomList("请选择一项", nationList, null, position) { _, text ->
+                    binding.tvNation.text = text
+                }.show()
+        }
+    }
+
+    private fun chooseRelationShip(){
+        binding.tvRelation.setOnClickListener {
+            var position = -1
+            shipList.forEachIndexed { index, s ->
+                if (s == binding.tvRelation.text) {
+                    position = index
+                    return@forEachIndexed
+                }
+            }
+            val pop = XPopup.Builder(this)
+                .isDarkTheme(true)
+                .hasShadowBg(true)
+                .popupHeight(1200)
+                .isViewMode(true)
+                .isDestroyOnDismiss(true)
+                .asBottomList("请选择一项",shipList,null,position) { _, text ->
+                    binding.tvRelation.text = text
+                }.show()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

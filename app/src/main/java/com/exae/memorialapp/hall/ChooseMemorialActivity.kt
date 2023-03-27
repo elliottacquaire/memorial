@@ -29,11 +29,13 @@ class ChooseMemorialActivity : PosBaseActivity<ActivityChooseMemorialBinding>() 
 
     private val viewModel: MemorialModel by viewModels()
 
+    private var clickType = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setToolTitle("纪念馆风格选择")
         setBackState(true)
-
+        clickType = intent.getIntExtra("clickType", -1)
         binding.apply {
             smartRefreshLayout.setRefreshHeader(BezierRadarHeader(this@ChooseMemorialActivity))
             mListView.layoutManager = GridLayoutManager(this@ChooseMemorialActivity,2)
@@ -76,7 +78,7 @@ class ChooseMemorialActivity : PosBaseActivity<ActivityChooseMemorialBinding>() 
     }
 
     private fun requestNetData() {
-        viewModel.styleMerioRequest(0)
+        viewModel.styleMerioRequest(clickType)
     }
 
     override fun getViewBinding(): ActivityChooseMemorialBinding {

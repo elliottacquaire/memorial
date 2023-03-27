@@ -28,11 +28,15 @@ class ChooseTableStyleActivity : PosBaseActivity<ActivityChooseTableStyleBinding
 
     private val viewModel: MemorialModel by viewModels()
 
+    private var clickType = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setToolTitle("灵牌位样式选择")
         setBackState(true)
+
+        clickType = intent.getIntExtra("clickType", -1)
+
         binding.apply {
             smartRefreshLayout.setRefreshHeader(BezierRadarHeader(this@ChooseTableStyleActivity))
             mListView.layoutManager = GridLayoutManager(this@ChooseTableStyleActivity,2)
@@ -75,7 +79,7 @@ class ChooseTableStyleActivity : PosBaseActivity<ActivityChooseTableStyleBinding
     }
 
     private fun requestNetData() {
-        viewModel.styleTableRequest(0)
+        viewModel.styleTableRequest(clickType)
     }
 
     override fun getViewBinding(): ActivityChooseTableStyleBinding {
