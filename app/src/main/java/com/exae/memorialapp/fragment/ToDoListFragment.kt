@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.alibaba.android.arouter.launcher.ARouter
@@ -24,6 +25,7 @@ import com.exae.memorialapp.viewmodel.MemorialModel
 import com.exae.memorialapp.viewmodel.PosLoginModel
 import com.google.android.material.tabs.TabLayout
 import com.orhanobut.logger.Logger
+import com.scwang.smart.refresh.header.BezierRadarHeader
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
 import com.youth.banner.indicator.CircleIndicator
@@ -83,6 +85,22 @@ class ToDoListFragment : BaseFragment<FragmentIndexBinding>() {
             )
         })
 
+        binding.apply {
+            smartRefreshLayout.setRefreshHeader(BezierRadarHeader(context))
+
+            mListView.layoutManager = LinearLayoutManager(context)
+
+//        mListView.adapter = listAdapter
+            //下拉刷新
+            smartRefreshLayout.setOnRefreshListener {
+                requestNetData()
+                smartRefreshLayout.finishRefresh(true)
+            }
+            emptyView.setOnClickListener {
+                requestNetData()
+            }
+        }
+
         with(binding) {
             banner.setAdapter(object : BannerImageAdapter<String>(bannerList) {
                 override fun onBindView(
@@ -102,59 +120,12 @@ class ToDoListFragment : BaseFragment<FragmentIndexBinding>() {
                 .addBannerLifecycleObserver(requireActivity())
                 .indicator = CircleIndicator(requireContext())
 
-            mViewPager.adapter = initPageAdapter()
-            mViewPager.offscreenPageLimit = 2
-            mTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                }
-
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    mViewPager.currentItem = mTabLayout.selectedTabPosition
-                }
-
-            })
-            mViewPager.addOnPageChangeListener(object : OnPageChangeListener {
-                override fun onPageScrollStateChanged(state: Int) {
-                }
-
-                override fun onPageScrolled(
-                    position: Int,
-                    positionOffset: Float,
-                    positionOffsetPixels: Int
-                ) {
-                }
-
-                override fun onPageSelected(position: Int) {
-                    mTabLayout.selectTab(mTabLayout.getTabAt(position))
-                }
-            })
-
-            mTabLayout.selectTab(mTabLayout.getTabAt(0))
         }
 
     }
 
-    private fun initPageAdapter(): PagerAdapter {
-        return object :
-            FragmentStatePagerAdapter(childFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-            override fun getItem(position: Int): Fragment {
-                return MessageFragment().apply {
-//                        arguments = Bundle().apply {
-//                            putInt("flowType",productFlowType(position))
-//                            putInt("isHistory", HISTORY_ZERO)
-//                            putInt("currentStepStatus",FLOW_STATUS_IN_PROCESS)
-//                        }
-                }
+    private fun requestNetData() {
 
-            }
-
-            override fun getCount(): Int {
-                return 4
-            }
-        }
     }
 
     override fun getViewBinding(

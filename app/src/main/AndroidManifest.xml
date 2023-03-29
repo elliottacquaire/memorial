@@ -32,6 +32,9 @@
         android:theme="@style/Theme.MemorialApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".detail.ModifyMemorialHallActivity"
             android:exported="false" />
         <activity

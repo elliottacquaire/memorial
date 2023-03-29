@@ -15,11 +15,10 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.exae.memorialapp.base.PosBaseActivity
 import com.exae.memorialapp.databinding.ActivityMainBinding
 import com.exae.memorialapp.fragment.MyProfileFragment
-import com.exae.memorialapp.fragment.TestDriveFragment
+import com.exae.memorialapp.fragment.VisitFragment
 import com.exae.memorialapp.fragment.ToDoListFragment
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint ////1
 @Route(path = "/app/main")
@@ -113,7 +112,7 @@ class MainActivity : PosBaseActivity<ActivityMainBinding>() {
             override fun getItem(position: Int): Fragment {
                 return when (position) {
                     0 -> ToDoListFragment()
-                    1 -> TestDriveFragment().apply {
+                    1 -> VisitFragment().apply {
 //                        arguments = Bundle().apply {
 //                            putInt("isHistory", HISTORY_ZERO)
 //                        }
@@ -124,7 +123,6 @@ class MainActivity : PosBaseActivity<ActivityMainBinding>() {
 
             override fun getCount(): Int {
                 return 3
-
             }
 
             override fun getPageTitle(position: Int): CharSequence {

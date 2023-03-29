@@ -107,7 +107,11 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
                     .navigation(this)
             }
             R.id.parent -> {
-
+                ARouter.getInstance().build("/app/home")
+                    .withInt("memorialNo", item.ememorialNo)
+                    .withString("memorialName", item.name)
+                    .withString("memorialType", item.type)
+                    .navigation(this)
             }
         }
     }

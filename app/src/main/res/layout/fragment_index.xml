@@ -10,47 +10,31 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"/>
 
-    <com.google.android.material.tabs.TabLayout
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/smartRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/tablayout_bg"
-        android:visibility="gone"
-        app:tabGravity="fill"
-        android:layout_marginTop="150dp"
-        app:tabIndicatorColor="@color/tab_indicator_color"
-        app:tabIndicatorGravity="bottom"
-        app:tabTextColor="@color/tab_text_color"
-        android:id="@+id/mTabLayout">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_all">
-        </com.google.android.material.tabs.TabItem>
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_persistence"/>
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_price_approval">
-        </com.google.android.material.tabs.TabItem>
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_contract">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
-        </com.google.android.material.tabs.TabItem>
-    </com.google.android.material.tabs.TabLayout>
-    <androidx.viewpager.widget.ViewPager
+    <RelativeLayout
+        android:id="@+id/emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_anchor="@id/mTabLayout"
-        app:layout_anchorGravity="bottom"
-        android:layout_marginTop="190dp"
-        android:visibility="gone"
-        android:id="@+id/mViewPager"
-        />
+        android:layout_marginTop="45dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icon_blank" />
+    </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
