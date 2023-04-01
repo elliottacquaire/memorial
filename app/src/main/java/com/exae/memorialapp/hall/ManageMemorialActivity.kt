@@ -101,14 +101,14 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
         when (view.id) {
             R.id.modify -> {
                 ARouter.getInstance().build("/app/modify/hall")
-                    .withInt("memorialNo", item.ememorialNo)
+                    .withInt("memorialNo", item.memorialNo)
                     .withString("memorialName", item.name)
                     .withString("memorialType", item.type)
                     .navigation(this)
             }
             R.id.parent -> {
                 ARouter.getInstance().build("/app/home")
-                    .withInt("memorialNo", item.ememorialNo)
+                    .withInt("memorialNo", item.memorialNo)
                     .withString("memorialName", item.name)
                     .withString("memorialType", item.type)
                     .navigation(this)

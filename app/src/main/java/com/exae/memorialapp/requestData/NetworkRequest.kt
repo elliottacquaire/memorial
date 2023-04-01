@@ -21,8 +21,11 @@ data class LoginRequest(var code: String = "") :
 data class BannerRequest(var code: String = "") :
     BaseRequest("/prod-api/banner/listAll")
 
+data class AttentionListRequest(var code: String = "") :
+    BaseRequest("/prod-api/user/memorial/attention/listAll")
+
 data class MemorialListAllRequest(var code: String = "") :
-    BaseRequest("/prod-api/user/ememorial/listAll")
+    BaseRequest("/prod-api/user/memorial/listAll")
 
 //手机验证码获取
 data class VerificationCodeRequest(
@@ -89,14 +92,14 @@ data class SingleMemorialRequest(
     var avatarPicUrl: String = "",
     @SerializedName("address")
     var address: String = "",
-    @SerializedName("ememorialId")
-    var ememorialId: Int = -1,
+    @SerializedName("memorialId")
+    var memorialId: Int = -1,
     @SerializedName("hallId")
     var hallId: Int = -1,
     @SerializedName("tabletId")
     var tabletId: Int = -1,
-    @SerializedName("ememorialNo")
-    var ememorialNo: Int? = null,
+    @SerializedName("memorialNo")
+    var memorialNo: Int? = null,
     @SerializedName("nation")
     var nation: String = "",
     @SerializedName("sex")
@@ -105,34 +108,34 @@ data class SingleMemorialRequest(
     var relationship: String = "",
     @SerializedName("epitaph")
     var epitaph: String = ""
-) : BaseRequest("/prod-api/user/ememorial/single-ememorial")
+) : BaseRequest("/prod-api/user/memorial/single-memorial")
 
 data class MoreMemorialRequest(
     @SerializedName("name")
     var name: String = "",
-    @SerializedName("ememorialId")
-    var ememorialId: Int = -1,
+    @SerializedName("memorialId")
+    var memorialId: Int = -1,
     @SerializedName("hallId")
     var hallId: Int = -1,
     @SerializedName("tabletId")
     var tabletId: Int = -1,
-    @SerializedName("ememorialNo")
-    var ememorialNo: Int? = null,
+    @SerializedName("memorialNo")
+    var memorialNo: Int? = null,
     @SerializedName("theme")
     var theme: String = "",
     @SerializedName("monumentMaker")
     var monumentMaker: String = "",
     @SerializedName("ancestralHome")
     var ancestralHome: String = "",
-) : BaseRequest("/prod-api/user/ememorial/family-ememorial")
+) : BaseRequest("/prod-api/user/memorial/family-memorial")
 
 data class DoubleMemorialRequest(
     @SerializedName("name")
     var name: String = "",
-    @SerializedName("ememorialId")
-    var ememorialId: Int = -1,
-    @SerializedName("ememorialNo")
-    var ememorialNo: Int? = null,
+    @SerializedName("memorialId")
+    var memorialId: Int = -1,
+    @SerializedName("memorialNo")
+    var memorialNo: Int? = null,
     @SerializedName("hallId")
     var hallId: Int = -1,
     @SerializedName("relationship")
@@ -166,7 +169,7 @@ data class DoubleMemorialRequest(
     @SerializedName("tabletId2")
     var tabletId2: Int = -1,
 
-) : BaseRequest("/prod-api/user/ememorial/double-ememorial")
+) : BaseRequest("/prod-api/user/memorial/double-memorial")
 
 data class ChooseHallRequest(
     @SerializedName("type")
@@ -203,16 +206,16 @@ data class MyOredrCarToUse(
 ) : BaseRequest("$REQUESTCARPATH/myorders")
 
 data class SingleDetailRequest(
-    @SerializedName("ememorialNo")
-    var ememorialNo: Int
-) : BaseRequest("/prod-api/user/ememorial/single-ememorial/$ememorialNo")
+    @SerializedName("memorialNo")
+    var memorialNo: Int
+) : BaseRequest("/prod-api/user/memorial/single-memorial/$memorialNo")
 
 data class MoreDetailRequest(
-    @SerializedName("ememorialNo")
-    var ememorialNo: Int
-) : BaseRequest("/prod-api/user/ememorial/family-ememorial/$ememorialNo")
+    @SerializedName("memorialNo")
+    var memorialNo: Int
+) : BaseRequest("/prod-api/user/memorial/family-memorial/$memorialNo")
 
 data class TwoDetailRequest(
-    @SerializedName("ememorialNo")
-    var ememorialNo: Int
-) : BaseRequest("/prod-api/user/ememorial/double-ememorial/$ememorialNo")
+    @SerializedName("memorialNo")
+    var memorialNo: Int
+) : BaseRequest("/prod-api/user/memorial/double-memorial/$memorialNo")

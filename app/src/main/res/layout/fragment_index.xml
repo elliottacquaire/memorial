@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.youth.banner.Banner
         android:id="@+id/banner"
         android:layout_width="match_parent"
-        android:layout_height="150dp"/>
+        android:layout_height="150dp" />
 
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/smartRefreshLayout"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mListView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp" />
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
 
     <RelativeLayout
         android:id="@+id/emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="150dp"
         android:visibility="gone">
 
         <ImageView
@@ -36,5 +32,16 @@
             android:layout_centerInParent="true"
             android:src="@drawable/icon_blank" />
     </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatCreate"
+        android:layout_gravity="right|bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="50dp"
+        android:scaleType="center"
+        android:src="@mipmap/add"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

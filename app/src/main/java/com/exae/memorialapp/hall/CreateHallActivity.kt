@@ -316,7 +316,7 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
             val name = data?.getStringExtra("name") ?: ""
             val ids = data?.getIntExtra("ids",-1) ?: -1
             binding.layoutMoreView.tvMemorialStyle.text = name
-            requestMore.ememorialId = ids
+            requestMore.memorialId = ids
         } else if (requestCode == requestCodeHallStyle && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
             val ids = data?.getIntExtra("ids",-1) ?: -1
@@ -331,7 +331,7 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
             val name = data?.getStringExtra("name") ?: ""
             val ids = data?.getIntExtra("ids",-1) ?: -1
             binding.layoutOneView.tvMemorialStyle.text = name
-            requestOne.ememorialId = ids
+            requestOne.memorialId = ids
         } else if (requestCode == requestCodeHallStyleOne && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
             val ids = data?.getIntExtra("ids",-1) ?: -1
@@ -346,7 +346,7 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
             val name = data?.getStringExtra("name") ?: ""
             val ids = data?.getIntExtra("ids",-1) ?: -1
             binding.layoutTwoView.tvMemorialStyle.text = name
-            requestDouble.ememorialId = ids
+            requestDouble.memorialId = ids
         } else if (requestCode == requestCodeHallStyleDouble && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
             val ids = data?.getIntExtra("ids",-1) ?: -1

@@ -34,10 +34,33 @@ class BannerModel(
     val linkUrl: String = ""
 )
 
+class AttentionListResponse : ProtocolResponse<ArrayList<AttentionListModel>>()
+class AttentionListModel(
+    @SerializedName("memorialNo")
+    val memorialNo: Int,
+    @SerializedName("type")
+    val type: String? = "",
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("picUrlPrefix")
+    val picUrlPrefix: String = "",
+    @SerializedName("thumbPicUrl")
+    val thumbPicUrl: String = "",
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("ownerUser")
+    val ownerUser: Int? = null,
+    @SerializedName("worshipValue")
+    val worshipValue: Int? = null,
+    @SerializedName("ownerNickName")
+    val ownerNickName: String = ""
+)
+
+
 class ManageMemorialResponse : ProtocolResponse<ArrayList<ManageMemorialModel>>()
 class ManageMemorialModel(
-    @SerializedName("ememorialNo")
-    val ememorialNo: Int,
+    @SerializedName("memorialNo")
+    val memorialNo: Int,
     @SerializedName("type")
     val type: String?,
     @SerializedName("name")

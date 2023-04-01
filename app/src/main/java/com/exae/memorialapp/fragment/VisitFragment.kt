@@ -16,7 +16,15 @@ import com.bumptech.glide.request.RequestOptions
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.databinding.FragmentTestDriveBinding
+import com.exae.memorialapp.home.CommentFragment
+import com.exae.memorialapp.home.HomeFragment
+import com.exae.memorialapp.home.IntroduceFragment
+import com.exae.memorialapp.home.MemorialFragment
+import com.exae.memorialapp.home.WorshipFragment
 import com.exae.memorialapp.viewmodel.PosTestDriveModel
+import com.exae.memorialapp.visit.AgreeHistoryFragment
+import com.exae.memorialapp.visit.GoVisitFragment
+import com.exae.memorialapp.visit.VisitHistoryFragment
 import com.google.android.material.tabs.TabLayout
 import com.scwang.smart.refresh.header.BezierRadarHeader
 import com.youth.banner.adapter.BannerImageAdapter
@@ -31,9 +39,6 @@ class VisitFragment : CoreFragment(R.layout.fragment_test_drive) {
 
     private var _binding: FragmentTestDriveBinding? = null
     private val binding get() = _binding!!
-
-//    @Inject
-//    lateinit var listAdapter: PosTestDriveAdapter
 
     private var isHistory = 0 //历史
     private var status = -1
@@ -117,18 +122,16 @@ class VisitFragment : CoreFragment(R.layout.fragment_test_drive) {
         return object :
             FragmentStatePagerAdapter(childFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             override fun getItem(position: Int): Fragment {
-                return MessageFragment().apply {
-//                        arguments = Bundle().apply {
-//                            putInt("flowType",productFlowType(position))
-//                            putInt("isHistory", HISTORY_ZERO)
-//                            putInt("currentStepStatus",FLOW_STATUS_IN_PROCESS)
-//                        }
+                return when (position) {
+                    0 -> GoVisitFragment.newInstance("memorialNo", "")
+                    1 -> VisitHistoryFragment.newInstance("memorialNo", "")
+                    2 -> AgreeHistoryFragment.newInstance("memorialNo", "")
+                    else -> MessageFragment()
                 }
-
             }
 
             override fun getCount(): Int {
-                return 4
+                return 3
             }
         }
     }

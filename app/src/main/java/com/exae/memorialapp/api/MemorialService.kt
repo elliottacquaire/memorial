@@ -1,5 +1,6 @@
 package com.exae.memorialapp.api
 
+import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
@@ -31,6 +32,14 @@ interface MemorialService {
             encoded = true
         ) url: String
     ): BannerResponse
+
+    @GET("{path}")
+    suspend fun attentionRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String
+    ): AttentionListResponse
 
     @GET("{path}")
     suspend fun manageMerioRequest(

@@ -3,6 +3,7 @@ package com.exae.memorialapp.repository
 import com.exae.memorialapp.animation.RetrofitAnno
 import com.exae.memorialapp.api.MemorialService
 import com.exae.memorialapp.api.VerificationCodeService
+import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
 import com.exae.memorialapp.bean.LoginResultResponse
@@ -12,6 +13,7 @@ import com.exae.memorialapp.bean.ResultBean
 import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
 import com.exae.memorialapp.bean.UploadImageResponse
+import com.exae.memorialapp.requestData.AttentionListRequest
 import com.exae.memorialapp.requestData.BannerRequest
 import com.exae.memorialapp.requestData.BaseRequest
 import com.exae.memorialapp.requestData.ChooseHallRequest
@@ -40,6 +42,13 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
                 .bannerRequest(request.path)
+        )
+    }
+
+    suspend fun attentionList(request: AttentionListRequest): ResultBean<AttentionListResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .attentionRequest(request.path)
         )
     }
 

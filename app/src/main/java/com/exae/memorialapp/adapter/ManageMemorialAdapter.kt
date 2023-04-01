@@ -17,7 +17,7 @@ class ManageMemorialAdapter @Inject constructor() :
     BaseQuickAdapter<ManageMemorialModel, BaseViewHolder>(R.layout.item_manage_memorial)  {
 
     override fun convert(holder: BaseViewHolder, item: ManageMemorialModel) {
-        holder.setText(R.id.hallNum, "馆号：" + item.ememorialNo.toString())
+        holder.setText(R.id.hallNum, "馆号：" + item.memorialNo.toString())
             .setText(R.id.hallName, item.name)
             .setText(R.id.hallTime, "建馆时间：" + getSplitTime(item.createTime))
             .setText(R.id.hallLevel, "Lv" + item.type)

@@ -71,8 +71,8 @@ class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() 
                     tvEpitaph.setText(result?.epitaph ?: "")
                     tvAddress.setText(result?.address ?: "")
                     requestOne.avatarPicUrl = result?.avatarPicUrl ?: ""
-                    requestOne.ememorialNo = result?.ememorialNo
-                    requestOne.ememorialId = result?.ememorialId ?: -1
+                    requestOne.memorialNo = result?.ememorialNo
+                    requestOne.memorialId = result?.ememorialId ?: -1
                     requestOne.hallId = result?.hallId ?: -1
                     requestOne.tabletId = result?.tabletId ?: -1
 
@@ -306,7 +306,7 @@ class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() 
             val name = data?.getStringExtra("name") ?: ""
             val ids = data?.getIntExtra("ids", -1) ?: -1
             binding.tvMemorialStyle.text = name
-            requestOne.ememorialId = ids
+            requestOne.memorialId = ids
         } else if (requestCode == requestCodeHallStyleOne && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
             val ids = data?.getIntExtra("ids", -1) ?: -1

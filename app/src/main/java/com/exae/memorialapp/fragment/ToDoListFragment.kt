@@ -4,35 +4,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.PagerAdapter
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.exae.memorialapp.adapter.AttentionMemorialAdapter
 import com.exae.memorialapp.base.BaseFragment
 import com.exae.memorialapp.base.handleResponse
-import com.exae.memorialapp.common.ShareUtil
+import com.exae.memorialapp.bean.AttentionListModel
 import com.exae.memorialapp.databinding.FragmentIndexBinding
-import com.exae.memorialapp.utils.ToastUtil
 import com.exae.memorialapp.viewmodel.MemorialModel
-import com.exae.memorialapp.viewmodel.PosLoginModel
-import com.google.android.material.tabs.TabLayout
 import com.orhanobut.logger.Logger
-import com.scwang.smart.refresh.header.BezierRadarHeader
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
 import com.youth.banner.indicator.CircleIndicator
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint //1
-class ToDoListFragment : BaseFragment<FragmentIndexBinding>() {
+class ToDoListFragment : BaseFragment<FragmentIndexBinding>(), OnItemClickListener {
 
     //    private var _binding: FragmentIndexBinding? = null
 //    private val binding get() = _binding!!
@@ -46,6 +41,8 @@ class ToDoListFragment : BaseFragment<FragmentIndexBinding>() {
 //        return binding.root
 //    }
 
+    @Inject
+    lateinit var listAdapter: AttentionMemorialAdapter
 
     val bannerList = mutableListOf<String>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,54 +51,56 @@ class ToDoListFragment : BaseFragment<FragmentIndexBinding>() {
 //        bannerList.add("https://ss3.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/0824ab18972bd40797d8db1179899e510fb3093a.jpg")
 //        bannerList.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2647888545,3751969263&fm=224&gp=0.jpg")
         viewModel.bannerRequest()
-
-        viewModel.bannerResponse.observe(this, Observer { resources ->
-            handleResponse(resources, {
-//                val roles = it.data?.roles
-//                if (!roles.isNullOrEmpty()) {
-//                    userRole = Gson().toJson(roles)
-//                }
-//                longViewModel.setUserRole(userRole)
-//                dismissLoading()
-//                ToastUtil.showCenter("成功")
-                it.data?.forEach { item ->
-                    bannerList.clear()
-                    bannerList.add(item.picUrl ?: "")
-                }
-                binding.banner.adapter.setDatas(bannerList)
-//                viewModel.handleLoginResult(it.data)
-//                ShareUtil.putToken("token-sssss")
-//                ARouter.getInstance()
-//                    .build("/app/main")
-//                    .navigation()
-
-//                finish()
-//                judgeRole(userRole)
-//                userPermissionJump()
-            },
-                {
-//                    dismissLoading()
-                }
-            )
-        })
-
+        requestNetData()
+        listAdapter.setOnItemClickListener(this)
         binding.apply {
-            smartRefreshLayout.setRefreshHeader(BezierRadarHeader(context))
-
-            mListView.layoutManager = LinearLayoutManager(context)
-
-//        mListView.adapter = listAdapter
-            //下拉刷新
-            smartRefreshLayout.setOnRefreshListener {
-                requestNetData()
-                smartRefreshLayout.finishRefresh(true)
-            }
+//            smartRefreshLayout.setRefreshHeader(BezierRadarHeader(context))
+            mListView.layoutManager = GridLayoutManager(context, 2)
+            mListView.adapter = listAdapter
+//            smartRefreshLayout.setOnRefreshListener {
+//                requestNetData()
+//                smartRefreshLayout.finishRefresh(true)
+//            }
             emptyView.setOnClickListener {
                 requestNetData()
             }
         }
 
+        viewModel.bannerResponse.observe(viewLifecycleOwner, Observer { resources ->
+            handleResponse(resources, {
+                it.data?.forEach { item ->
+                    bannerList.clear()
+                    bannerList.add(item.picUrl ?: "")
+                }
+                binding.banner.adapter.setDatas(bannerList)
+            },
+                {
+
+                }
+            )
+        })
+
+        viewModel.attentionListResponse.observe(viewLifecycleOwner, Observer { resources ->
+            handleResponse(resources) {
+                if (it.data != null && it.data.isNotEmpty()) {
+                    listAdapter.data.clear()
+                    listAdapter.data.addAll(it.data)
+                    listAdapter.notifyDataSetChanged()
+                    listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
+                    binding.emptyView.visibility = View.GONE
+                    binding.mListView.visibility = View.VISIBLE
+                } else {
+                    binding.emptyView.visibility = View.VISIBLE
+                    binding.mListView.visibility = View.GONE
+                }
+            }
+        })
+
+
         with(binding) {
+            floatCreate.setOnClickListener {
+                ARouter.getInstance().build("/app/create/hall").navigation(requireContext())
+            }
             banner.setAdapter(object : BannerImageAdapter<String>(bannerList) {
                 override fun onBindView(
                     holder: BannerImageHolder?,
@@ -119,13 +118,12 @@ class ToDoListFragment : BaseFragment<FragmentIndexBinding>() {
             })
                 .addBannerLifecycleObserver(requireActivity())
                 .indicator = CircleIndicator(requireContext())
-
         }
 
     }
 
     private fun requestNetData() {
-
+        viewModel.attentionListRequest()
     }
 
     override fun getViewBinding(
@@ -149,5 +147,14 @@ class ToDoListFragment : BaseFragment<FragmentIndexBinding>() {
     override fun onDestroyView() {
         super.onDestroyView()
 //        binding.banner.destroy()
+    }
+
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val item = adapter.data[position] as AttentionListModel
+        ARouter.getInstance().build("/app/home")
+            .withInt("memorialNo", item.memorialNo)
+            .withString("memorialName", item.name)
+            .withString("memorialType", item.type)
+            .navigation(requireContext())
     }
 }

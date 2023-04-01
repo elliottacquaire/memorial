@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    tools:context=".visit.GoVisitFragment">
+
+    <TextView
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:text="请输入邀请码后点击确定" />
+
+    <EditText
+        android:id="@+id/tvAddress"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/chip_kuang_bg"
+        android:hint="请输入邀请码"
+        android:layout_marginTop="25dp"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:textColor="#959595"
+        android:textColorHint="#777777" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="说明：确定申请访问后，此邀请码对应纪念馆的创建者将收到您的访问申请，他同意授权后，您将自动关注该馆并拥有该馆的访问权限。" />
+
+    <Button
+        android:id="@+id/butCreateOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/chip_check_bg"
+        android:text="拜访申请"
+        android:textColor="@color/white" />
+
+</LinearLayout>

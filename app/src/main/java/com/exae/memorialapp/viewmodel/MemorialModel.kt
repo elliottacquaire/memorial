@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.exae.memorialapp.base.errorHandle
 import com.exae.memorialapp.base.launch
+import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
@@ -13,6 +14,7 @@ import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
 import com.exae.memorialapp.bean.UploadImageResponse
 import com.exae.memorialapp.repository.MemorialRepository
+import com.exae.memorialapp.requestData.AttentionListRequest
 import com.exae.memorialapp.requestData.BannerRequest
 import com.exae.memorialapp.requestData.ChooseHallRequest
 import com.exae.memorialapp.requestData.ChooseMemorialRequest
@@ -48,6 +50,18 @@ class MemorialModel @Inject constructor(
             },
             {
                 bannerResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var attentionListResponse = MutableLiveData<ResultBean<AttentionListResponse>>()
+    fun attentionListRequest() {
+        launch(
+            {
+                attentionListResponse.value = repository.attentionList(AttentionListRequest(""))
+            },
+            {
+                attentionListResponse.value = errorHandle(it)
             }
         )
     }
