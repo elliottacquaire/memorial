@@ -15,15 +15,13 @@
         android:id="@+id/mListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="150dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp" />
+        android:layout_marginTop="170dp" />
 
     <RelativeLayout
         android:id="@+id/emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="170dp"
         android:visibility="gone">
 
         <ImageView
@@ -35,13 +33,12 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatCreate"
-        android:layout_gravity="right|bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="50dp"
         android:scaleType="center"
-        android:src="@mipmap/add"
-        />
+        android:src="@mipmap/add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

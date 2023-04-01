@@ -64,7 +64,7 @@ class HomeFragment : CoreFragment(R.layout.fragment_home) {
                     tvName.text = result?.name ?: ""
                     tvEpitaph.text = result?.epitaph ?: ""
                     Glide.with(requireActivity())
-                        .load(result?.picUrlPrefix + result?.ememorialPicUrl)
+                        .load(result?.picUrlPrefix + result?.memorialPicUrl)
                         .into(binding.memorialPic)
 
                     Glide.with(requireActivity())

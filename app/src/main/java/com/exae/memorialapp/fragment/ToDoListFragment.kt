@@ -45,6 +45,8 @@ class ToDoListFragment : BaseFragment<FragmentIndexBinding>(), OnItemClickListen
     lateinit var listAdapter: AttentionMemorialAdapter
 
     val bannerList = mutableListOf<String>()
+
+    val bannerListss = mutableListOf<AttentionListModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        bannerList.add("https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/a6efce1b9d16fdfabf36882ab08f8c5495ee7b9f.jpg")
@@ -90,12 +92,17 @@ class ToDoListFragment : BaseFragment<FragmentIndexBinding>(), OnItemClickListen
                     binding.emptyView.visibility = View.GONE
                     binding.mListView.visibility = View.VISIBLE
                 } else {
-                    binding.emptyView.visibility = View.VISIBLE
-                    binding.mListView.visibility = View.GONE
+//                    binding.emptyView.visibility = View.VISIBLE
+//                    binding.mListView.visibility = View.GONE
+                    bannerListss.add(AttentionListModel(2,"0","name0",""))
+                    bannerListss.add(AttentionListModel(1,"1","name1",""))
+                    bannerListss.add(AttentionListModel(3,"2","name2",""))
+                    listAdapter.data.clear()
+                    listAdapter.data.addAll(bannerListss)
+                    listAdapter.notifyDataSetChanged()
                 }
             }
         })
-
 
         with(binding) {
             floatCreate.setOnClickListener {

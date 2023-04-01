@@ -31,7 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @Route(path = "/app/single/detail")
 class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() {
 
-//    @JvmField
+    //    @JvmField
 //    @Autowired(name = "memorialNo")
 //    var memorialNo = "ss"
     private var chooseType = HallType.ONE_HALL.type
@@ -43,7 +43,7 @@ class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        ARouter.getInstance().inject(this)
-        setToolTitle("纪念馆资料")
+//        setToolTitle("纪念馆资料")
         setBackState(true)
         memorialNo = intent.getIntExtra("memorialNo", -1)
         viewModel.getSingleMemorialDetailRequest(memorialNo)
@@ -54,16 +54,17 @@ class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() 
                 val result = it.data
                 resultData = it.data
                 dismissLoading()
+                setToolTitle("${result?.name}纪念馆详情")
                 binding.apply {
                     tvBrithData.text = CommonUtils.getSplitTime(result?.birthDate ?: "")
                     tvDeathData.text = CommonUtils.getSplitTime(result?.leaveDate ?: "")
                     edtPersonName.setText(result?.name ?: "")
-                    tvMemorialStyle.text = result?.ememorialName
+                    tvMemorialStyle.text = result?.memorialName
                     tvHallStyle.text = result?.hallName
                     tvTableStyle.text = result?.tabletName
-                    when(result?.sex){
-                        "男" -> man.isChecked = true
-                        "女" -> woman.isChecked = true
+                    when (result?.sex) {
+                        "0" -> man.isChecked = true
+                        "1" -> woman.isChecked = true
                         else -> secret.isChecked = true
                     }
                     tvNation.text = result?.nation ?: ""
@@ -71,8 +72,8 @@ class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() 
                     tvEpitaph.setText(result?.epitaph ?: "")
                     tvAddress.setText(result?.address ?: "")
                     requestOne.avatarPicUrl = result?.avatarPicUrl ?: ""
-                    requestOne.memorialNo = result?.ememorialNo
-                    requestOne.memorialId = result?.ememorialId ?: -1
+                    requestOne.memorialNo = result?.memorialNo
+                    requestOne.memorialId = result?.memorialId ?: -1
                     requestOne.hallId = result?.hallId ?: -1
                     requestOne.tabletId = result?.tabletId ?: -1
 
@@ -100,6 +101,7 @@ class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() 
         viewModel.uploadImageRequest(chooseImageUrl)
         showLoading()
     }
+
     private fun upLoadImgResult() {
         viewModel.uploadImageResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
@@ -226,7 +228,7 @@ class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() 
             resultData?.nation == binding.tvNation.text.trim().toString() &&
             (resultData?.birthDate ?: "") == binding.tvBrithData.text.trim().toString() &&
             (resultData?.leaveDate ?: "") == binding.tvDeathData.text.trim().toString() &&
-            resultData?.ememorialName == binding.tvMemorialStyle.text.trim().toString() &&
+            resultData?.memorialName == binding.tvMemorialStyle.text.trim().toString() &&
             resultData?.hallName == binding.tvHallStyle.text.trim().toString() &&
             resultData?.tabletName == binding.tvTableStyle.text.trim().toString() &&
 
@@ -247,18 +249,18 @@ class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() 
         }
     }
 
-    private fun confirmDialog(){
+    private fun confirmDialog() {
         XPopup.Builder(this)
             .hasStatusBarShadow(false)
             .hasNavigationBar(false)
             .isDestroyOnDismiss(true)
             .isDarkTheme(true)
-            .asConfirm("温馨提示","退出当前页将不保存已修改的内容，\n确定返回吗？"){
+            .asConfirm("温馨提示", "退出当前页将不保存已修改的内容，\n确定返回吗？") {
                 finish()
             }.show()
     }
 
-    private fun chooseNation(){
+    private fun chooseNation() {
         binding.tvNation.setOnClickListener {
             var position = -1
             nationList.forEachIndexed { index, s ->
@@ -268,7 +270,7 @@ class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() 
                 }
             }
             val pop = XPopup.Builder(this)
-                .isDarkTheme(true)
+                .isDarkTheme(false)
                 .hasShadowBg(false)
                 .popupHeight(1200)
                 .isViewMode(true)
@@ -279,7 +281,7 @@ class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() 
         }
     }
 
-    private fun chooseRelationShip(){
+    private fun chooseRelationShip() {
         binding.tvRelation.setOnClickListener {
             var position = -1
             shipList.forEachIndexed { index, s ->
@@ -289,12 +291,12 @@ class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() 
                 }
             }
             val pop = XPopup.Builder(this)
-                .isDarkTheme(true)
+                .isDarkTheme(false)
                 .hasShadowBg(true)
                 .popupHeight(1200)
                 .isViewMode(true)
                 .isDestroyOnDismiss(true)
-                .asBottomList("请选择一项",shipList,null,position) { _, text ->
+                .asBottomList("请选择一项", shipList, null, position) { _, text ->
                     binding.tvRelation.text = text
                 }.show()
         }

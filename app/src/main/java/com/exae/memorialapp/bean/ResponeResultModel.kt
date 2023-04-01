@@ -128,12 +128,12 @@ class SingleMemorialModel(
     var avatarPicUrl: String? = "",
     @SerializedName("address")
     var address: String = "",
-    @SerializedName("ememorialId")
-    var ememorialId: Int = -1,
-    @SerializedName("ememorialName")
-    var ememorialName: String = "",
-    @SerializedName("ememorialPicUrl")
-    var ememorialPicUrl: String = "",
+    @SerializedName("memorialId")
+    var memorialId: Int = -1,
+    @SerializedName("memorialName")
+    var memorialName: String = "",
+    @SerializedName("memorialPicUrl")
+    var memorialPicUrl: String = "",
     @SerializedName("hallId")
     var hallId: Int = -1,
     @SerializedName("hallName")
@@ -146,8 +146,8 @@ class SingleMemorialModel(
     var tabletName: String = "",
     @SerializedName("tabletPicUrl")
     var tabletPicUrl: String = "",
-    @SerializedName("ememorialNo")
-    var ememorialNo: Int = -1,
+    @SerializedName("memorialNo")
+    var memorialNo: Int = -1,
     @SerializedName("nation")
     var nation: String = "",
     @SerializedName("sex")
@@ -180,12 +180,12 @@ class MoreMemorialModel(
     var avatarPicUrl: String? = "",
     @SerializedName("address")
     var address: String = "",
-    @SerializedName("ememorialId")
-    var ememorialId: Int = -1,
-    @SerializedName("ememorialName")
-    var ememorialName: String = "",
-    @SerializedName("ememorialPicUrl")
-    var ememorialPicUrl: String = "",
+    @SerializedName("memorialId")
+    var memorialId: Int = -1,
+    @SerializedName("memorialName")
+    var memorialName: String = "",
+    @SerializedName("memorialPicUrl")
+    var memorialPicUrl: String = "",
     @SerializedName("hallId")
     var hallId: Int = -1,
     @SerializedName("hallName")
@@ -198,8 +198,8 @@ class MoreMemorialModel(
     var tabletName: String = "",
     @SerializedName("tabletPicUrl")
     var tabletPicUrl: String = "",
-    @SerializedName("ememorialNo")
-    var ememorialNo: Int = -1,
+    @SerializedName("memorialNo")
+    var memorialNo: Int = -1,
     @SerializedName("picUrlPrefix")
     var picUrlPrefix: String = "",
     @SerializedName("thumbPicUrl")
@@ -254,20 +254,20 @@ class DoubleMemorialModel(
     var relationship: String = "",
     @SerializedName("description")
     var description: String = "",
-    @SerializedName("ememorialId")
-    var ememorialId: Int = -1,
-    @SerializedName("ememorialName")
-    var ememorialName: String = "",
-    @SerializedName("ememorialPicUrl")
-    var ememorialPicUrl: String = "",
+    @SerializedName("memorialId")
+    var memorialId: Int = -1,
+    @SerializedName("memorialName")
+    var memorialName: String = "",
+    @SerializedName("memorialPicUrl")
+    var memorialPicUrl: String = "",
     @SerializedName("hallId")
     var hallId: Int = -1,
     @SerializedName("hallName")
     var hallName: String = "",
     @SerializedName("hallPicUrl")
     var hallPicUrl: String = "",
-    @SerializedName("ememorialNo")
-    var ememorialNo: Int = -1,
+    @SerializedName("memorialNo")
+    var memorialNo: Int = -1,
     @SerializedName("picUrlPrefix")
     var picUrlPrefix: String = "",
     @SerializedName("thumbPicUrl")
