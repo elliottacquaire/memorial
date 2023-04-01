@@ -63,9 +63,18 @@ class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() 
                     tvHallStyle.text = result?.hallName
                     tvTableStyle.text = result?.tabletName
                     when (result?.sex) {
-                        "0" -> man.isChecked = true
-                        "1" -> woman.isChecked = true
-                        else -> secret.isChecked = true
+                        "0" -> {
+                            man.isChecked = true
+                            requestOne.sex = "0"
+                        }
+                        "1" -> {
+                            woman.isChecked = true
+                            requestOne.sex = "1"
+                        }
+                        else -> {
+                            secret.isChecked = true
+                            requestOne.sex = "2"
+                        }
                     }
                     tvNation.text = result?.nation ?: ""
                     tvRelation.text = result?.relationship ?: ""
