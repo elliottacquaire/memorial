@@ -107,9 +107,18 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
             val pop = XPopup.Builder(this)
                 .asBottomList("请选择一项", arrayOf("男", "女", "保密")) { position, text ->
                     when (position) {
-                        0 -> binding.layoutTwoView.tvGender.text = "男"
-                        1 -> binding.layoutTwoView.tvGender.text = "女"
-                        2 -> binding.layoutTwoView.tvGender.text = "保密"
+                        0 -> {
+                            binding.layoutTwoView.tvGender.text = "男"
+                            requestDouble.sex1 = "0"
+                        }
+                        1 -> {
+                            binding.layoutTwoView.tvGender.text = "女"
+                            requestDouble.sex1 = "1"
+                        }
+                        2 -> {
+                            binding.layoutTwoView.tvGender.text = "保密"
+                            requestDouble.sex1 = "2"
+                        }
                     }
                 }.show()
         }
@@ -117,9 +126,18 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
             val pop = XPopup.Builder(this)
                 .asBottomList("请选择一项", arrayOf("男", "女", "保密")) { position, text ->
                     when (position) {
-                        0 -> binding.layoutTwoView.tvGender1.text = "男"
-                        1 -> binding.layoutTwoView.tvGender1.text = "女"
-                        2 -> binding.layoutTwoView.tvGender1.text = "保密"
+                        0 -> {
+                            binding.layoutTwoView.tvGender1.text = "男"
+                            requestDouble.sex1 = "0"
+                        }
+                        1 -> {
+                            binding.layoutTwoView.tvGender1.text = "女"
+                            requestDouble.sex1 = "1"
+                        }
+                        2 -> {
+                            binding.layoutTwoView.tvGender1.text = "保密"
+                            requestDouble.sex1 = "2"
+                        }
                     }
                 }.show()
         }

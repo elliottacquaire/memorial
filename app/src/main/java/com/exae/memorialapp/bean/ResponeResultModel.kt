@@ -223,7 +223,7 @@ class DoubleMemorialModel(
     @SerializedName("leaveDate1")
     var leaveDate1: String? = "",
     @SerializedName("tabletId1")
-    var tabletId1: String? = "",
+    var tabletId1: Int? = -1,
     @SerializedName("tabletName1")
     var tabletName1: String? = "",
     @SerializedName("tabletPicUrl1")
@@ -240,7 +240,7 @@ class DoubleMemorialModel(
     @SerializedName("leaveDate2")
     var leaveDate2: String? = "",
     @SerializedName("tabletId2")
-    var tabletId2: String? = "",
+    var tabletId2: Int? = -1,
     @SerializedName("tabletName2")
     var tabletName2: String? = "",
     @SerializedName("tabletPicUrl2")
