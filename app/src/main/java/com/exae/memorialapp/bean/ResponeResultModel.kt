@@ -164,6 +164,12 @@ class SingleMemorialModel(
     var worshipValue: Int = -1,
     @SerializedName("ownerUser")
     var ownerUser: Int = -1,
+    @SerializedName("editable")
+    var editable: Boolean = false,
+    @SerializedName("invitationCode")
+    var invitationCode: String = "",
+    @SerializedName("attentionStatus")
+    var attentionStatus: Boolean = false,
 )
 
 class MoreMemorialResponse : ProtocolResponse<MoreMemorialModel>()
@@ -210,6 +216,12 @@ class MoreMemorialModel(
     var worshipValue: Int = -1,
     @SerializedName("ownerUser")
     var ownerUser: Int = -1,
+    @SerializedName("editable")
+    var editable: Boolean = false,
+    @SerializedName("invitationCode")
+    var invitationCode: String = "",
+    @SerializedName("attentionStatus")
+    var attentionStatus: Boolean = false,
 )
 
 class DoubleMemorialResponse : ProtocolResponse<DoubleMemorialModel>()
@@ -278,4 +290,10 @@ class DoubleMemorialModel(
     var worshipValue: Int = -1,
     @SerializedName("ownerUser")
     var ownerUser: Int = -1,
+    @SerializedName("editable")
+    var editable: Boolean = false,
+    @SerializedName("invitationCode")
+    var invitationCode: String = "",
+    @SerializedName("attentionStatus")
+    var attentionStatus: Boolean = false,
 )

@@ -2,6 +2,7 @@ package com.exae.memorialapp.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -92,6 +93,12 @@ class SingleDetailActivity : UploadImageActivity<ActivitySingleDetailBinding>() 
                         .error(R.mipmap.headdd)
                         .apply(RequestOptions.bitmapTransform(CircleCrop()))
                         .into(binding.headImg)
+
+                    if (result?.editable == true) {
+                        butCreateOne.visibility = View.VISIBLE
+                    } else {
+                        butCreateOne.visibility = View.GONE
+                    }
                 }
             },
                 {

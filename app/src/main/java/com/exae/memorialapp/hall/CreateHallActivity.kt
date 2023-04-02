@@ -97,8 +97,30 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
             requestDouble.leaveDate1 = binding.layoutTwoView.tvDeathData.text.trim().toString()
             requestDouble.leaveDate2 = binding.layoutTwoView.tvDeathData1.text.trim().toString()
 
-            requestDouble.sex1 = binding.layoutTwoView.tvGender.text.trim().toString()
-            requestDouble.sex2 = binding.layoutTwoView.tvGender1.text.trim().toString()
+            val sex1 = binding.layoutTwoView.tvGender.text.trim().toString()
+            val sex2 = binding.layoutTwoView.tvGender1.text.trim().toString()
+            when (sex1) {
+                "男" -> {
+                    requestDouble.sex1 = "0"
+                }
+                "女" -> {
+                    requestDouble.sex1 = "1"
+                }
+                else -> {
+                    requestDouble.sex1 = "2"
+                }
+            }
+            when (sex2) {
+                "男" -> {
+                    requestDouble.sex2 = "0"
+                }
+                "女" -> {
+                    requestDouble.sex2 = "1"
+                }
+                else -> {
+                    requestDouble.sex2 = "2"
+                }
+            }
 
             viewModel.twoMemorialRequest(requestDouble)
             showLoading()
@@ -128,15 +150,15 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
                     when (position) {
                         0 -> {
                             binding.layoutTwoView.tvGender1.text = "男"
-                            requestDouble.sex1 = "0"
+                            requestDouble.sex2 = "0"
                         }
                         1 -> {
                             binding.layoutTwoView.tvGender1.text = "女"
-                            requestDouble.sex1 = "1"
+                            requestDouble.sex2 = "1"
                         }
                         2 -> {
                             binding.layoutTwoView.tvGender1.text = "保密"
-                            requestDouble.sex1 = "2"
+                            requestDouble.sex2 = "2"
                         }
                     }
                 }.show()

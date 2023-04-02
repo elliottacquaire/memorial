@@ -239,7 +239,7 @@ object CommonUtils {
     }
 
     fun getSplitTime(time: String): String {
-        if (time.isEmpty() || time.length < 11) return ""
+        if (time.isEmpty() || time.length < 10) return ""
         return time.substring(0, 10)
     }
 

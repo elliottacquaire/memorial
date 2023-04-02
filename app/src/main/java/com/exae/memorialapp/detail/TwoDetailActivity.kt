@@ -2,6 +2,7 @@ package com.exae.memorialapp.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -116,6 +117,11 @@ class TwoDetailActivity : UploadImageActivity<ActivityTwoDetailBinding>() {
                         .apply(RequestOptions.bitmapTransform(CircleCrop()))
                         .into(binding.headImg1)
 
+                    if (result?.editable == true) {
+                        butCreateOne.visibility = View.VISIBLE
+                    } else {
+                        butCreateOne.visibility = View.GONE
+                    }
                 }
 
             },
@@ -162,8 +168,8 @@ class TwoDetailActivity : UploadImageActivity<ActivityTwoDetailBinding>() {
             requestDouble.leaveDate1 = binding.tvDeathData.text.trim().toString()
             requestDouble.leaveDate2 = binding.tvDeathData1.text.trim().toString()
 
-            requestDouble.sex1 = binding.tvGender.text.trim().toString()
-            requestDouble.sex2 = binding.tvGender1.text.trim().toString()
+//            requestDouble.sex1 = binding.tvGender.text.trim().toString()
+//            requestDouble.sex2 = binding.tvGender1.text.trim().toString()
 
             if (isChanged()) {
                 viewModel.twoMemorialModifyRequest(requestDouble)

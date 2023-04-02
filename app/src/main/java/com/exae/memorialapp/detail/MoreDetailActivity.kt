@@ -2,6 +2,7 @@ package com.exae.memorialapp.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -73,6 +74,13 @@ class MoreDetailActivity : PosBaseActivity<ActivityMoreDetailBinding>() {
                     .load(result?.picUrlPrefix + result?.memorialPicUrl)
                     .apply(RequestOptions.bitmapTransform(CircleCrop()))
                     .into(binding.styleImg)
+
+                if (result?.editable == true) {
+                    binding.butCreateOne.visibility = View.VISIBLE
+                } else {
+                    binding.butCreateOne.visibility = View.GONE
+                }
+
             },
                 {
                     dismissLoading()
