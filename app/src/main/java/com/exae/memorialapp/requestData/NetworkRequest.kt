@@ -66,6 +66,7 @@ data class FindCarToUse(
     @SerializedName("id")
     var id: Int = 0
 ) : BaseRequest("/api/v1/users/4")
+
 //发布车辆
 data class PublicCarRequest(
 //    @SerializedName("province")
@@ -169,7 +170,7 @@ data class DoubleMemorialRequest(
     @SerializedName("tabletId2")
     var tabletId2: Int = -1,
 
-) : BaseRequest("/prod-api/user/memorial/double-memorial")
+    ) : BaseRequest("/prod-api/user/memorial/double-memorial")
 
 data class ChooseHallRequest(
     @SerializedName("type")
@@ -185,12 +186,14 @@ data class ChooseMemorialRequest(
     @SerializedName("type")
     var type: Int
 ) : BaseRequest("/prod-api/memorial/listAll/$type")
+
 data class UploadImageRequest(
     @SerializedName("username")
     var phone: String = "",
     @SerializedName("password")
     var verify_code: String = ""
 ) : BaseRequest("/prod-api/common/uploadApp")
+
 data class FindOrder(
     @SerializedName("phone")
     var phone: String = "",
@@ -219,3 +222,27 @@ data class TwoDetailRequest(
     @SerializedName("memorialNo")
     var memorialNo: Int
 ) : BaseRequest("/prod-api/user/memorial/double-memorial/$memorialNo")
+
+data class DeleteMemorialRequest(
+    @SerializedName("memorialNo")
+    var memorialNo: Int
+) : BaseRequest("/prod-api/user/memorial/$memorialNo")
+
+data class ApplyMemorialRequest(
+    @SerializedName("invitationCode")
+    var applyCode: String
+) : BaseRequest("/prod-api/user/memorial/application/$applyCode")
+
+data class HandleApplyMemorialRequest(
+    @SerializedName("id")
+    var applyId: Int,
+    @SerializedName("status")
+    var status: Int,
+) : BaseRequest("/prod-api/user/memorial/application/$applyId/$status")
+
+data class ApplyMemorialListAllRequest(var code: String = "") :
+    BaseRequest("/prod-api/user/memorial/application/listAll")
+
+data class HandleApplyMemorialListAllRequest(var code: String = "") :
+    BaseRequest("/prod-api/user/memorial/audit/listAll")
+

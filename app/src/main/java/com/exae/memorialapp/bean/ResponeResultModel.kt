@@ -297,3 +297,30 @@ class DoubleMemorialModel(
     @SerializedName("attentionStatus")
     var attentionStatus: Boolean = false,
 )
+
+class DeleteMemorialResponse : ProtocolResponse<DeleteMemorialModel>()
+class DeleteMemorialModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("fileName")
+    val fileName: String?,
+    @SerializedName("url")
+    val url: String = ""
+)
+
+class ApplyHistoryListResponse : ProtocolResponse<ArrayList<ApplyListModel>>()
+class HandleApplyListResponse : ProtocolResponse<ArrayList<ApplyListModel>>()
+class ApplyListModel(
+    @SerializedName("memorialNo")
+    val memorialNo: Int,
+    @SerializedName("updateTime")
+    val updateTime: String = "",
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("id")
+    val id: Int? = -1,
+    @SerializedName("applyUserId")
+    val applyUserId: Int? = -1,
+    @SerializedName("status")
+    val status: Int? = -1
+)

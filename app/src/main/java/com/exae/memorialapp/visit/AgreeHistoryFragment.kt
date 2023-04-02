@@ -5,13 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.exae.memorialapp.R
 import com.exae.memorialapp.adapter.AgreeHistoryAdapter
 import com.exae.memorialapp.adapter.VisitHistoryAdapter
 import com.exae.memorialapp.base.CoreFragment
+import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.FragmentAgreeHistoryBinding
 import com.exae.memorialapp.databinding.FragmentVisitHistoryBinding
+import com.exae.memorialapp.viewmodel.MemorialModel
 import com.scwang.smart.refresh.header.BezierRadarHeader
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -35,6 +40,8 @@ class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history) {
 
     private var _binding: FragmentAgreeHistoryBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: MemorialModel by viewModels()
 
     @Inject
     lateinit var listAdapter: AgreeHistoryAdapter
@@ -72,26 +79,26 @@ class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history) {
             }
         }
 
-        //        viewModel.manageMerioResponse.observe(this, Observer { resources ->
-//            handleResponse(resources) {
-//                if (it.data != null && it.data.isNotEmpty()) {
-//                    listAdapter.data.clear()
-//                    listAdapter.data.addAll(it.data)
-//                    listAdapter.notifyDataSetChanged()
-//                    listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
-//                    binding.emptyView.visibility = View.GONE
-//                    binding.smartRefreshLayout.visibility = View.VISIBLE
-//                } else {
-//                    binding.emptyView.visibility = View.VISIBLE
-//                    binding.smartRefreshLayout.visibility = View.GONE
-//                }
-//            }
-//        })
-
+        viewModel.handleApplyListMemorialResponse.observe(this, Observer { resources ->
+            handleResponse(resources) {
+                if (it.data != null && it.data.isNotEmpty()) {
+                    listAdapter.data.clear()
+                    listAdapter.data.addAll(it.data)
+                    listAdapter.notifyDataSetChanged()
+                    listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
+                    binding.emptyView.visibility = View.GONE
+                    binding.smartRefreshLayout.visibility = View.VISIBLE
+                } else {
+                    binding.emptyView.visibility = View.VISIBLE
+                    binding.smartRefreshLayout.visibility = View.GONE
+                }
+            }
+        })
+        requestNetData()
     }
 
     private fun requestNetData() {
-//        viewModel.manageMerioRequest()
+        viewModel.handleApplyListMemorialRequest()
     }
 
     override fun onDestroyView() {

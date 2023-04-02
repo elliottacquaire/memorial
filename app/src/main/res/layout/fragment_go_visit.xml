@@ -17,7 +17,7 @@
         android:text="请输入邀请码后点击确定" />
 
     <EditText
-        android:id="@+id/tvAddress"
+        android:id="@+id/tvCode"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/chip_kuang_bg"

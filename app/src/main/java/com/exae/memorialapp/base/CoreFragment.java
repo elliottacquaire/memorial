@@ -8,46 +8,64 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.exae.memorialapp.dialog.MMLoading;
 import com.google.gson.Gson;
 
-/**
- */
 
 public abstract class CoreFragment extends Fragment {
 //  protected TipDialog loadingDialog;
 //  protected TipDialog tipDialog;
-  private Gson gson;
 
-  public CoreFragment() {
-  }
+    protected MMLoading mLoadingDialog = null;
+    private Gson gson;
 
-  @ContentView
-  public CoreFragment(@LayoutRes int contentLayoutId) {
-    super(contentLayoutId);
-  }
+    public CoreFragment() {
+    }
 
-  @Override
-  public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    gson = new Gson();
-  }
+    @ContentView
+    public CoreFragment(@LayoutRes int contentLayoutId) {
+        super(contentLayoutId);
+    }
 
-  public void showLoading() {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        gson = new Gson();
+    }
+
+//  public void showLoading() {
 //    if (loadingDialog != null) {
 //      loadingDialog.show();
 //    } else {
 //      loadingDialog = crateLoadingDialog();
 //      loadingDialog.show();
 //    }
-  }
+//  }
+
+    public void showLoading() {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new MMLoading.Builder(requireContext())
+                    .setMessage("加载中...")
+                    .setCancelable(true)
+                    .setCancelOutside(true)
+                    .create();
+        }
+        if (!mLoadingDialog.isShowing()) {
+            mLoadingDialog.show();
+        }
+    }
+
+    public void dismissLoading() {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) mLoadingDialog.dismiss();
+    }
 
 //  public void dismissLoading() {
 //    if (loadingDialog != null) loadingDialog.dismiss();
 //  }
 
-  public void toast(String msg) {
-    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
-  }
+    public void toast(String msg) {
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
+    }
 
 //  private TipDialog crateLoadingDialog() {
 //    return new TipDialog.Builder(requireActivity()).setIconType(TipDialog.Builder.ICON_TYPE_LOADING)
@@ -63,10 +81,9 @@ public abstract class CoreFragment extends Fragment {
 //  }
 
 
-
-  /**
-   * 带图标的提示框
-   */
+    /**
+     * 带图标的提示框
+     */
 //  public void showTip(String message, int iconType) {
 //    if (tipDialog == null) {
 //      tipDialog = createTipDialog(message, iconType);

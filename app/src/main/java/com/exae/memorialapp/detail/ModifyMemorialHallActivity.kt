@@ -2,11 +2,17 @@ package com.exae.memorialapp.detail
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.PosBaseActivity
+import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.ActivityModifyMemorialHallBinding
+import com.exae.memorialapp.utils.ToastUtil
+import com.exae.memorialapp.viewmodel.MemorialModel
+import com.lxj.xpopup.XPopup
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,7 +21,7 @@ class ModifyMemorialHallActivity : PosBaseActivity<ActivityModifyMemorialHallBin
     private var memorialNo = -1
     private var memorialName = ""
     private var memorialType = ""
-
+    private val viewModel: MemorialModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         memorialNo = intent.getIntExtra("memorialNo", -1)
@@ -29,7 +35,9 @@ class ModifyMemorialHallActivity : PosBaseActivity<ActivityModifyMemorialHallBin
         binding.accountAdd.setOnClickListener(this)
         binding.hallManage.setOnClickListener(this)
         binding.helpCenter.setOnClickListener(this)
-        binding.message.setOnClickListener(this)
+        binding.delete.setOnClickListener(this)
+
+        initResponse()
     }
 
     override fun getViewBinding(): ActivityModifyMemorialHallBinding {
@@ -72,11 +80,34 @@ class ModifyMemorialHallActivity : PosBaseActivity<ActivityModifyMemorialHallBin
                     .withInt("clickType", 101) //
                     .navigation(this)
             }
-            R.id.message -> {
-                ARouter.getInstance().build("/pos/drive/route")
-                    .withInt("clickType", 101) //
-                    .navigation(this)
+            R.id.delete -> {
+                confirmDialog()
             }
         }
+    }
+
+    private fun initResponse(){
+        viewModel.deleteMemorialResponse.observe(this, Observer { resources ->
+            handleResponse(resources, {
+                dismissLoading()
+                ToastUtil.showCenter("删除成功")
+                finish()
+            },
+                {
+                    dismissLoading()
+                }
+            )
+        })
+    }
+
+    private fun confirmDialog() {
+        XPopup.Builder(this)
+            .hasStatusBarShadow(false)
+            .hasNavigationBar(false)
+            .isDestroyOnDismiss(true)
+            .isDarkTheme(true)
+            .asConfirm("温馨提示", "确定删除该纪念馆吗？") {
+                viewModel.deleteMemorialRequest(memorialNo)
+            }.show()
     }
 }

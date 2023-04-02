@@ -4,9 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.exae.memorialapp.base.errorHandle
 import com.exae.memorialapp.base.launch
+import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
+import com.exae.memorialapp.bean.DeleteMemorialResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
+import com.exae.memorialapp.bean.HandleApplyListResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
 import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.ResultBean
@@ -14,12 +17,17 @@ import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
 import com.exae.memorialapp.bean.UploadImageResponse
 import com.exae.memorialapp.repository.MemorialRepository
+import com.exae.memorialapp.requestData.ApplyMemorialListAllRequest
+import com.exae.memorialapp.requestData.ApplyMemorialRequest
 import com.exae.memorialapp.requestData.AttentionListRequest
 import com.exae.memorialapp.requestData.BannerRequest
 import com.exae.memorialapp.requestData.ChooseHallRequest
 import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
+import com.exae.memorialapp.requestData.DeleteMemorialRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
+import com.exae.memorialapp.requestData.HandleApplyMemorialListAllRequest
+import com.exae.memorialapp.requestData.HandleApplyMemorialRequest
 import com.exae.memorialapp.requestData.MemorialListAllRequest
 import com.exae.memorialapp.requestData.MoreDetailRequest
 import com.exae.memorialapp.requestData.MoreMemorialRequest
@@ -34,7 +42,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 
-data class BannerState(var request : BannerRequest)
+data class BannerState(var request: BannerRequest)
 
 @HiltViewModel
 class MemorialModel @Inject constructor(
@@ -70,7 +78,8 @@ class MemorialModel @Inject constructor(
     fun manageMerioRequest() {
         launch(
             {
-                manageMerioResponse.value = repository.getManageMerioList(MemorialListAllRequest(""))
+                manageMerioResponse.value =
+                    repository.getManageMerioList(MemorialListAllRequest(""))
             },
             {
                 manageMerioResponse.value = errorHandle(it)
@@ -79,7 +88,7 @@ class MemorialModel @Inject constructor(
     }
 
     var styleMerioResponse = MutableLiveData<ResultBean<StyleMemorialResponse>>()
-    fun styleMerioRequest(type:Int) {
+    fun styleMerioRequest(type: Int) {
         launch(
             {
                 styleMerioResponse.value = repository.getStyleMerioList(ChooseMemorialRequest(type))
@@ -91,7 +100,7 @@ class MemorialModel @Inject constructor(
     }
 
     var styleHallResponse = MutableLiveData<ResultBean<StyleMemorialResponse>>()
-    fun styleHallRequest(type:Int) {
+    fun styleHallRequest(type: Int) {
         launch(
             {
                 styleHallResponse.value = repository.getStyleHallList(ChooseHallRequest(type))
@@ -103,7 +112,7 @@ class MemorialModel @Inject constructor(
     }
 
     var styleTableResponse = MutableLiveData<ResultBean<StyleMemorialResponse>>()
-    fun styleTableRequest(type:Int) {
+    fun styleTableRequest(type: Int) {
         launch(
             {
                 styleTableResponse.value = repository.getStyleTableList(ChooseTableRequest(type))
@@ -186,7 +195,8 @@ class MemorialModel @Inject constructor(
     fun getMoreDetailMemorialRequest(request: Int) {
         launch(
             {
-                moreMemorialDetailResponse.value = repository.getMoreDetailMemorialRequest(MoreDetailRequest(request))
+                moreMemorialDetailResponse.value =
+                    repository.getMoreDetailMemorialRequest(MoreDetailRequest(request))
             },
             {
                 moreMemorialDetailResponse.value = errorHandle(it)
@@ -234,10 +244,81 @@ class MemorialModel @Inject constructor(
     fun getTwoMemorialDetailRequest(request: Int) {
         launch(
             {
-                twoMemorialDetailResponse.value = repository.getTwoMemorialDetailRequest(TwoDetailRequest(request))
+                twoMemorialDetailResponse.value =
+                    repository.getTwoMemorialDetailRequest(TwoDetailRequest(request))
             },
             {
                 twoMemorialDetailResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var deleteMemorialResponse = MutableLiveData<ResultBean<DeleteMemorialResponse>>()
+    fun deleteMemorialRequest(request: Int) {
+        launch(
+            {
+                deleteMemorialResponse.value = repository.deleteMemorialRequest(
+                    DeleteMemorialRequest(request)
+                )
+            },
+            {
+                deleteMemorialResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var applyMemorialResponse = MutableLiveData<ResultBean<DeleteMemorialResponse>>()
+    fun applyMemorialRequest(request: String) {
+        launch(
+            {
+                deleteMemorialResponse.value = repository.applyMemorialRequest(
+                    ApplyMemorialRequest(request)
+                )
+            },
+            {
+                deleteMemorialResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var handleApplyMemorialResponse = MutableLiveData<ResultBean<DeleteMemorialResponse>>()
+    fun handleApplyMemorialRequest(request: Int, status: Int) {
+        launch(
+            {
+                deleteMemorialResponse.value = repository.handleApplyMemorialRequest(
+                    HandleApplyMemorialRequest(request, status)
+                )
+            },
+            {
+                deleteMemorialResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var applyHistoryMemorialResponse = MutableLiveData<ResultBean<ApplyHistoryListResponse>>()
+    fun applyHistoryMemorialRequest() {
+        launch(
+            {
+                applyHistoryMemorialResponse.value = repository.applyHistoryMemorialRequest(
+                    ApplyMemorialListAllRequest()
+                )
+            },
+            {
+                applyHistoryMemorialResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var handleApplyListMemorialResponse = MutableLiveData<ResultBean<HandleApplyListResponse>>()
+    fun handleApplyListMemorialRequest() {
+        launch(
+            {
+                handleApplyListMemorialResponse.value = repository.handleApplyListMemorialRequest(
+                    HandleApplyMemorialListAllRequest()
+                )
+            },
+            {
+                handleApplyListMemorialResponse.value = errorHandle(it)
             }
         )
     }

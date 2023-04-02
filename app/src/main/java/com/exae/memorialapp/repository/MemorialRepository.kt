@@ -3,9 +3,12 @@ package com.exae.memorialapp.repository
 import com.exae.memorialapp.animation.RetrofitAnno
 import com.exae.memorialapp.api.MemorialService
 import com.exae.memorialapp.api.VerificationCodeService
+import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
+import com.exae.memorialapp.bean.DeleteMemorialResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
+import com.exae.memorialapp.bean.HandleApplyListResponse
 import com.exae.memorialapp.bean.LoginResultResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
 import com.exae.memorialapp.bean.MoreMemorialResponse
@@ -13,13 +16,18 @@ import com.exae.memorialapp.bean.ResultBean
 import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
 import com.exae.memorialapp.bean.UploadImageResponse
+import com.exae.memorialapp.requestData.ApplyMemorialListAllRequest
+import com.exae.memorialapp.requestData.ApplyMemorialRequest
 import com.exae.memorialapp.requestData.AttentionListRequest
 import com.exae.memorialapp.requestData.BannerRequest
 import com.exae.memorialapp.requestData.BaseRequest
 import com.exae.memorialapp.requestData.ChooseHallRequest
 import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
+import com.exae.memorialapp.requestData.DeleteMemorialRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
+import com.exae.memorialapp.requestData.HandleApplyMemorialListAllRequest
+import com.exae.memorialapp.requestData.HandleApplyMemorialRequest
 import com.exae.memorialapp.requestData.MemorialListAllRequest
 import com.exae.memorialapp.requestData.MoreDetailRequest
 import com.exae.memorialapp.requestData.MoreMemorialRequest
@@ -65,28 +73,35 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
                 .chooseMemorialRequestRequest(request.path)
         )
     }
+
     suspend fun getStyleHallList(request: ChooseHallRequest): ResultBean<StyleMemorialResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
                 .chooseHallRequestRequest(request.path)
         )
     }
+
     suspend fun getStyleTableList(request: ChooseTableRequest): ResultBean<StyleMemorialResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
                 .chooseTableRequestRequest(request.path)
         )
     }
-    suspend fun uploadImageRequest(request: UploadImageRequest,file: MultipartBody?): ResultBean<UploadImageResponse> {
+
+    suspend fun uploadImageRequest(
+        request: UploadImageRequest,
+        file: MultipartBody?
+    ): ResultBean<UploadImageResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .uploadImageRequest(request.path,file)
+                .uploadImageRequest(request.path, file)
         )
     }
+
     suspend fun singleMemorialRequest(request: SingleMemorialRequest): ResultBean<SingleMemorialResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .singleMemorialRequest(request.path,request)
+                .singleMemorialRequest(request.path, request)
         )
     }
 
@@ -96,17 +111,18 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
                 .getSingleMemorialDetailRequest(request.path)
         )
     }
+
     suspend fun singleMemorialModifyRequest(request: SingleMemorialRequest): ResultBean<SingleMemorialResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .singleMemorialModifyRequest(request.path,request)
+                .singleMemorialModifyRequest(request.path, request)
         )
     }
 
     suspend fun moreMemorialRequest(request: MoreMemorialRequest): ResultBean<MoreMemorialResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .moreMemorialRequest(request.path,request)
+                .moreMemorialRequest(request.path, request)
         )
     }
 
@@ -120,14 +136,14 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
     suspend fun moreMemorialModifyRequest(request: MoreMemorialRequest): ResultBean<MoreMemorialResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .moreMemorialModifyRequest(request.path,request)
+                .moreMemorialModifyRequest(request.path, request)
         )
     }
 
     suspend fun twoMemorialRequest(request: DoubleMemorialRequest): ResultBean<DoubleMemorialResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .twoMemorialRequest(request.path,request)
+                .twoMemorialRequest(request.path, request)
         )
     }
 
@@ -141,7 +157,43 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
     suspend fun twoMemorialModifyRequest(request: DoubleMemorialRequest): ResultBean<DoubleMemorialResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .twoMemorialModifyRequest(request.path,request)
+                .twoMemorialModifyRequest(request.path, request)
         )
     }
+
+    suspend fun deleteMemorialRequest(request: DeleteMemorialRequest): ResultBean<DeleteMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .deleteMemorialRequest(request.path)
+        )
+    }
+
+    suspend fun applyMemorialRequest(request: ApplyMemorialRequest): ResultBean<DeleteMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .applyMemorialRequest(request.path)
+        )
+    }
+
+    suspend fun handleApplyMemorialRequest(request: HandleApplyMemorialRequest): ResultBean<DeleteMemorialResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .handleApplyMemorialRequest(request.path)
+        )
+    }
+
+    suspend fun applyHistoryMemorialRequest(request: ApplyMemorialListAllRequest): ResultBean<ApplyHistoryListResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .applyHistoryMemorialRequest(request.path)
+        )
+    }
+
+    suspend fun handleApplyListMemorialRequest(request: HandleApplyMemorialListAllRequest): ResultBean<HandleApplyListResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .handleApplyListMemorialRequest(request.path)
+        )
+    }
+
 }

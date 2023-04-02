@@ -5,10 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
+import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.FragmentGoVisitBinding
 import com.exae.memorialapp.databinding.FragmentTestDriveBinding
+import com.exae.memorialapp.utils.ToastUtil
+import com.exae.memorialapp.viewmodel.MemorialModel
 import dagger.hilt.android.AndroidEntryPoint
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,13 +29,14 @@ private const val ARG_PARAM2 = "param2"
  */
 
 @AndroidEntryPoint
-class GoVisitFragment :  CoreFragment(R.layout.fragment_go_visit) {
+class GoVisitFragment : CoreFragment(R.layout.fragment_go_visit) {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     private var _binding: FragmentGoVisitBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: MemorialModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +57,31 @@ class GoVisitFragment :  CoreFragment(R.layout.fragment_go_visit) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            butCreateOne.setOnClickListener {
+                val code = tvCode.text.trim().toString()
+                if (code.isNotEmpty()) {
+                    viewModel.applyMemorialRequest(code)
+                    showLoading()
+                } else {
+                    ToastUtil.showCenter("请输入邀请码")
+                }
+            }
+        }
+        initResponse()
+    }
 
+    private fun initResponse() {
+        viewModel.applyMemorialResponse.observe(this, Observer { resources ->
+            handleResponse(resources, {
+                ToastUtil.showCenter("已申请，请等待结果")
+                dismissLoading()
+            },
+                {
+                    dismissLoading()
+                }
+            )
+        })
     }
 
     override fun onDestroyView() {

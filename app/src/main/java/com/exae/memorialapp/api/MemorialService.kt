@@ -1,8 +1,11 @@
 package com.exae.memorialapp.api
 
+import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
+import com.exae.memorialapp.bean.DeleteMemorialResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
+import com.exae.memorialapp.bean.HandleApplyListResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
 import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.SingleMemorialResponse
@@ -15,6 +18,7 @@ import com.exae.memorialapp.requestData.UploadImageRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -190,4 +194,45 @@ interface MemorialService {
         ) url: String,
         @Body request: DoubleMemorialRequest,
     ): DoubleMemorialResponse
+
+    @DELETE("{path}")
+    suspend fun deleteMemorialRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+    ): DeleteMemorialResponse
+
+    @POST("{path}")
+    suspend fun applyMemorialRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+    ): DeleteMemorialResponse
+
+    @PUT("{path}")
+    suspend fun handleApplyMemorialRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+    ): DeleteMemorialResponse
+
+    @GET("{path}")
+    suspend fun applyHistoryMemorialRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+    ): ApplyHistoryListResponse
+
+    @GET("{path}")
+    suspend fun handleApplyListMemorialRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+    ): HandleApplyListResponse
+
 }
