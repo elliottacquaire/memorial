@@ -6,6 +6,12 @@ enum class HallType(val type: Int) {
     TWO_HALL(2),
 }
 
+enum class ApplyType(val type: Int) {
+    APPLYING(0),
+    APPLYING_PASS(1),
+    APPLYING_REJECT(2),
+}
+
 const val requestCodeMemorialStyle = 1000
 const val requestCodeHallStyle = 1001
 const val requestCodeTableStyle = 1002

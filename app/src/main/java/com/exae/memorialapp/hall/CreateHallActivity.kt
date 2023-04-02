@@ -237,6 +237,12 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
         viewModel.twoMemorialResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
                 dismissLoading()
+                ARouter.getInstance().build("/app/create/result")
+                    .withInt("memorialNo", it.data?.memorialNo ?: -1)
+                    .withString("memorialName", it.data?.memorialName)
+                    .withString("memorialType", chooseType.toString())
+                    .navigation()
+                finish()
             },
                 {
                     dismissLoading()
@@ -272,6 +278,12 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
         viewModel.moreMemorialResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
                 dismissLoading()
+                ARouter.getInstance().build("/app/create/result")
+                    .withInt("memorialNo", it.data?.memorialNo ?: -1)
+                    .withString("memorialName", it.data?.memorialName)
+                    .withString("memorialType", chooseType.toString())
+                    .navigation()
+                finish()
             },
                 {
                     dismissLoading()
@@ -341,6 +353,12 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
         viewModel.singleMemorialResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
                 dismissLoading()
+                ARouter.getInstance().build("/app/create/result")
+                    .withInt("memorialNo", it.data?.memorialNo ?: -1)
+                    .withString("memorialName", it.data?.memorialName)
+                    .withString("memorialType", chooseType.toString())
+                    .navigation()
+                finish()
             },
                 {
                     dismissLoading()
