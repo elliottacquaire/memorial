@@ -4,11 +4,13 @@ import com.exae.memorialapp.animation.RetrofitAnno
 import com.exae.memorialapp.api.MemorialService
 import com.exae.memorialapp.api.VerificationCodeService
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
+import com.exae.memorialapp.bean.ApplyMemorialResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.DeleteMemorialResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
 import com.exae.memorialapp.bean.HandleApplyListResponse
+import com.exae.memorialapp.bean.HandleApplyMemorialResponse
 import com.exae.memorialapp.bean.LoginResultResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
 import com.exae.memorialapp.bean.MoreMemorialResponse
@@ -168,14 +170,14 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
         )
     }
 
-    suspend fun applyMemorialRequest(request: ApplyMemorialRequest): ResultBean<DeleteMemorialResponse> {
+    suspend fun applyMemorialRequest(request: ApplyMemorialRequest): ResultBean<ApplyMemorialResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .applyMemorialRequest(request.path)
+                .applyMemorialRequest(request.path, request)
         )
     }
 
-    suspend fun handleApplyMemorialRequest(request: HandleApplyMemorialRequest): ResultBean<DeleteMemorialResponse> {
+    suspend fun handleApplyMemorialRequest(request: HandleApplyMemorialRequest): ResultBean<HandleApplyMemorialResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
                 .handleApplyMemorialRequest(request.path)
@@ -185,14 +187,14 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
     suspend fun applyHistoryMemorialRequest(request: ApplyMemorialListAllRequest): ResultBean<ApplyHistoryListResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .applyHistoryMemorialRequest(request.path)
+                .applyHistoryMemorialRequest(request.path, request.statusType)
         )
     }
 
     suspend fun handleApplyListMemorialRequest(request: HandleApplyMemorialListAllRequest): ResultBean<HandleApplyListResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .handleApplyListMemorialRequest(request.path)
+                .handleApplyListMemorialRequest(request.path, request.status)
         )
     }
 

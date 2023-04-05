@@ -230,8 +230,10 @@ data class DeleteMemorialRequest(
 
 data class ApplyMemorialRequest(
     @SerializedName("invitationCode")
-    var applyCode: String
-) : BaseRequest("/prod-api/user/memorial/application/$applyCode")
+    var applyCode: String,
+    @SerializedName("notes")
+    var notes: String,
+) : BaseRequest("/prod-api/user/memorial/application")
 
 data class HandleApplyMemorialRequest(
     @SerializedName("id")
@@ -240,9 +242,9 @@ data class HandleApplyMemorialRequest(
     var status: Int,
 ) : BaseRequest("/prod-api/user/memorial/application/$applyId/$status")
 
-data class ApplyMemorialListAllRequest(var code: String = "") :
+data class ApplyMemorialListAllRequest(var statusType: Int = -1) :
     BaseRequest("/prod-api/user/memorial/application/listAll")
 
-data class HandleApplyMemorialListAllRequest(var code: String = "") :
+data class HandleApplyMemorialListAllRequest(var status: Int = -1) :
     BaseRequest("/prod-api/user/memorial/audit/listAll")
 

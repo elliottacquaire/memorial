@@ -8,15 +8,23 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.exae.memorialapp.R
 import com.exae.memorialapp.adapter.AgreeHistoryAdapter
-import com.exae.memorialapp.adapter.VisitHistoryAdapter
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
+import com.exae.memorialapp.bean.ApplyListModel
+import com.exae.memorialapp.bean.ManageMemorialModel
 import com.exae.memorialapp.databinding.FragmentAgreeHistoryBinding
-import com.exae.memorialapp.databinding.FragmentVisitHistoryBinding
+import com.exae.memorialapp.requestData.ApplyType
+import com.exae.memorialapp.requestData.HandleApplyType
+import com.exae.memorialapp.requestData.handleStatusList
+import com.exae.memorialapp.requestData.statusList
+import com.exae.memorialapp.utils.ToastUtil
 import com.exae.memorialapp.viewmodel.MemorialModel
+import com.lxj.xpopup.XPopup
 import com.scwang.smart.refresh.header.BezierRadarHeader
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -33,7 +41,8 @@ private const val ARG_PARAM2 = "param2"
  */
 
 @AndroidEntryPoint
-class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history) {
+class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history),
+    OnItemChildClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -42,6 +51,9 @@ class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history) {
     private val binding get() = _binding!!
 
     private val viewModel: MemorialModel by viewModels()
+
+    private var status: String = ApplyType.ELSE.tips
+    private var statusType: Int = ApplyType.ELSE.type
 
     @Inject
     lateinit var listAdapter: AgreeHistoryAdapter
@@ -77,7 +89,14 @@ class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history) {
             emptyView.setOnClickListener {
                 requestNetData()
             }
+            relChoose.setOnClickListener {
+                chooseStatus()
+            }
         }
+
+        listAdapter.setOnItemChildClickListener(this)
+        listAdapter.addChildClickViewIds(R.id.modify)
+        listAdapter.addChildClickViewIds(R.id.parent)
 
         viewModel.handleApplyListMemorialResponse.observe(this, Observer { resources ->
             handleResponse(resources) {
@@ -94,11 +113,48 @@ class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history) {
                 }
             }
         })
+
+        viewModel.handleApplyMemorialResponse.observe(this, Observer { resources ->
+            handleResponse(resources, {
+                dismissLoading()
+            },
+                {
+                    dismissLoading()
+                }
+            )
+        })
+
         requestNetData()
     }
 
+    private fun chooseStatus() {
+        var position = -1
+        statusList.forEachIndexed { index, s ->
+            if (s == status) {
+                position = index
+                return@forEachIndexed
+            }
+        }
+        val pop = XPopup.Builder(requireContext())
+            .isDarkTheme(false)
+            .hasShadowBg(false)
+            .isViewMode(true)
+            .isDestroyOnDismiss(true)
+            .asBottomList("请选择一项", statusList, null, position) { _, text ->
+                status = text
+                binding.tvChoose.text = text
+                when (text) {
+                    ApplyType.ELSE.tips -> statusType = ApplyType.ELSE.type
+                    ApplyType.APPLYING.tips -> statusType = ApplyType.APPLYING.type
+                    ApplyType.APPLYING_PASS.tips -> statusType = ApplyType.APPLYING_PASS.type
+                    ApplyType.APPLYING_REJECT.tips -> statusType = ApplyType.APPLYING_REJECT.type
+                }
+                requestNetData()
+            }.show()
+    }
+
     private fun requestNetData() {
-        viewModel.handleApplyListMemorialRequest()
+        viewModel.handleApplyListMemorialRequest(statusType)
     }
 
     override fun onDestroyView() {
@@ -124,5 +180,52 @@ class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history) {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    private fun handleStatus(id: Int) {
+        XPopup.Builder(requireContext())
+            .isDarkTheme(false)
+            .hasShadowBg(false)
+            .isViewMode(true)
+            .isDestroyOnDismiss(true)
+            .asBottomList("请选择一项", handleStatusList, null, -1) { _, text ->
+                val type = when (text) {
+                    HandleApplyType.APPLYING_PASS.tips -> HandleApplyType.APPLYING_PASS.type
+                    HandleApplyType.APPLYING_REJECT.tips -> HandleApplyType.APPLYING_REJECT.type
+                    else -> -1
+                }
+                viewModel.handleApplyMemorialRequest(id, type)
+            }.show()
+    }
+
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val item = adapter.getItem(position) as ApplyListModel
+        when (view.id) {
+            R.id.modify -> {
+//                ARouter.getInstance().build("/app/modify/hall")
+//                    .withInt("memorialNo", item.memorialNo)
+//                    .withString("memorialName", item.name)
+//                    .withString("memorialType", item.type)
+//                    .navigation(this)
+                when (item.status) {
+//                    ApplyType.ELSE.type -> ApplyType.ELSE.tips
+                    ApplyType.APPLYING.type -> {
+                        handleStatus(item.id ?: -1)
+                    }
+//                    ApplyType.APPLYING_PASS.type -> ApplyType.APPLYING_PASS.tips
+//                    ApplyType.APPLYING_REJECT.type -> ApplyType.APPLYING_REJECT.tips
+                    else -> {}
+                }
+
+//                viewModel.handleApplyMemorialRequest(item.id ?: -1, item.status ?: -1)
+            }
+            R.id.parent -> {
+//                ARouter.getInstance().build("/app/home")
+//                    .withInt("memorialNo", item.memorialNo)
+//                    .withString("memorialName", item.name)
+//                    .withString("memorialType", item.type)
+//                    .navigation(this)
+            }
+        }
     }
 }

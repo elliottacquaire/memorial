@@ -6,10 +6,16 @@ enum class HallType(val type: Int) {
     TWO_HALL(2),
 }
 
-enum class ApplyType(val type: Int) {
-    APPLYING(0),
-    APPLYING_PASS(1),
-    APPLYING_REJECT(2),
+enum class ApplyType(val type: Int, val tips: String) {
+    APPLYING(0, "申请中"),
+    APPLYING_PASS(1, "申请已通过"),
+    APPLYING_REJECT(2, "申请已驳回"),
+    ELSE(-1, "全部")
+}
+
+enum class HandleApplyType(val type: Int, val tips: String) {
+    APPLYING_PASS(1, "申请通过"),
+    APPLYING_REJECT(2, "申请驳回"),
 }
 
 const val requestCodeMemorialStyle = 1000
@@ -30,6 +36,18 @@ enum class SexType(val type: Int) {
     WOMAN(1),
     SECRET(2),
 }
+
+val statusList = arrayOf(
+    ApplyType.ELSE.tips,
+    ApplyType.APPLYING.tips,
+    ApplyType.APPLYING_PASS.tips,
+    ApplyType.APPLYING_REJECT.tips
+)
+
+val handleStatusList = arrayOf(
+    HandleApplyType.APPLYING_PASS.tips,
+    HandleApplyType.APPLYING_REJECT.tips
+)
 
 val nationList = arrayOf(
     "汉族",

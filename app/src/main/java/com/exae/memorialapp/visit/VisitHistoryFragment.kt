@@ -16,7 +16,10 @@ import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.FragmentGoVisitBinding
 import com.exae.memorialapp.databinding.FragmentVisitHistoryBinding
+import com.exae.memorialapp.requestData.ApplyType
+import com.exae.memorialapp.requestData.statusList
 import com.exae.memorialapp.viewmodel.MemorialModel
+import com.lxj.xpopup.XPopup
 import com.scwang.smart.refresh.header.BezierRadarHeader
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -37,6 +40,9 @@ class VisitHistoryFragment :  CoreFragment(R.layout.fragment_visit_history) {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private var status: String = ApplyType.ELSE.tips
+    private var statusType: Int = ApplyType.ELSE.type
 
     private var _binding: FragmentVisitHistoryBinding? = null
     private val binding get() = _binding!!
@@ -77,6 +83,9 @@ class VisitHistoryFragment :  CoreFragment(R.layout.fragment_visit_history) {
             emptyView.setOnClickListener {
                 requestNetData()
             }
+            relChoose.setOnClickListener {
+                chooseStatus()
+            }
         }
 
         viewModel.applyHistoryMemorialResponse.observe(this, Observer { resources ->
@@ -98,7 +107,33 @@ class VisitHistoryFragment :  CoreFragment(R.layout.fragment_visit_history) {
     }
 
     private fun requestNetData() {
-        viewModel.applyHistoryMemorialRequest()
+        viewModel.applyHistoryMemorialRequest(statusType)
+    }
+
+    private fun chooseStatus() {
+        var position = -1
+        statusList.forEachIndexed { index, s ->
+            if (s == status) {
+                position = index
+                return@forEachIndexed
+            }
+        }
+        val pop = XPopup.Builder(requireContext())
+            .isDarkTheme(false)
+            .hasShadowBg(false)
+            .isViewMode(true)
+            .isDestroyOnDismiss(true)
+            .asBottomList("请选择一项", statusList, null, position) { _, text ->
+                status = text
+                binding.tvChoose.text = text
+                when (text) {
+                    ApplyType.ELSE.tips -> statusType = ApplyType.ELSE.type
+                    ApplyType.APPLYING.tips -> statusType = ApplyType.APPLYING.type
+                    ApplyType.APPLYING_PASS.tips -> statusType = ApplyType.APPLYING_PASS.type
+                    ApplyType.APPLYING_REJECT.tips -> statusType = ApplyType.APPLYING_REJECT.type
+                }
+                requestNetData()
+            }.show()
     }
 
     override fun onDestroyView() {

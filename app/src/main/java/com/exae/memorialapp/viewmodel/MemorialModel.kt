@@ -5,11 +5,13 @@ import androidx.lifecycle.ViewModel
 import com.exae.memorialapp.base.errorHandle
 import com.exae.memorialapp.base.launch
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
+import com.exae.memorialapp.bean.ApplyMemorialResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.DeleteMemorialResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
 import com.exae.memorialapp.bean.HandleApplyListResponse
+import com.exae.memorialapp.bean.HandleApplyMemorialResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
 import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.ResultBean
@@ -267,40 +269,40 @@ class MemorialModel @Inject constructor(
         )
     }
 
-    var applyMemorialResponse = MutableLiveData<ResultBean<DeleteMemorialResponse>>()
-    fun applyMemorialRequest(request: String) {
+    var applyMemorialResponse = MutableLiveData<ResultBean<ApplyMemorialResponse>>()
+    fun applyMemorialRequest(invitationCode: String, note: String) {
         launch(
             {
-                deleteMemorialResponse.value = repository.applyMemorialRequest(
-                    ApplyMemorialRequest(request)
+                applyMemorialResponse.value = repository.applyMemorialRequest(
+                    ApplyMemorialRequest(invitationCode, note)
                 )
             },
             {
-                deleteMemorialResponse.value = errorHandle(it)
+                applyMemorialResponse.value = errorHandle(it)
             }
         )
     }
 
-    var handleApplyMemorialResponse = MutableLiveData<ResultBean<DeleteMemorialResponse>>()
-    fun handleApplyMemorialRequest(request: Int, status: Int) {
+    var handleApplyMemorialResponse = MutableLiveData<ResultBean<HandleApplyMemorialResponse>>()
+    fun handleApplyMemorialRequest(id: Int, status: Int) {
         launch(
             {
-                deleteMemorialResponse.value = repository.handleApplyMemorialRequest(
-                    HandleApplyMemorialRequest(request, status)
+                handleApplyMemorialResponse.value = repository.handleApplyMemorialRequest(
+                    HandleApplyMemorialRequest(id, status)
                 )
             },
             {
-                deleteMemorialResponse.value = errorHandle(it)
+                handleApplyMemorialResponse.value = errorHandle(it)
             }
         )
     }
 
     var applyHistoryMemorialResponse = MutableLiveData<ResultBean<ApplyHistoryListResponse>>()
-    fun applyHistoryMemorialRequest() {
+    fun applyHistoryMemorialRequest(statusType: Int) {
         launch(
             {
                 applyHistoryMemorialResponse.value = repository.applyHistoryMemorialRequest(
-                    ApplyMemorialListAllRequest()
+                    ApplyMemorialListAllRequest(statusType)
                 )
             },
             {
@@ -310,11 +312,11 @@ class MemorialModel @Inject constructor(
     }
 
     var handleApplyListMemorialResponse = MutableLiveData<ResultBean<HandleApplyListResponse>>()
-    fun handleApplyListMemorialRequest() {
+    fun handleApplyListMemorialRequest(statusType: Int) {
         launch(
             {
                 handleApplyListMemorialResponse.value = repository.handleApplyListMemorialRequest(
-                    HandleApplyMemorialListAllRequest()
+                    HandleApplyMemorialListAllRequest(statusType)
                 )
             },
             {

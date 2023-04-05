@@ -5,16 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.alibaba.android.arouter.launcher.ARouter
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.FragmentGoVisitBinding
-import com.exae.memorialapp.databinding.FragmentTestDriveBinding
 import com.exae.memorialapp.utils.ToastUtil
 import com.exae.memorialapp.viewmodel.MemorialModel
+import com.lxj.xpopup.XPopup
 import dagger.hilt.android.AndroidEntryPoint
 
 // TODO: Rename parameter arguments, choose names that match
@@ -61,7 +61,7 @@ class GoVisitFragment : CoreFragment(R.layout.fragment_go_visit) {
             butCreateOne.setOnClickListener {
                 val code = tvCode.text.trim().toString()
                 if (code.isNotEmpty()) {
-                    viewModel.applyMemorialRequest(code)
+                    viewModel.applyMemorialRequest(code, tvNotes.text.trim().toString())
                     showLoading()
                 } else {
                     ToastUtil.showCenter("请输入邀请码")
@@ -74,14 +74,46 @@ class GoVisitFragment : CoreFragment(R.layout.fragment_go_visit) {
     private fun initResponse() {
         viewModel.applyMemorialResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
-                ToastUtil.showCenter("已申请，请等待结果")
                 dismissLoading()
+                if (it.data?.approved == true) {
+                    confirmDialog(it.data.memorialNo ?: -1, it.data.memorialType)
+                } else {
+                    ToastUtil.showCenter("已申请，请等候结果")
+                }
             },
                 {
                     dismissLoading()
                 }
             )
         })
+    }
+
+    private fun confirmDialog(memorialNo: Int, memorialType: String?) {
+        XPopup.Builder(requireContext())
+            .hasStatusBarShadow(false)
+            .hasNavigationBar(false)
+            .isDestroyOnDismiss(true)
+            .isDarkTheme(true)
+            .asConfirm("温馨提示", "您已申请成功，要去看看吗？") {
+                when (memorialType) {
+                    "0" -> {
+                        ARouter.getInstance().build("/app/single/detail")
+                            .withInt("memorialNo", memorialNo)
+                            .navigation()
+                    }
+                    "1" -> {
+                        ARouter.getInstance().build("/app/more/detail")
+                            .withInt("memorialNo", memorialNo)
+                            .navigation()
+                    }
+                    "2" -> {
+                        ARouter.getInstance().build("/app/two/detail")
+                            .withInt("memorialNo", memorialNo)
+                            .navigation()
+                    }
+                    else -> ""
+                }
+            }.show()
     }
 
     override fun onDestroyView() {

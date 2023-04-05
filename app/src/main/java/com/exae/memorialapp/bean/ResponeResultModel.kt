@@ -298,8 +298,28 @@ class DoubleMemorialModel(
     var attentionStatus: Boolean = false,
 )
 
+class ApplyMemorialResponse : ProtocolResponse<ApplyMemorialModel>()
+class ApplyMemorialModel(
+    @SerializedName("memorialNo")
+    val memorialNo: Int?,
+    @SerializedName("memorialType")
+    val memorialType: String?,
+    @SerializedName("approved")
+    val approved: Boolean = false
+)
+
 class DeleteMemorialResponse : ProtocolResponse<DeleteMemorialModel>()
 class DeleteMemorialModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("fileName")
+    val fileName: String?,
+    @SerializedName("url")
+    val url: String = ""
+)
+
+class HandleApplyMemorialResponse : ProtocolResponse<HandleApplyMemorialModel>()
+class HandleApplyMemorialModel(
     @SerializedName("id")
     val ids: Int,
     @SerializedName("fileName")
@@ -321,6 +341,10 @@ class ApplyListModel(
     val id: Int? = -1,
     @SerializedName("applyUserId")
     val applyUserId: Int? = -1,
+    @SerializedName("notes")
+    val notes: String = "",
+    @SerializedName("auditUserId")
+    val auditUserId: Int? = -1,
     @SerializedName("status")
     val status: Int? = -1
 )

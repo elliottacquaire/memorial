@@ -34,6 +34,17 @@
         android:layout_marginTop="15dp"
         android:text="说明：确定申请访问后，此邀请码对应纪念馆的创建者将收到您的访问申请，他同意授权后，您将自动关注该馆并拥有该馆的访问权限。" />
 
+    <EditText
+        android:id="@+id/tvNotes"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/chip_kuang_bg"
+        android:hint="请输入申请访问该纪念馆的理由,方便快速审核，（可不填）"
+        android:layout_marginTop="25dp"
+        android:gravity="left"
+        android:textColor="#959595"
+        android:textColorHint="#777777" />
+
     <Button
         android:id="@+id/butCreateOne"
         android:layout_width="match_parent"

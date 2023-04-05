@@ -1,16 +1,19 @@
 package com.exae.memorialapp.api
 
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
+import com.exae.memorialapp.bean.ApplyMemorialResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.DeleteMemorialResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
 import com.exae.memorialapp.bean.HandleApplyListResponse
+import com.exae.memorialapp.bean.HandleApplyMemorialResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
 import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
 import com.exae.memorialapp.bean.UploadImageResponse
+import com.exae.memorialapp.requestData.ApplyMemorialRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
 import com.exae.memorialapp.requestData.MoreMemorialRequest
 import com.exae.memorialapp.requestData.SingleMemorialRequest
@@ -25,6 +28,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 interface MemorialService {
@@ -209,7 +213,8 @@ interface MemorialService {
             value = "path",
             encoded = true
         ) url: String,
-    ): DeleteMemorialResponse
+        @Body request: ApplyMemorialRequest,
+    ): ApplyMemorialResponse
 
     @PUT("{path}")
     suspend fun handleApplyMemorialRequest(
@@ -217,7 +222,7 @@ interface MemorialService {
             value = "path",
             encoded = true
         ) url: String,
-    ): DeleteMemorialResponse
+    ): HandleApplyMemorialResponse
 
     @GET("{path}")
     suspend fun applyHistoryMemorialRequest(
@@ -225,6 +230,7 @@ interface MemorialService {
             value = "path",
             encoded = true
         ) url: String,
+        @Query("status") status: Int,
     ): ApplyHistoryListResponse
 
     @GET("{path}")
@@ -233,6 +239,7 @@ interface MemorialService {
             value = "path",
             encoded = true
         ) url: String,
+        @Query("status") status: Int,
     ): HandleApplyListResponse
 
 }
