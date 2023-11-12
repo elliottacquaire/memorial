@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.exae.memorialapp.R
+import com.exae.memorialapp.base.CoreFragment
+import com.exae.memorialapp.databinding.FragmentIntroduceBinding
+import com.exae.memorialapp.databinding.FragmentTwoHallBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,10 +21,14 @@ private const val ARG_PARAM2 = "param2"
  * Use the [IntroduceFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class IntroduceFragment : Fragment() {
+@AndroidEntryPoint
+class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private var _binding: FragmentIntroduceBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +43,13 @@ class IntroduceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_introduce, container, false)
+        _binding = FragmentIntroduceBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

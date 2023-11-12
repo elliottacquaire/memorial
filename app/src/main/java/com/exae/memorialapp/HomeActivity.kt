@@ -17,6 +17,8 @@ import com.exae.memorialapp.home.CommentFragment
 import com.exae.memorialapp.home.HomeFragment
 import com.exae.memorialapp.home.IntroduceFragment
 import com.exae.memorialapp.home.MemorialFragment
+import com.exae.memorialapp.home.MoreFamilyFragment
+import com.exae.memorialapp.home.TwoHallFragment
 import com.exae.memorialapp.home.WorshipFragment
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -127,7 +129,15 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
         ) {
             override fun getItem(position: Int): Fragment {
                 return when (position) {
-                    0 -> HomeFragment.newInstance(memorialNo, "")
+                    0 -> {
+                        when(memorialType){
+                            "0" ->  HomeFragment.newInstance(memorialNo, "")
+                            "1" ->  MoreFamilyFragment.newInstance(memorialNo, "")
+                            "2" ->  TwoHallFragment.newInstance(memorialNo, "")
+                            else ->  HomeFragment.newInstance(memorialNo, "")
+                        }
+//                        HomeFragment.newInstance(memorialNo, "")
+                    }
                     1 -> IntroduceFragment().apply {
 //                        arguments = Bundle().apply {
 //                            putInt("isHistory", HISTORY_ZERO)
