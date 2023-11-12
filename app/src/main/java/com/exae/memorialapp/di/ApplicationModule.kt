@@ -1,8 +1,8 @@
 package com.exae.memorialapp.di
 
 import android.content.Context
+import com.alibaba.android.arouter.BuildConfig
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.exae.memorialapp.BuildConfig
 import com.exae.memorialapp.animation.ApiServiceAnno
 import com.exae.memorialapp.animation.OkHttpAnnotation
 import com.exae.memorialapp.animation.RetrofitAnno
