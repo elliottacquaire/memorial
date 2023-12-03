@@ -348,3 +348,83 @@ class ApplyListModel(
     @SerializedName("status")
     val status: Int? = -1
 )
+
+class CommentLisResponse : ProtocolResponse<ArrayList<CommentLisModel>>()
+class CommentLisModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)
+
+class IntroduceResponse : ProtocolResponse<IntroduceModel>()
+class IntroduceModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)
+
+class CreateIntroduceResponse : ProtocolResponse<CreateIntroduceModel>()
+class CreateIntroduceModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)
+
+class DeleteIntroduceResponse : ProtocolResponse<DeleteIntroduceModel>()
+class DeleteIntroduceModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)
+
+class ModifyIntroduceResponse : ProtocolResponse<ModifyIntroduceModel>()
+class ModifyIntroduceModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)

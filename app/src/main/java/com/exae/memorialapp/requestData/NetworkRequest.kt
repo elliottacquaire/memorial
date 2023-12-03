@@ -248,3 +248,41 @@ data class ApplyMemorialListAllRequest(var statusType: Int = -1) :
 data class HandleApplyMemorialListAllRequest(var status: Int = -1) :
     BaseRequest("/prod-api/user/memorial/audit/listAll")
 
+data class CommentLisRequest(
+    @SerializedName("memorialNo")
+    var memorialNo: Int,
+    @SerializedName("pageNum")
+    var pageNum: Int,
+    @SerializedName("pageSize")
+    var pageSize: Int,
+) : BaseRequest("/prod-api/user/memorial/comment/list")
+
+data class IntroduceRequest(
+    @SerializedName("memorialNo")
+    var memorialNo: Int
+) : BaseRequest("/prod-api/user/memorial/introduction/$memorialNo")
+
+data class CreateIntroduceRequest(
+    @SerializedName("memorialNo")
+    var memorialNo: Int,
+    @SerializedName("introduction")
+    var introduction: String,
+) : BaseRequest("/prod-api/user/memorial/introduction")
+
+data class ModifyIntroduceRequest(
+    @SerializedName("memorialNo")
+    var memorialNo: Int,
+    @SerializedName("id")
+    var introId: Int,
+    @SerializedName("introduction")
+    var introduction: String,
+) : BaseRequest("/prod-api/user/memorial/introduction")
+
+data class DeleteIntroduceRequest(
+    @SerializedName("memorialNo")
+    var memorialNo: Int,
+    @SerializedName("introduction")
+    var introduction: String,
+) : BaseRequest("/prod-api/user/memorial/introduction")
+
+

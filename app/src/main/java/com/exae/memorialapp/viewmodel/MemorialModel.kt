@@ -8,11 +8,16 @@ import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
+import com.exae.memorialapp.bean.CommentLisResponse
+import com.exae.memorialapp.bean.CreateIntroduceResponse
+import com.exae.memorialapp.bean.DeleteIntroduceResponse
 import com.exae.memorialapp.bean.DeleteMemorialResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
 import com.exae.memorialapp.bean.HandleApplyListResponse
 import com.exae.memorialapp.bean.HandleApplyMemorialResponse
+import com.exae.memorialapp.bean.IntroduceResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
+import com.exae.memorialapp.bean.ModifyIntroduceResponse
 import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.ResultBean
 import com.exae.memorialapp.bean.SingleMemorialResponse
@@ -26,11 +31,16 @@ import com.exae.memorialapp.requestData.BannerRequest
 import com.exae.memorialapp.requestData.ChooseHallRequest
 import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
+import com.exae.memorialapp.requestData.CommentLisRequest
+import com.exae.memorialapp.requestData.CreateIntroduceRequest
+import com.exae.memorialapp.requestData.DeleteIntroduceRequest
 import com.exae.memorialapp.requestData.DeleteMemorialRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
 import com.exae.memorialapp.requestData.HandleApplyMemorialListAllRequest
 import com.exae.memorialapp.requestData.HandleApplyMemorialRequest
+import com.exae.memorialapp.requestData.IntroduceRequest
 import com.exae.memorialapp.requestData.MemorialListAllRequest
+import com.exae.memorialapp.requestData.ModifyIntroduceRequest
 import com.exae.memorialapp.requestData.MoreDetailRequest
 import com.exae.memorialapp.requestData.MoreMemorialRequest
 import com.exae.memorialapp.requestData.SingleDetailRequest
@@ -321,6 +331,75 @@ class MemorialModel @Inject constructor(
             },
             {
                 handleApplyListMemorialResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var getCommentListResponse = MutableLiveData<ResultBean<CommentLisResponse>>()
+    fun getCommentListRequest(memorialNo: Int, pageNum: Int) {
+        launch(
+            {
+                getCommentListResponse.value =
+                    repository.getCommentListRequest(CommentLisRequest(memorialNo, pageNum, 20))
+            },
+            {
+                getCommentListResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var getMemorialIntroduceResponse = MutableLiveData<ResultBean<IntroduceResponse>>()
+    fun getMemorialIntroduceRequest(ememorialNo: Int) {
+        launch(
+            {
+                getMemorialIntroduceResponse.value = repository.getMemorialIntroduceRequest(
+                    IntroduceRequest(ememorialNo)
+                )
+            },
+            {
+                getMemorialIntroduceResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var createMemorialIntroduceResponse = MutableLiveData<ResultBean<CreateIntroduceResponse>>()
+    fun createMemorialIntroduceRequest(ememorialNo: Int, introduce: String) {
+        launch(
+            {
+                createMemorialIntroduceResponse.value = repository.createMemorialIntroduceRequest(
+                    CreateIntroduceRequest(ememorialNo, introduce)
+                )
+            },
+            {
+                createMemorialIntroduceResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var modifyMemorialIntroduceResponse = MutableLiveData<ResultBean<ModifyIntroduceResponse>>()
+    fun modifyMemorialIntroduceRequest(ememorialNo: Int, introId: Int, introduce: String) {
+        launch(
+            {
+                modifyMemorialIntroduceResponse.value = repository.modifyMemorialIntroduceRequest(
+                    ModifyIntroduceRequest(ememorialNo, introId, introduce)
+                )
+            },
+            {
+                modifyMemorialIntroduceResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var deleteMemorialIntroduceResponse = MutableLiveData<ResultBean<DeleteIntroduceResponse>>()
+    fun deleteMemorialIntroduceRequest(ememorialNo: Int, introduce: String) {
+        launch(
+            {
+                deleteMemorialIntroduceResponse.value = repository.deleteMemorialIntroduceRequest(
+                    DeleteIntroduceRequest(ememorialNo, introduce)
+                )
+            },
+            {
+                deleteMemorialIntroduceResponse.value = errorHandle(it)
             }
         )
     }

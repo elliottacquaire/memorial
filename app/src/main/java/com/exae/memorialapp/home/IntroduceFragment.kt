@@ -1,14 +1,21 @@
 package com.exae.memorialapp.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.alibaba.android.arouter.launcher.ARouter
+import com.bumptech.glide.Glide
+import com.ddz.floatingactionbutton.FloatingActionMenu
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
+import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.FragmentIntroduceBinding
-import com.exae.memorialapp.databinding.FragmentTwoHallBinding
+import com.exae.memorialapp.viewmodel.MemorialModel
 import dagger.hilt.android.AndroidEntryPoint
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,16 +31,19 @@ private const val ARG_PARAM2 = "param2"
 @AndroidEntryPoint
 class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    private var memorialNo: Int? = -1
     private var param2: String? = null
+    private var introduceId = -1
 
     private var _binding: FragmentIntroduceBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel: MemorialModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            memorialNo = it.getInt(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
     }
@@ -45,6 +55,89 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
         // Inflate the layout for this fragment
         _binding = FragmentIntroduceBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getMemorialIntroduceRequest(memorialNo ?: -1)
+
+        binding.fabMenu.setOnFloatingActionsMenuUpdateListener(object :
+            FloatingActionMenu.OnFloatingActionsMenuUpdateListener {
+
+            override fun onMenuExpanded() {
+                Log.i("sss", "-------expand---------")
+            }
+
+            override fun onMenuCollapsed() {
+                Log.i("sss", "-------collapsed---------")
+            }
+
+        })
+
+        binding.add.setOnClickListener {
+            ARouter.getInstance().build("/app/edit/introduce")
+                .withInt("memorialNo", memorialNo ?: -1)
+                .withInt("introduceId", introduceId)
+                .withInt("type", 0)
+                .navigation(activity)
+            binding.fabMenu.collapse()
+        }
+
+        binding.modify.setOnClickListener {
+            ARouter.getInstance().build("/app/edit/introduce")
+                .withInt("memorialNo", memorialNo ?: -1)
+                .withInt("introduceId", introduceId)
+                .withInt("type", 1)
+                .navigation(activity)
+            binding.fabMenu.collapse()
+        }
+
+        binding.delete.setOnClickListener {
+            binding.fabMenu.collapse()
+            deleteIntroduce()
+        }
+
+        viewModel.getMemorialIntroduceResponse.observe(this, Observer { resources ->
+            handleResponse(resources, {
+                val result = it.data
+                binding.apply {
+                    introduceId = result?.ids ?: -1
+                    introduce.text = result?.content ?: ""
+                    if (result?.content.isNullOrBlank()) {
+                        emptyView.visibility = View.VISIBLE
+                    } else {
+                        emptyView.visibility = View.GONE
+                    }
+                    Glide.with(requireActivity())
+                        .load(result?.picUrl)
+                        .placeholder(R.mipmap.headdd)
+                        .error(R.mipmap.headdd)
+                        .into(binding.headImg)
+                }
+            },
+                {
+                }
+            )
+        })
+
+        viewModel.deleteMemorialIntroduceResponse.observe(this, Observer { resources ->
+            handleResponse(resources, {
+                val result = it.data
+                viewModel.getMemorialIntroduceRequest(memorialNo ?: -1)
+                binding.apply {
+
+                }
+            },
+                {
+                }
+            )
+        })
+
+    }
+
+    private fun deleteIntroduce() {
+        val text = ""
+        viewModel.deleteMemorialIntroduceRequest(memorialNo ?: 0, text)
     }
 
     override fun onDestroyView() {
@@ -63,10 +156,10 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(memorialNo: Int, param2: String) =
             IntroduceFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
+                    putInt(ARG_PARAM1, memorialNo)
                     putString(ARG_PARAM2, param2)
                 }
             }

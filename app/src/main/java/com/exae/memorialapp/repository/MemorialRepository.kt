@@ -7,12 +7,17 @@ import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
+import com.exae.memorialapp.bean.CommentLisResponse
+import com.exae.memorialapp.bean.CreateIntroduceResponse
+import com.exae.memorialapp.bean.DeleteIntroduceResponse
 import com.exae.memorialapp.bean.DeleteMemorialResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
 import com.exae.memorialapp.bean.HandleApplyListResponse
 import com.exae.memorialapp.bean.HandleApplyMemorialResponse
+import com.exae.memorialapp.bean.IntroduceResponse
 import com.exae.memorialapp.bean.LoginResultResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
+import com.exae.memorialapp.bean.ModifyIntroduceResponse
 import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.ResultBean
 import com.exae.memorialapp.bean.SingleMemorialResponse
@@ -26,11 +31,16 @@ import com.exae.memorialapp.requestData.BaseRequest
 import com.exae.memorialapp.requestData.ChooseHallRequest
 import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
+import com.exae.memorialapp.requestData.CommentLisRequest
+import com.exae.memorialapp.requestData.CreateIntroduceRequest
+import com.exae.memorialapp.requestData.DeleteIntroduceRequest
 import com.exae.memorialapp.requestData.DeleteMemorialRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
 import com.exae.memorialapp.requestData.HandleApplyMemorialListAllRequest
 import com.exae.memorialapp.requestData.HandleApplyMemorialRequest
+import com.exae.memorialapp.requestData.IntroduceRequest
 import com.exae.memorialapp.requestData.MemorialListAllRequest
+import com.exae.memorialapp.requestData.ModifyIntroduceRequest
 import com.exae.memorialapp.requestData.MoreDetailRequest
 import com.exae.memorialapp.requestData.MoreMemorialRequest
 import com.exae.memorialapp.requestData.SingleDetailRequest
@@ -197,5 +207,46 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
                 .handleApplyListMemorialRequest(request.path, request.status)
         )
     }
+
+    suspend fun getCommentListRequest(request: CommentLisRequest): ResultBean<CommentLisResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .getCommentListRequest(
+                    request.path,
+                    request.memorialNo,
+                    request.pageNum,
+                    request.pageSize
+                )
+        )
+    }
+
+    suspend fun getMemorialIntroduceRequest(request: IntroduceRequest): ResultBean<IntroduceResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .getMemorialIntroduceRequest(request.path)
+        )
+    }
+
+    suspend fun createMemorialIntroduceRequest(request: CreateIntroduceRequest): ResultBean<CreateIntroduceResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .createMemorialIntroduceRequest(request.path,request)
+        )
+    }
+
+    suspend fun deleteMemorialIntroduceRequest(request: DeleteIntroduceRequest): ResultBean<DeleteIntroduceResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .deleteMemorialIntroduceRequest(request.path,request)
+        )
+    }
+
+    suspend fun modifyMemorialIntroduceRequest(request: ModifyIntroduceRequest): ResultBean<ModifyIntroduceResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .modifyMemorialIntroduceRequest(request.path,request)
+        )
+    }
+
 
 }
