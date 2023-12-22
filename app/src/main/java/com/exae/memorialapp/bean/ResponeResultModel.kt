@@ -349,8 +349,40 @@ class ApplyListModel(
     val status: Int? = -1
 )
 
-class CommentLisResponse : ProtocolResponse<ArrayList<CommentLisModel>>()
-class CommentLisModel(
+class CommentListResponse : ProtocolResponse<ArrayList<CommentListModel>>()
+class CommentListModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)
+
+class AddCommentResponse : ProtocolResponse<AddCommentModel>()
+class AddCommentModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)
+
+class DeleteCommentResponse : ProtocolResponse<DeleteCommentModel>()
+class DeleteCommentModel(
     @SerializedName("id")
     val ids: Int,
     @SerializedName("picUrl")
@@ -415,6 +447,22 @@ class DeleteIntroduceModel(
 
 class ModifyIntroduceResponse : ProtocolResponse<ModifyIntroduceModel>()
 class ModifyIntroduceModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)
+
+class AlbumListResponse : ProtocolResponse<ArrayList<AlbumListModel>>()
+class AlbumListModel(
     @SerializedName("id")
     val ids: Int,
     @SerializedName("picUrl")

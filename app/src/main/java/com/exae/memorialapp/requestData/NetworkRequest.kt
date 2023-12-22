@@ -257,6 +257,20 @@ data class CommentLisRequest(
     var pageSize: Int,
 ) : BaseRequest("/prod-api/user/memorial/comment/list")
 
+data class AddCommentRequest(
+    @SerializedName("memorialNo")
+    var memorialNo: Int,
+    @SerializedName("remark")
+    var remark: String,
+) : BaseRequest("/prod-api/user/memorial/comment")
+
+data class DeleteCommentRequest(
+    @SerializedName("memorialNo")
+    var memorialNo: Int,
+    @SerializedName("id")
+    var commentId: String,
+) : BaseRequest("/prod-api/user/memorial/comment/$commentId")
+
 data class IntroduceRequest(
     @SerializedName("memorialNo")
     var memorialNo: Int
@@ -285,4 +299,11 @@ data class DeleteIntroduceRequest(
     var introduction: String,
 ) : BaseRequest("/prod-api/user/memorial/introduction")
 
-
+data class AlbumLisRequest(
+    @SerializedName("memorialNo")
+    var memorialNo: Int,
+    @SerializedName("pageNum")
+    var pageNum: Int,
+    @SerializedName("pageSize")
+    var pageSize: Int,
+) : BaseRequest("/prod-api/user/memorial/album/list")

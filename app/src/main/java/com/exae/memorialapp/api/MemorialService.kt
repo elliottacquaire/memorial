@@ -1,11 +1,14 @@
 package com.exae.memorialapp.api
 
+import com.exae.memorialapp.bean.AddCommentResponse
+import com.exae.memorialapp.bean.AlbumListResponse
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
-import com.exae.memorialapp.bean.CommentLisResponse
+import com.exae.memorialapp.bean.CommentListResponse
 import com.exae.memorialapp.bean.CreateIntroduceResponse
+import com.exae.memorialapp.bean.DeleteCommentResponse
 import com.exae.memorialapp.bean.DeleteIntroduceResponse
 import com.exae.memorialapp.bean.DeleteMemorialResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
@@ -18,8 +21,10 @@ import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
 import com.exae.memorialapp.bean.UploadImageResponse
+import com.exae.memorialapp.requestData.AddCommentRequest
 import com.exae.memorialapp.requestData.ApplyMemorialRequest
 import com.exae.memorialapp.requestData.CreateIntroduceRequest
+import com.exae.memorialapp.requestData.DeleteCommentRequest
 import com.exae.memorialapp.requestData.DeleteIntroduceRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
 import com.exae.memorialapp.requestData.ModifyIntroduceRequest
@@ -27,7 +32,6 @@ import com.exae.memorialapp.requestData.MoreMemorialRequest
 import com.exae.memorialapp.requestData.SingleMemorialRequest
 import com.exae.memorialapp.requestData.UploadImageRequest
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -259,7 +263,34 @@ interface MemorialService {
         @Query("memorialNo") memorialNo: Int,
         @Query("pageNum") pageNum: Int,
         @Query("pageSize") pageSize: Int,
-    ): CommentLisResponse
+    ): CommentListResponse
+
+    @POST("{path}")
+    suspend fun addCommentRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: AddCommentRequest,
+    ): AddCommentResponse
+
+    @DELETE("{path}")
+    suspend fun deleteCommentRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: DeleteCommentRequest,
+    ): DeleteCommentResponse
+
+    @POST("{path}")
+    suspend fun deleteCommentRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: AddCommentRequest,
+    ): DeleteCommentResponse
 
     @GET("{path}")
     suspend fun getMemorialIntroduceRequest(
@@ -295,5 +326,16 @@ interface MemorialService {
         ) url: String,
         @Body request: DeleteIntroduceRequest,
     ): DeleteIntroduceResponse
+
+    @GET("{path}")
+    suspend fun getAlbumListRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Query("memorialNo") memorialNo: Int,
+        @Query("pageNum") pageNum: Int,
+        @Query("pageSize") pageSize: Int,
+    ): AlbumListResponse
 
 }

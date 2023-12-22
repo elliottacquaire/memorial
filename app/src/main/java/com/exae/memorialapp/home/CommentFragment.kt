@@ -1,23 +1,27 @@
 package com.exae.memorialapp.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemLongClickListener
 import com.exae.memorialapp.R
-import com.exae.memorialapp.adapter.ManageMemorialAdapter
 import com.exae.memorialapp.adapter.MemorialCommentAdapter
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
+import com.exae.memorialapp.bean.CommentListModel
 import com.exae.memorialapp.databinding.FragmentCommentBinding
-import com.exae.memorialapp.databinding.FragmentTwoHallBinding
+import com.exae.memorialapp.utils.ToastUtil
+import com.exae.memorialapp.view.CustomEditTextBottomPopup
 import com.exae.memorialapp.viewmodel.MemorialModel
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.core.BasePopupView
+import com.lxj.xpopup.interfaces.SimpleCallback
 import com.scwang.smart.refresh.header.BezierRadarHeader
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -33,10 +37,12 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 @AndroidEntryPoint
-class CommentFragment : CoreFragment(R.layout.fragment_comment) {
+class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClickListener {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    private var memorialNo: Int? = -1
     private var param2: String? = null
+
+    private var commentTips: String? = ""
 
     private var _binding: FragmentCommentBinding? = null
     private val binding get() = _binding!!
@@ -49,7 +55,7 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            memorialNo = it.getInt(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
     }
@@ -77,9 +83,31 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment) {
             emptyView.setOnClickListener {
                 requestNetData()
             }
+            commit.setOnClickListener {
+                val textBottomPopup = CustomEditTextBottomPopup(requireContext())
+                textBottomPopup.comment = commentTips
+                val pop = XPopup.Builder(context)
+                    .autoOpenSoftInput(true)
+                    .autoFocusEditText(true)
+                    .setPopupCallback(object : SimpleCallback() {
+                        override fun onShow(popupView: BasePopupView?) {
+                            super.onShow(popupView)
+                        }
+
+                        override fun onDismiss(popupView: BasePopupView?) {
+                            super.onDismiss(popupView)
+                            commentTips = textBottomPopup.comment
+                            if (!commentTips.isNullOrBlank()) {
+                                addComment(commentTips!!)
+                            }
+                        }
+                    })
+                    .asCustom(textBottomPopup)
+                    .show()
+            }
         }
 
-        viewModel.getCommentListResponse.observe(this, Observer { resources ->
+        viewModel.getCommentListResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 if (!it.data.isNullOrEmpty()) {
                     listAdapter.data.clear()
@@ -97,10 +125,47 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment) {
                 }
             )
         })
+
+        viewModel.addCommenResponse.observe(viewLifecycleOwner, Observer { resources ->
+            handleResponse(resources, {
+                val result = it.data
+                requestNetData()
+                ToastUtil.showCenter("评论发表成功")
+            },
+                {
+                    ToastUtil.showCenter("评论发表失败，请重试")
+                }
+            )
+        })
+
+        viewModel.deleteCommenResponse.observe(viewLifecycleOwner, Observer { resources ->
+            handleResponse(resources, {
+                val result = it.data
+                requestNetData()
+                ToastUtil.showCenter("评论发表成功")
+            },
+                {
+                    ToastUtil.showCenter("评论发表失败，请重试")
+                }
+            )
+        })
+
+        listAdapter.setOnItemLongClickListener(this)
     }
 
     private fun requestNetData() {
-        viewModel.getCommentListRequest(1,1)
+        if ((memorialNo ?: -1) == -1) return
+        memorialNo?.let { viewModel.getCommentListRequest(it, 1) }
+    }
+
+    private fun addComment(content: String) {
+        if ((memorialNo ?: -1) == -1) return
+        memorialNo?.let { viewModel.addCommentRequest(it, content) }
+    }
+
+    private fun deleteComment(commentId: String) {
+        if ((memorialNo ?: -1) == -1) return
+        memorialNo?.let { viewModel.deleteCommentRequest(it, commentId) }
     }
 
     override fun onDestroyView() {
@@ -119,12 +184,30 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment) {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(memorialNo: Int, param2: String) =
             CommentFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
+                    putInt(ARG_PARAM1, memorialNo)
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onItemLongClick(
+        adapter: BaseQuickAdapter<*, *>,
+        view: View,
+        position: Int
+    ): Boolean {
+        val data = listAdapter.data.get(position) as CommentListModel
+        XPopup.Builder(requireContext())
+            .hasStatusBarShadow(false)
+            .hasNavigationBar(false)
+            .isDestroyOnDismiss(true)
+            .isDarkTheme(true)
+            .asConfirm("温馨提示", "确定要删除此评论吗？") {
+                deleteComment(data.content)
+            }.show()
+
+        return true
     }
 }

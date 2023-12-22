@@ -4,12 +4,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.exae.memorialapp.base.errorHandle
 import com.exae.memorialapp.base.launch
+import com.exae.memorialapp.bean.AddCommentResponse
+import com.exae.memorialapp.bean.AlbumListResponse
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
-import com.exae.memorialapp.bean.CommentLisResponse
+import com.exae.memorialapp.bean.CommentListResponse
 import com.exae.memorialapp.bean.CreateIntroduceResponse
+import com.exae.memorialapp.bean.DeleteCommentResponse
 import com.exae.memorialapp.bean.DeleteIntroduceResponse
 import com.exae.memorialapp.bean.DeleteMemorialResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
@@ -24,6 +27,8 @@ import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
 import com.exae.memorialapp.bean.UploadImageResponse
 import com.exae.memorialapp.repository.MemorialRepository
+import com.exae.memorialapp.requestData.AddCommentRequest
+import com.exae.memorialapp.requestData.AlbumLisRequest
 import com.exae.memorialapp.requestData.ApplyMemorialListAllRequest
 import com.exae.memorialapp.requestData.ApplyMemorialRequest
 import com.exae.memorialapp.requestData.AttentionListRequest
@@ -33,6 +38,7 @@ import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
 import com.exae.memorialapp.requestData.CommentLisRequest
 import com.exae.memorialapp.requestData.CreateIntroduceRequest
+import com.exae.memorialapp.requestData.DeleteCommentRequest
 import com.exae.memorialapp.requestData.DeleteIntroduceRequest
 import com.exae.memorialapp.requestData.DeleteMemorialRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
@@ -335,7 +341,7 @@ class MemorialModel @Inject constructor(
         )
     }
 
-    var getCommentListResponse = MutableLiveData<ResultBean<CommentLisResponse>>()
+    var getCommentListResponse = MutableLiveData<ResultBean<CommentListResponse>>()
     fun getCommentListRequest(memorialNo: Int, pageNum: Int) {
         launch(
             {
@@ -344,6 +350,32 @@ class MemorialModel @Inject constructor(
             },
             {
                 getCommentListResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var deleteCommenResponse = MutableLiveData<ResultBean<DeleteCommentResponse>>()
+    fun deleteCommentRequest(memorialNo: Int, commentId: String) {
+        launch(
+            {
+                deleteCommenResponse.value =
+                    repository.deleteCommentRequest(DeleteCommentRequest(memorialNo, commentId))
+            },
+            {
+                deleteCommenResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var addCommenResponse = MutableLiveData<ResultBean<AddCommentResponse>>()
+    fun addCommentRequest(memorialNo: Int, content: String) {
+        launch(
+            {
+                addCommenResponse.value =
+                    repository.addCommentRequest(AddCommentRequest(memorialNo, content))
+            },
+            {
+                addCommenResponse.value = errorHandle(it)
             }
         )
     }
@@ -400,6 +432,19 @@ class MemorialModel @Inject constructor(
             },
             {
                 deleteMemorialIntroduceResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var getAlbumtListResponse = MutableLiveData<ResultBean<AlbumListResponse>>()
+    fun getAlbumListRequest(memorialNo: Int, pageNum: Int) {
+        launch(
+            {
+                getAlbumtListResponse.value =
+                    repository.getAlbumListRequest(AlbumLisRequest(memorialNo, pageNum, 20))
+            },
+            {
+                getAlbumtListResponse.value = errorHandle(it)
             }
         )
     }

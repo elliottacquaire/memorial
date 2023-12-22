@@ -1,7 +1,6 @@
 package com.exae.memorialapp.home
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -64,13 +63,9 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
         binding.fabMenu.setOnFloatingActionsMenuUpdateListener(object :
             FloatingActionMenu.OnFloatingActionsMenuUpdateListener {
 
-            override fun onMenuExpanded() {
-                Log.i("sss", "-------expand---------")
-            }
+            override fun onMenuExpanded() {}
 
-            override fun onMenuCollapsed() {
-                Log.i("sss", "-------collapsed---------")
-            }
+            override fun onMenuCollapsed() {}
 
         })
 
@@ -97,7 +92,7 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
             deleteIntroduce()
         }
 
-        viewModel.getMemorialIntroduceResponse.observe(this, Observer { resources ->
+        viewModel.getMemorialIntroduceResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 val result = it.data
                 binding.apply {
@@ -120,7 +115,7 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
             )
         })
 
-        viewModel.deleteMemorialIntroduceResponse.observe(this, Observer { resources ->
+        viewModel.deleteMemorialIntroduceResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 val result = it.data
                 viewModel.getMemorialIntroduceRequest(memorialNo ?: -1)

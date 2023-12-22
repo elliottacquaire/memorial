@@ -138,14 +138,10 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
                         }
 //                        HomeFragment.newInstance(memorialNo, "")
                     }
-                    1 -> IntroduceFragment().apply {
-//                        arguments = Bundle().apply {
-//                            putInt("isHistory", HISTORY_ZERO)
-//                        }
-                    }
-                    2 -> MemorialFragment()
-                    3 -> CommentFragment()
-                    else -> WorshipFragment()
+                    1 -> IntroduceFragment.newInstance(memorialNo, "")
+                    2 -> MemorialFragment.newInstance(memorialNo, "")
+                    3 -> CommentFragment.newInstance(memorialNo, "")
+                    else -> WorshipFragment.newInstance(memorialNo, "")
                 }
             }
 

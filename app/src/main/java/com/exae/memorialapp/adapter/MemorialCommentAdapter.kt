@@ -7,14 +7,14 @@ import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.exae.memorialapp.R
-import com.exae.memorialapp.bean.CommentLisModel
+import com.exae.memorialapp.bean.CommentListModel
 import com.exae.memorialapp.utils.CommonUtils.getSplitTime
 import javax.inject.Inject
 
 class MemorialCommentAdapter @Inject constructor() :
-    BaseQuickAdapter<CommentLisModel, BaseViewHolder>(R.layout.item_comment) {
+    BaseQuickAdapter<CommentListModel, BaseViewHolder>(R.layout.item_comment) {
 
-    override fun convert(holder: BaseViewHolder, item: CommentLisModel) {
+    override fun convert(holder: BaseViewHolder, item: CommentListModel) {
         holder.setText(R.id.nickName, item.name)
             .setText(R.id.createTime, getSplitTime(item.createTime))
             .setText(R.id.content, item.content)

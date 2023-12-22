@@ -84,7 +84,7 @@ class ToDoListFragment : BaseFragment<FragmentIndexBinding>(), OnItemClickListen
 
         viewModel.attentionListResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources) {
-                if (it.data != null && it.data.isNotEmpty()) {
+                if (!it.data.isNullOrEmpty()) {
                     listAdapter.data.clear()
                     listAdapter.data.addAll(it.data)
                     listAdapter.notifyDataSetChanged()
@@ -92,14 +92,14 @@ class ToDoListFragment : BaseFragment<FragmentIndexBinding>(), OnItemClickListen
                     binding.emptyView.visibility = View.GONE
                     binding.mListView.visibility = View.VISIBLE
                 } else {
-//                    binding.emptyView.visibility = View.VISIBLE
-//                    binding.mListView.visibility = View.GONE
-                    bannerListss.add(AttentionListModel(2,"0","name0",""))
-                    bannerListss.add(AttentionListModel(1,"1","name1",""))
-                    bannerListss.add(AttentionListModel(3,"2","name2",""))
-                    listAdapter.data.clear()
-                    listAdapter.data.addAll(bannerListss)
-                    listAdapter.notifyDataSetChanged()
+                    binding.emptyView.visibility = View.VISIBLE
+                    binding.mListView.visibility = View.GONE
+//                    bannerListss.add(AttentionListModel(2,"0","name0",""))
+//                    bannerListss.add(AttentionListModel(1,"1","name1",""))
+//                    bannerListss.add(AttentionListModel(3,"2","name2",""))
+//                    listAdapter.data.clear()
+//                    listAdapter.data.addAll(bannerListss)
+//                    listAdapter.notifyDataSetChanged()
                 }
             }
         })

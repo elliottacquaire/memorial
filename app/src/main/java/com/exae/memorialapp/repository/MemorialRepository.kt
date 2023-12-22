@@ -3,12 +3,15 @@ package com.exae.memorialapp.repository
 import com.exae.memorialapp.animation.RetrofitAnno
 import com.exae.memorialapp.api.MemorialService
 import com.exae.memorialapp.api.VerificationCodeService
+import com.exae.memorialapp.bean.AddCommentResponse
+import com.exae.memorialapp.bean.AlbumListResponse
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
-import com.exae.memorialapp.bean.CommentLisResponse
+import com.exae.memorialapp.bean.CommentListResponse
 import com.exae.memorialapp.bean.CreateIntroduceResponse
+import com.exae.memorialapp.bean.DeleteCommentResponse
 import com.exae.memorialapp.bean.DeleteIntroduceResponse
 import com.exae.memorialapp.bean.DeleteMemorialResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
@@ -23,6 +26,8 @@ import com.exae.memorialapp.bean.ResultBean
 import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
 import com.exae.memorialapp.bean.UploadImageResponse
+import com.exae.memorialapp.requestData.AddCommentRequest
+import com.exae.memorialapp.requestData.AlbumLisRequest
 import com.exae.memorialapp.requestData.ApplyMemorialListAllRequest
 import com.exae.memorialapp.requestData.ApplyMemorialRequest
 import com.exae.memorialapp.requestData.AttentionListRequest
@@ -33,6 +38,7 @@ import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
 import com.exae.memorialapp.requestData.CommentLisRequest
 import com.exae.memorialapp.requestData.CreateIntroduceRequest
+import com.exae.memorialapp.requestData.DeleteCommentRequest
 import com.exae.memorialapp.requestData.DeleteIntroduceRequest
 import com.exae.memorialapp.requestData.DeleteMemorialRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
@@ -208,7 +214,7 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
         )
     }
 
-    suspend fun getCommentListRequest(request: CommentLisRequest): ResultBean<CommentLisResponse> {
+    suspend fun getCommentListRequest(request: CommentLisRequest): ResultBean<CommentListResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
                 .getCommentListRequest(
@@ -216,6 +222,26 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
                     request.memorialNo,
                     request.pageNum,
                     request.pageSize
+                )
+        )
+    }
+
+    suspend fun addCommentRequest(request: AddCommentRequest): ResultBean<AddCommentResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .addCommentRequest(
+                    request.path,
+                    request,
+                )
+        )
+    }
+
+    suspend fun deleteCommentRequest(request: DeleteCommentRequest): ResultBean<DeleteCommentResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .deleteCommentRequest(
+                    request.path,
+                    request,
                 )
         )
     }
@@ -248,5 +274,16 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
         )
     }
 
+    suspend fun getAlbumListRequest(request: AlbumLisRequest): ResultBean<AlbumListResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .getAlbumListRequest(
+                    request.path,
+                    request.memorialNo,
+                    request.pageNum,
+                    request.pageSize
+                )
+        )
+    }
 
 }
