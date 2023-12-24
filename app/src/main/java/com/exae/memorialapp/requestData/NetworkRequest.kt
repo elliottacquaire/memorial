@@ -260,8 +260,8 @@ data class CommentLisRequest(
 data class AddCommentRequest(
     @SerializedName("memorialNo")
     var memorialNo: Int,
-    @SerializedName("remark")
-    var remark: String,
+    @SerializedName("comment")
+    var comment: String,
 ) : BaseRequest("/prod-api/user/memorial/comment")
 
 data class DeleteCommentRequest(

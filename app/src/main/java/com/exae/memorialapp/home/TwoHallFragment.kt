@@ -57,7 +57,7 @@ class TwoHallFragment : CoreFragment(R.layout.fragment_two_hall) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getTwoMemorialDetailRequest(memorialNo ?: -1)
 
-        viewModel.twoMemorialDetailResponse.observe(this, Observer { resources ->
+        viewModel.twoMemorialDetailResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 val result = it.data
                 binding.apply {

@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM1 = "memorialNo"
 private const val ARG_PARAM2 = "param2"
 
 /**
@@ -51,6 +51,8 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
     lateinit var listAdapter: MemorialCommentAdapter
 
     private val viewModel: MemorialModel by viewModels()
+    private val list = ArrayList<CommentListModel>()
+    private var pageNum: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,16 +73,20 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requestNetData()
+        list.clear()
         binding.apply {
             smartRefreshLayout.setRefreshHeader(BezierRadarHeader(activity))
             mListView.layoutManager = LinearLayoutManager(activity)
             mListView.adapter = listAdapter
             //下拉刷新
             smartRefreshLayout.setOnRefreshListener {
+                pageNum = 1
                 requestNetData()
                 smartRefreshLayout.finishRefresh(true)
             }
             emptyView.setOnClickListener {
+                pageNum = 1
                 requestNetData()
             }
             commit.setOnClickListener {
@@ -110,7 +116,27 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
         viewModel.getCommentListResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 if (!it.data.isNullOrEmpty()) {
+                    if (pageNum == 1){
+                        binding.smartRefreshLayout.finishRefresh(true)
+//                        if (it.data.size < 20){
+//                            listAdapter.data.addAll(it.data)
+////                        listAdapter.setNewInstance(it.data)
+//                            listAdapter.loadMoreModule.loadMoreEnd()
+//                        }else{
+//                            listAdapter.loadMoreModule.loadMoreComplete()
+//                        }
+                    }else{
+
+                    }
+                    if (it.data.size < 20){
+                        listAdapter.data.addAll(it.data)
+                        listAdapter.loadMoreModule.loadMoreEnd()
+                    }else{
+                        listAdapter.loadMoreModule.loadMoreComplete()
+                    }
+                    pageNum++
                     listAdapter.data.clear()
+                    list.addAll(it.data)
                     listAdapter.data.addAll(it.data)
                     listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
                     binding.emptyView.visibility = View.GONE
@@ -130,10 +156,10 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
             handleResponse(resources, {
                 val result = it.data
                 requestNetData()
-                ToastUtil.showCenter("评论发表成功")
+                ToastUtil.showCenter("留言发表成功")
             },
                 {
-                    ToastUtil.showCenter("评论发表失败，请重试")
+                    ToastUtil.showCenter("留言发表失败，请重试")
                 }
             )
         })
@@ -142,20 +168,23 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
             handleResponse(resources, {
                 val result = it.data
                 requestNetData()
-                ToastUtil.showCenter("评论发表成功")
+                ToastUtil.showCenter("留言删除成功")
             },
                 {
-                    ToastUtil.showCenter("评论发表失败，请重试")
+                    ToastUtil.showCenter("留言发表失败，请重试")
                 }
             )
         })
 
         listAdapter.setOnItemLongClickListener(this)
+        listAdapter.loadMoreModule.setOnLoadMoreListener {
+            requestNetData()
+        }
     }
 
     private fun requestNetData() {
         if ((memorialNo ?: -1) == -1) return
-        memorialNo?.let { viewModel.getCommentListRequest(it, 1) }
+        memorialNo?.let { viewModel.getCommentListRequest(it,pageNum) }
     }
 
     private fun addComment(content: String) {
@@ -204,8 +233,8 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
             .hasNavigationBar(false)
             .isDestroyOnDismiss(true)
             .isDarkTheme(true)
-            .asConfirm("温馨提示", "确定要删除此评论吗？") {
-                deleteComment(data.content)
+            .asConfirm("温馨提示", "确定要删除此留言吗？") {
+                deleteComment(data.comment)
             }.show()
 
         return true

@@ -357,8 +357,10 @@ class CommentListModel(
     val picUrl: String?,
     @SerializedName("name")
     val name: String = "",
-    @SerializedName("content")
-    val content: String = "",
+    @SerializedName("comment")
+    val comment: String = "",
+    @SerializedName("memorialNo")
+    val memorialNo: Int?,
     @SerializedName("createTime")
     val createTime: String = "",
     @SerializedName("repeatUse")
@@ -371,10 +373,12 @@ class AddCommentModel(
     val ids: Int,
     @SerializedName("picUrl")
     val picUrl: String?,
+    @SerializedName("memorialNo")
+    val memorialNo: Int?,
     @SerializedName("name")
     val name: String = "",
-    @SerializedName("content")
-    val content: String = "",
+    @SerializedName("comment")
+    val comment: String = "",
     @SerializedName("createTime")
     val createTime: String = "",
     @SerializedName("repeatUse")
