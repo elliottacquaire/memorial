@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.exae.memorialapp.R
-import com.exae.memorialapp.adapter.AlbumAdapter
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.FragmentAlbumBinding
@@ -21,7 +20,7 @@ import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM1 = "memorialNo"
 private const val ARG_PARAM2 = "param2"
 
 /**
@@ -44,6 +43,7 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
     lateinit var listAdapter: AlbumAdapter
 
     private val viewModel: MemorialModel by viewModels()
+    private var pageNum: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,19 +70,37 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
             mListView.adapter = listAdapter
             //下拉刷新
             smartRefreshLayout.setOnRefreshListener {
+                pageNum = 1
                 requestNetData()
                 smartRefreshLayout.finishRefresh(true)
             }
             emptyView.setOnClickListener {
+                pageNum = 1
                 requestNetData()
+            }
+            commit.setOnClickListener {
+
             }
         }
 
         viewModel.getAlbumtListResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 if (!it.data.isNullOrEmpty()) {
-                    listAdapter.data.clear()
+                    if (pageNum == 1){
+                        listAdapter.data.clear()
+                        binding.smartRefreshLayout.finishRefresh(true)
+                    }else{
+
+                    }
                     listAdapter.data.addAll(it.data)
+                    if (it.data.size < 20){
+//                        listAdapter.data.addAll(it.data)
+                        listAdapter.loadMoreModule.loadMoreEnd()
+                    }else{
+                        listAdapter.loadMoreModule.loadMoreComplete()
+                    }
+                    pageNum++
+//                    listAdapter.data.addAll(it.data)
                     listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
                     binding.emptyView.visibility = View.GONE
                     binding.smartRefreshLayout.visibility = View.VISIBLE
@@ -96,6 +114,10 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
                 }
             )
         })
+
+        listAdapter.loadMoreModule.setOnLoadMoreListener {
+            requestNetData()
+        }
 
     }
 

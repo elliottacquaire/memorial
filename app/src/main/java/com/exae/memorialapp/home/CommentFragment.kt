@@ -117,6 +117,7 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
             handleResponse(resources, {
                 if (!it.data.isNullOrEmpty()) {
                     if (pageNum == 1){
+                        listAdapter.data.clear()
                         binding.smartRefreshLayout.finishRefresh(true)
 //                        if (it.data.size < 20){
 //                            listAdapter.data.addAll(it.data)
@@ -128,16 +129,17 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
                     }else{
 
                     }
+                    listAdapter.data.addAll(it.data)
                     if (it.data.size < 20){
-                        listAdapter.data.addAll(it.data)
+//                        listAdapter.data.addAll(it.data)
                         listAdapter.loadMoreModule.loadMoreEnd()
                     }else{
                         listAdapter.loadMoreModule.loadMoreComplete()
                     }
                     pageNum++
-                    listAdapter.data.clear()
-                    list.addAll(it.data)
-                    listAdapter.data.addAll(it.data)
+//                    listAdapter.data.clear()
+//                    list.addAll(it.data)
+//                    listAdapter.data.addAll(it.data)
                     listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
                     binding.emptyView.visibility = View.GONE
                     binding.smartRefreshLayout.visibility = View.VISIBLE
