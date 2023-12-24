@@ -41,8 +41,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
-                android:text=""
-                android:textColor="@color/black"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -74,25 +72,19 @@
             app:layout_constraintRight_toRightOf="parent">
 
             <com.ddz.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add"
+                android:id="@+id/modify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:fab_icon="@mipmap/add"
+                app:fab_icon="@drawable/ic_edit"
                 app:fab_size="normal" />
 
             <com.ddz.floatingactionbutton.FloatingActionButton
                 android:id="@+id/delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:fab_icon="@drawable/ic_profile_edit"
-                app:fab_size="normal" />
-
-            <com.ddz.floatingactionbutton.FloatingActionButton
-                android:id="@+id/modify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 app:fab_icon="@drawable/icon_clear"
                 app:fab_size="normal" />
+
         </com.ddz.floatingactionbutton.FloatingActionMenu>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

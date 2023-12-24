@@ -324,7 +324,7 @@ interface MemorialService {
             value = "path",
             encoded = true
         ) url: String,
-        @Body request: DeleteIntroduceRequest,
+//        @Body request: DeleteIntroduceRequest,
     ): DeleteIntroduceResponse
 
     @GET("{path}")

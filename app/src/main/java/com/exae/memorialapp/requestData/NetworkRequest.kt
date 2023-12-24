@@ -293,11 +293,11 @@ data class ModifyIntroduceRequest(
 ) : BaseRequest("/prod-api/user/memorial/introduction")
 
 data class DeleteIntroduceRequest(
-    @SerializedName("memorialNo")
-    var memorialNo: Int,
-    @SerializedName("introduction")
-    var introduction: String,
-) : BaseRequest("/prod-api/user/memorial/introduction")
+    @SerializedName("id")
+    var ids: Int,
+//    @SerializedName("introduction")
+//    var introduction: String,
+) : BaseRequest("/prod-api/user/memorial/introduction/$ids")
 
 data class AlbumLisRequest(
     @SerializedName("memorialNo")

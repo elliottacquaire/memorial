@@ -29,12 +29,15 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
     private var memorialNo = -1
     private var memorialName = ""
     private var memorialType = ""
+    private var positionInt = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         memorialNo = intent.getIntExtra("memorialNo", -1)
         memorialName = intent.getStringExtra("memorialName") ?: ""
         memorialType = intent.getStringExtra("memorialType") ?: ""
+        positionInt = intent.getIntExtra("positionInt", 0)
+
         setToolTitle(memorialName)
         setBackState(true)
         binding.apply {
@@ -81,7 +84,6 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
 
             mMainViewPager.adapter = initPageAdapter()
             mMainViewPager.offscreenPageLimit = 2
-
             mMainTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabReselected(tab: TabLayout.Tab?) {
 
@@ -118,7 +120,7 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
                 }
             })
 
-            mMainTabLayout.selectTab(mMainTabLayout.getTabAt(0))
+            mMainTabLayout.selectTab(mMainTabLayout.getTabAt(positionInt))
         }
     }
 
@@ -134,7 +136,9 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
                             "0" ->  HomeFragment.newInstance(memorialNo, "")
                             "1" ->  MoreFamilyFragment.newInstance(memorialNo, "")
                             "2" ->  TwoHallFragment.newInstance(memorialNo, "")
-                            else ->  HomeFragment.newInstance(memorialNo, "")
+                            else -> {
+                                HomeFragment.newInstance(memorialNo, "")
+                            }
                         }
 //                        HomeFragment.newInstance(memorialNo, "")
                     }

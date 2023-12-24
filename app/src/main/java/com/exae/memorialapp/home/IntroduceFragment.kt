@@ -14,7 +14,9 @@ import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.FragmentIntroduceBinding
+import com.exae.memorialapp.utils.ToastUtil
 import com.exae.memorialapp.viewmodel.MemorialModel
+import com.lxj.xpopup.XPopup
 import dagger.hilt.android.AndroidEntryPoint
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,6 +35,7 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
     private var memorialNo: Int? = -1
     private var param2: String? = null
     private var introduceId = -1
+    private var introduceText: String? = ""
 
     private var _binding: FragmentIntroduceBinding? = null
     private val binding get() = _binding!!
@@ -58,7 +61,6 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getMemorialIntroduceRequest(memorialNo ?: -1)
 
         binding.fabMenu.setOnFloatingActionsMenuUpdateListener(object :
             FloatingActionMenu.OnFloatingActionsMenuUpdateListener {
@@ -69,27 +71,29 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
 
         })
 
-        binding.add.setOnClickListener {
-            ARouter.getInstance().build("/app/edit/introduce")
-                .withInt("memorialNo", memorialNo ?: -1)
-                .withInt("introduceId", introduceId)
-                .withInt("type", 0)
-                .navigation(activity)
-            binding.fabMenu.collapse()
-        }
+//        binding.add.setOnClickListener {
+//            ARouter.getInstance().build("/app/edit/introduce")
+//                .withInt("memorialNo", memorialNo ?: -1)
+//                .withInt("introduceId", introduceId)
+//                .withString("introduceText",introduceText)
+//                .withInt("type", 0)
+//                .navigation(activity)
+//            binding.fabMenu.collapse()
+//        }
 
         binding.modify.setOnClickListener {
             ARouter.getInstance().build("/app/edit/introduce")
                 .withInt("memorialNo", memorialNo ?: -1)
                 .withInt("introduceId", introduceId)
-                .withInt("type", 1)
+                .withString("introduceText",introduceText)
+//                .withInt("type", 1)
                 .navigation(activity)
             binding.fabMenu.collapse()
         }
 
         binding.delete.setOnClickListener {
             binding.fabMenu.collapse()
-            deleteIntroduce()
+            deleteDialog()
         }
 
         viewModel.getMemorialIntroduceResponse.observe(viewLifecycleOwner, Observer { resources ->
@@ -97,8 +101,10 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
                 val result = it.data
                 binding.apply {
                     introduceId = result?.ids ?: -1
-                    introduce.text = result?.content ?: ""
-                    if (result?.content.isNullOrBlank()) {
+                    introduce.text = result?.introduction ?: ""
+                    introduceText = result?.introduction ?: ""
+
+                    if (result?.introduction.isNullOrBlank()) {
                         emptyView.visibility = View.VISIBLE
                     } else {
                         emptyView.visibility = View.GONE
@@ -119,9 +125,7 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
             handleResponse(resources, {
                 val result = it.data
                 viewModel.getMemorialIntroduceRequest(memorialNo ?: -1)
-                binding.apply {
-
-                }
+                ToastUtil.showCenter(it.message)
             },
                 {
                 }
@@ -130,14 +134,29 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getMemorialIntroduceRequest(memorialNo ?: -1)
+    }
+
     private fun deleteIntroduce() {
-        val text = ""
-        viewModel.deleteMemorialIntroduceRequest(memorialNo ?: 0, text)
+        viewModel.deleteMemorialIntroduceRequest(introduceId)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun deleteDialog() {
+        XPopup.Builder(context)
+            .hasStatusBarShadow(false)
+            .hasNavigationBar(false)
+            .isDestroyOnDismiss(true)
+            .isDarkTheme(true)
+            .asConfirm("温馨提示", "确定删除生平描述吗？") {
+                deleteIntroduce()
+            }.show()
     }
 
     companion object {

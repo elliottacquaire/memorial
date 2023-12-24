@@ -263,7 +263,7 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
     suspend fun deleteMemorialIntroduceRequest(request: DeleteIntroduceRequest): ResultBean<DeleteIntroduceResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .deleteMemorialIntroduceRequest(request.path,request)
+                .deleteMemorialIntroduceRequest(request.path)
         )
     }
 

@@ -405,15 +405,15 @@ class IntroduceModel(
     val picUrl: String?,
     @SerializedName("name")
     val name: String = "",
-    @SerializedName("content")
-    val content: String = "",
-    @SerializedName("createTime")
-    val createTime: String = "",
-    @SerializedName("repeatUse")
-    val repeatUse: Int = 0
+    @SerializedName("introduction")
+    val introduction: String = "",
+    @SerializedName("memorialNo")
+    val memorialNo: Int = -1,
+    @SerializedName("userId")
+    val userId: Int = -1
 )
 
-class CreateIntroduceResponse : ProtocolResponse<CreateIntroduceModel>()
+class CreateIntroduceResponse : ProtocolResponse<IntroduceModel>()
 class CreateIntroduceModel(
     @SerializedName("id")
     val ids: Int,
@@ -421,15 +421,15 @@ class CreateIntroduceModel(
     val picUrl: String?,
     @SerializedName("name")
     val name: String = "",
-    @SerializedName("content")
-    val content: String = "",
-    @SerializedName("createTime")
-    val createTime: String = "",
-    @SerializedName("repeatUse")
-    val repeatUse: Int = 0
+    @SerializedName("introduction")
+    val introduction: String = "",
+    @SerializedName("memorialNo")
+    val memorialNo: Int = -1,
+    @SerializedName("userId")
+    val userId: Int = -1
 )
 
-class DeleteIntroduceResponse : ProtocolResponse<DeleteIntroduceModel>()
+class DeleteIntroduceResponse : ProtocolResponse<Boolean>()
 class DeleteIntroduceModel(
     @SerializedName("id")
     val ids: Int,
@@ -437,15 +437,15 @@ class DeleteIntroduceModel(
     val picUrl: String?,
     @SerializedName("name")
     val name: String = "",
-    @SerializedName("content")
-    val content: String = "",
-    @SerializedName("createTime")
-    val createTime: String = "",
-    @SerializedName("repeatUse")
-    val repeatUse: Int = 0
+    @SerializedName("introduction")
+    val introduction: String = "",
+    @SerializedName("memorialNo")
+    val memorialNo: Int = -1,
+    @SerializedName("userId")
+    val userId: Int = -1
 )
 
-class ModifyIntroduceResponse : ProtocolResponse<ModifyIntroduceModel>()
+class ModifyIntroduceResponse : ProtocolResponse<IntroduceModel>()
 class ModifyIntroduceModel(
     @SerializedName("id")
     val ids: Int,
@@ -453,12 +453,12 @@ class ModifyIntroduceModel(
     val picUrl: String?,
     @SerializedName("name")
     val name: String = "",
-    @SerializedName("content")
-    val content: String = "",
-    @SerializedName("createTime")
-    val createTime: String = "",
-    @SerializedName("repeatUse")
-    val repeatUse: Int = 0
+    @SerializedName("introduction")
+    val introduction: String = "",
+    @SerializedName("memorialNo")
+    val memorialNo: Int = -1,
+    @SerializedName("userId")
+    val userId: Int = -1
 )
 
 class AlbumListResponse : ProtocolResponse<ArrayList<AlbumListModel>>()

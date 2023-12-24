@@ -1,6 +1,7 @@
 package com.exae.memorialapp.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,6 +51,7 @@ class HomeFragment : CoreFragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.i("sss","===HomeFragment=====")
         viewModel.getSingleMemorialDetailRequest(memorialNo ?: -1)
 
         viewModel.singleMemorialDetailResponse.observe(this, Observer { resources ->

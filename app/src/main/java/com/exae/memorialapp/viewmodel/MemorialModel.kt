@@ -423,11 +423,11 @@ class MemorialModel @Inject constructor(
     }
 
     var deleteMemorialIntroduceResponse = MutableLiveData<ResultBean<DeleteIntroduceResponse>>()
-    fun deleteMemorialIntroduceRequest(ememorialNo: Int, introduce: String) {
+    fun deleteMemorialIntroduceRequest(ids: Int) {
         launch(
             {
                 deleteMemorialIntroduceResponse.value = repository.deleteMemorialIntroduceRequest(
-                    DeleteIntroduceRequest(ememorialNo, introduce)
+                    DeleteIntroduceRequest(ids)
                 )
             },
             {

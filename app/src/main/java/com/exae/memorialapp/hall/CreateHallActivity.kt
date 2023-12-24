@@ -241,7 +241,7 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
                     .withInt("memorialNo", it.data?.memorialNo ?: -1)
                     .withString("memorialName", it.data?.memorialName)
                     .withString("memorialType", chooseType.toString())
-                    .navigation()
+                    .navigation(this)
                 finish()
             },
                 {
@@ -282,7 +282,7 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
                     .withInt("memorialNo", it.data?.memorialNo ?: -1)
                     .withString("memorialName", it.data?.memorialName)
                     .withString("memorialType", chooseType.toString())
-                    .navigation()
+                    .navigation(this)
                 finish()
             },
                 {
@@ -357,7 +357,7 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
                     .withInt("memorialNo", it.data?.memorialNo ?: -1)
                     .withString("memorialName", it.data?.memorialName)
                     .withString("memorialType", chooseType.toString())
-                    .navigation()
+                    .navigation(this)
                 finish()
             },
                 {

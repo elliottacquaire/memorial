@@ -30,7 +30,7 @@
             app:drawableEndCompat="@drawable/ic_arrow_head_enter_right"  />
 
         <TextView
-            android:id="@+id/accountAdd"
+            android:id="@+id/introduceFrag"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="8dp"
@@ -41,7 +41,7 @@
             app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
 
         <TextView
-            android:id="@+id/hallManage"
+            android:id="@+id/memorialFrag"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="8dp"
@@ -52,7 +52,7 @@
             app:drawableEndCompat="@drawable/ic_arrow_head_enter_right" />
 
         <TextView
-            android:id="@+id/helpCenter"
+            android:id="@+id/commentFrag"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="8dp"

@@ -14,11 +14,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 @Route(path = "/app/edit/introduce")
 class EditIntroduceActivity : PosBaseActivity<ActivityEditIntroduceBinding>() {
-    private var memorialType = ""
+    //    private var memorialType = ""
     private var memorialNo = -1
-    private var memorialName = ""
+    private var introduceText = ""
     private var introduceId = -1
-    private var type = -1 // 0 create,1 modify
+    private var showMessage = ""
+//    private var type = -1 // 0 create,1 modify
 
     private val viewModel: MemorialModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,31 +28,39 @@ class EditIntroduceActivity : PosBaseActivity<ActivityEditIntroduceBinding>() {
         setBackState(true)
 
         memorialNo = intent.getIntExtra("memorialNo", -1)
-        memorialName = intent.getStringExtra("memorialName") ?: ""
-        memorialType = intent.getStringExtra("memorialType") ?: ""
+        introduceText = intent.getStringExtra("introduceText") ?: ""
+//        memorialType = intent.getStringExtra("memorialType") ?: ""
         introduceId = intent.getIntExtra("introduceId", -1)
-        type = intent.getIntExtra("type", -1)
+
+//        type = intent.getIntExtra("type", -1)
 
         initCallBack()
 
         binding.save.setOnClickListener {
-            when (type) {
-                0 -> createIntroduce()
-                1 -> modifyIntroduce()
-                else -> {}
+            when (introduceId) {
+                -1 -> {
+                    showMessage = "发布"
+                    createIntroduce()
+                }
+//                1 -> modifyIntroduce()
+                else -> {
+                    showMessage = "修改"
+                    modifyIntroduce()
+                }
             }
         }
+        binding.edtContent.setText(introduceText)
     }
 
     private fun initCallBack() {
         viewModel.createMemorialIntroduceResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
                 val result = it.data
-                ToastUtil.showCenter("发布成功")
+                ToastUtil.showCenter("${showMessage}成功")
                 finish()
             },
                 {
-                    ToastUtil.showCenter("发布失败，请重试")
+                    ToastUtil.showCenter("${showMessage}失败，请重试")
                 }
             )
         })
@@ -61,13 +70,13 @@ class EditIntroduceActivity : PosBaseActivity<ActivityEditIntroduceBinding>() {
                 val result = it.data
                 binding.apply {
                     edtTitle.setText(result?.name)
-                    edtContent.setText(result?.content)
+                    edtContent.setText(result?.introduction)
                 }
-                ToastUtil.showCenter("修改成功")
+                ToastUtil.showCenter("${showMessage}成功")
                 finish()
             },
                 {
-                    ToastUtil.showCenter("修改失败，请重试")
+                    ToastUtil.showCenter("${showMessage}失败，请重试")
                 }
             )
         })

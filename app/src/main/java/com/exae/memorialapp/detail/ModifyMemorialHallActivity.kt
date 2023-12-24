@@ -21,20 +21,22 @@ class ModifyMemorialHallActivity : PosBaseActivity<ActivityModifyMemorialHallBin
     private var memorialNo = -1
     private var memorialName = ""
     private var memorialType = ""
+//    private var positionInt = 0
     private val viewModel: MemorialModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         memorialNo = intent.getIntExtra("memorialNo", -1)
         memorialName = intent.getStringExtra("memorialName") ?: ""
         memorialType = intent.getStringExtra("memorialType") ?: ""
+//        positionInt = intent.getIntExtra("positionInt", 0)
 
         setToolTitle("编辑${memorialName}纪念馆")
         setBackState(true)
 
         binding.modifyInfo.setOnClickListener(this)
-        binding.accountAdd.setOnClickListener(this)
-        binding.hallManage.setOnClickListener(this)
-        binding.helpCenter.setOnClickListener(this)
+        binding.introduceFrag.setOnClickListener(this)
+        binding.memorialFrag.setOnClickListener(this)
+        binding.commentFrag.setOnClickListener(this)
         binding.delete.setOnClickListener(this)
 
         initResponse()
@@ -66,18 +68,28 @@ class ModifyMemorialHallActivity : PosBaseActivity<ActivityModifyMemorialHallBin
                     else -> ""
                 }
             }
-            R.id.accountAdd -> {
-                ARouter.getInstance().build("/app/charge/money")
-                    .withInt("clickType", 2) //
+            R.id.introduceFrag -> {
+                ARouter.getInstance().build("/app/home")
+                    .withInt("memorialNo", memorialNo)
+                    .withString("memorialName", memorialName)
+                    .withString("memorialType", memorialType)
+                    .withInt("positionInt", 1)
                     .navigation(this)
             }
-            R.id.hallManage -> {
-                ARouter.getInstance().build("/app/manage/hall")
+            R.id.memorialFrag -> {
+                ARouter.getInstance().build("/app/home")
+                    .withInt("memorialNo", memorialNo)
+                    .withString("memorialName", memorialName)
+                    .withString("memorialType", memorialType)
+                    .withInt("positionInt", 2)
                     .navigation(this)
             }
-            R.id.helpCenter -> {
-                ARouter.getInstance().build("/pos/history/record")
-                    .withInt("clickType", 101) //
+            R.id.commentFrag -> {
+                ARouter.getInstance().build("/app/home")
+                    .withInt("memorialNo", memorialNo)
+                    .withString("memorialName", memorialName)
+                    .withString("memorialType", memorialType)
+                    .withInt("positionInt", 3)
                     .navigation(this)
             }
             R.id.delete -> {

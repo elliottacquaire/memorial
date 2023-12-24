@@ -11,15 +11,13 @@ import com.bumptech.glide.Glide
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
-import com.exae.memorialapp.databinding.FragmentHomeBinding
 import com.exae.memorialapp.databinding.FragmentMoreFamilyBinding
-import com.exae.memorialapp.utils.CommonUtils
 import com.exae.memorialapp.viewmodel.MemorialModel
 import dagger.hilt.android.AndroidEntryPoint
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM1 = "memorialNo"
 private const val ARG_PARAM2 = "param2"
 
 /**
@@ -28,7 +26,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 @AndroidEntryPoint
-class MoreFamilyFragment : CoreFragment(R.layout.fragment_more_family)  {
+class MoreFamilyFragment : CoreFragment(R.layout.fragment_more_family) {
     // TODO: Rename and change types of parameters
     private var memorialNo: Int? = -1
     private var param2: String? = null
@@ -58,7 +56,7 @@ class MoreFamilyFragment : CoreFragment(R.layout.fragment_more_family)  {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getMoreDetailMemorialRequest(memorialNo ?: -1)
 
-        viewModel.moreMemorialDetailResponse.observe(this, Observer { resources ->
+        viewModel.moreMemorialDetailResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 val result = it.data
                 binding.apply {
@@ -67,17 +65,17 @@ class MoreFamilyFragment : CoreFragment(R.layout.fragment_more_family)  {
 //                            result?.birthDate ?: ""
 //                        ) + " - " + CommonUtils.getSplitTime(result?.leaveDate ?: "")
 //                    }
-//                    tvName.text = result?.name ?: ""
-//                    tvEpitaph.text = result?.epitaph ?: ""
-//                    Glide.with(requireActivity())
-//                        .load(result?.picUrlPrefix + result?.memorialPicUrl)
-//                        .into(binding.memorialPic)
-//
-//                    Glide.with(requireActivity())
-//                        .load(result?.picUrlPrefix + result?.avatarPicUrl)
-//                        .placeholder(R.mipmap.headdd)
-//                        .error(R.mipmap.headdd)
-//                        .into(binding.headImg)
+                    tvName.text = result?.name ?: ""
+                    tvEpitaph.text = result?.memorialName ?: ""
+                    Glide.with(requireActivity())
+                        .load(result?.picUrlPrefix + result?.memorialPicUrl)
+                        .into(binding.memorialPic)
+
+                    Glide.with(requireActivity())
+                        .load(result?.picUrlPrefix + result?.avatarPicUrl)
+                        .placeholder(R.mipmap.headdd)
+                        .error(R.mipmap.headdd)
+                        .into(binding.headImg)
                 }
             },
                 {
@@ -104,7 +102,7 @@ class MoreFamilyFragment : CoreFragment(R.layout.fragment_more_family)  {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(memorialNo: Int, param2: String) =
-            HomeFragment().apply {
+            MoreFamilyFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_PARAM1, memorialNo)
                     putString(ARG_PARAM2, param2)
