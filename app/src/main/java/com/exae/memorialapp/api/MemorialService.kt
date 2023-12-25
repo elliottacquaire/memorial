@@ -4,6 +4,7 @@ import com.exae.memorialapp.bean.AddCommentResponse
 import com.exae.memorialapp.bean.AlbumListResponse
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
+import com.exae.memorialapp.bean.ArticleListResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.CommentListResponse
@@ -326,6 +327,17 @@ interface MemorialService {
         ) url: String,
 //        @Body request: DeleteIntroduceRequest,
     ): DeleteIntroduceResponse
+
+    @GET("{path}")
+    suspend fun getArticleListRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Query("memorialNo") memorialNo: Int,
+        @Query("pageNum") pageNum: Int,
+        @Query("pageSize") pageSize: Int,
+    ): ArticleListResponse
 
     @GET("{path}")
     suspend fun getAlbumListRequest(

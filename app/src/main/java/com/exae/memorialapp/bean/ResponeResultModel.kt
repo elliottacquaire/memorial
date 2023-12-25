@@ -465,6 +465,24 @@ class ModifyIntroduceModel(
     val userId: Int = -1
 )
 
+class ArticleListResponse : ProtocolResponse<ArrayList<ArticleListModel>>()
+class ArticleListModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("title")
+    val title: String = "",
+    @SerializedName("comment")
+    val comment: String = "",
+    @SerializedName("memorialNo")
+    val memorialNo: Int?,
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)
+
 class AlbumListResponse : ProtocolResponse<ArrayList<AlbumListModel>>()
 class AlbumListModel(
     @SerializedName("id")

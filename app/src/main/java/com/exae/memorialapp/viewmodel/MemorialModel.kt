@@ -8,6 +8,7 @@ import com.exae.memorialapp.bean.AddCommentResponse
 import com.exae.memorialapp.bean.AlbumListResponse
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
+import com.exae.memorialapp.bean.ArticleListResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.CommentListResponse
@@ -31,6 +32,7 @@ import com.exae.memorialapp.requestData.AddCommentRequest
 import com.exae.memorialapp.requestData.AlbumLisRequest
 import com.exae.memorialapp.requestData.ApplyMemorialListAllRequest
 import com.exae.memorialapp.requestData.ApplyMemorialRequest
+import com.exae.memorialapp.requestData.ArticleLisRequest
 import com.exae.memorialapp.requestData.AttentionListRequest
 import com.exae.memorialapp.requestData.BannerRequest
 import com.exae.memorialapp.requestData.ChooseHallRequest
@@ -432,6 +434,19 @@ class MemorialModel @Inject constructor(
             },
             {
                 deleteMemorialIntroduceResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var getArticleListResponse = MutableLiveData<ResultBean<ArticleListResponse>>()
+    fun getArticleListRequest(memorialNo: Int, pageNum: Int) {
+        launch(
+            {
+                getArticleListResponse.value =
+                    repository.getArticleListRequest(ArticleLisRequest(memorialNo, pageNum, 20))
+            },
+            {
+                getArticleListResponse.value = errorHandle(it)
             }
         )
     }

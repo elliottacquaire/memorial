@@ -65,6 +65,7 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requestNetData()
         binding.apply {
             smartRefreshLayout.setRefreshHeader(BezierRadarHeader(activity))
             mListView.layoutManager = LinearLayoutManager(activity)
@@ -84,7 +85,7 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
             }
         }
 
-        viewModel.getCommentListResponse.observe(viewLifecycleOwner, Observer { resources ->
+        viewModel.getArticleListResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 if (!it.data.isNullOrEmpty()) {
                     if (pageNum == 1){
@@ -124,7 +125,7 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
 
     private fun requestNetData() {
         if ((memorialNo ?: -1) == -1) return
-        memorialNo?.let { viewModel.getCommentListRequest(it, 1) }
+        memorialNo?.let { viewModel.getArticleListRequest(it, pageNum) }
     }
 
     override fun onDestroyView() {

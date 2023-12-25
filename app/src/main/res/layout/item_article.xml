@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#1A2023"
+    android:paddingLeft="12dp"
+    android:paddingTop="12dp"
+    android:paddingRight="12dp"
+    android:paddingBottom="4dp">
+
+    <LinearLayout
+        android:id="@+id/lin_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/delete"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nickName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/createTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text=""
+            android:textColor="@color/color_b0"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text=""
+            android:textColor="@color/color_b0"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:visibility="gone"
+        android:text="删除" />
+
+</RelativeLayout>

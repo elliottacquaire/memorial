@@ -7,6 +7,7 @@ import com.exae.memorialapp.bean.AddCommentResponse
 import com.exae.memorialapp.bean.AlbumListResponse
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
+import com.exae.memorialapp.bean.ArticleListResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.CommentListResponse
@@ -30,6 +31,7 @@ import com.exae.memorialapp.requestData.AddCommentRequest
 import com.exae.memorialapp.requestData.AlbumLisRequest
 import com.exae.memorialapp.requestData.ApplyMemorialListAllRequest
 import com.exae.memorialapp.requestData.ApplyMemorialRequest
+import com.exae.memorialapp.requestData.ArticleLisRequest
 import com.exae.memorialapp.requestData.AttentionListRequest
 import com.exae.memorialapp.requestData.BannerRequest
 import com.exae.memorialapp.requestData.BaseRequest
@@ -271,6 +273,18 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
                 .modifyMemorialIntroduceRequest(request.path,request)
+        )
+    }
+
+    suspend fun getArticleListRequest(request: ArticleLisRequest): ResultBean<ArticleListResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .getArticleListRequest(
+                    request.path,
+                    request.memorialNo,
+                    request.pageNum,
+                    request.pageSize
+                )
         )
     }
 

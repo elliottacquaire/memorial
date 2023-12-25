@@ -299,6 +299,16 @@ data class DeleteIntroduceRequest(
 //    var introduction: String,
 ) : BaseRequest("/prod-api/user/memorial/introduction/$ids")
 
+data class ArticleLisRequest(
+    @SerializedName("memorialNo")
+    var memorialNo: Int,
+    @SerializedName("pageNum")
+    var pageNum: Int,
+    @SerializedName("pageSize")
+    var pageSize: Int,
+) : BaseRequest("/prod-api/user/memorial/article/list")
+
+
 data class AlbumLisRequest(
     @SerializedName("memorialNo")
     var memorialNo: Int,
