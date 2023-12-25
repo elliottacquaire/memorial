@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.exae.memorialapp.R
 import com.exae.memorialapp.adapter.MemorialCommentAdapter
@@ -39,6 +40,7 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
     private val binding get() = _binding!!
 
     private var memorialNo: Int? = -1
+    private var articleId = -1
 
     @Inject
     lateinit var listAdapter: ArticalAdapter
@@ -65,7 +67,6 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requestNetData()
         binding.apply {
             smartRefreshLayout.setRefreshHeader(BezierRadarHeader(activity))
             mListView.layoutManager = LinearLayoutManager(activity)
@@ -81,7 +82,12 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
                 requestNetData()
             }
             commit.setOnClickListener {
-
+                ARouter.getInstance().build("/app/edit/article")
+                    .withInt("memorialNo", memorialNo ?: -1)
+                    .withInt("articleId", articleId)
+//                    .withString("introduceText",introduceText)
+//                .withInt("type", 1)
+                    .navigation(activity)
             }
         }
 
@@ -121,6 +127,11 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
             requestNetData()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requestNetData()
     }
 
     private fun requestNetData() {

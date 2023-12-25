@@ -4,11 +4,14 @@ import com.exae.memorialapp.bean.AddCommentResponse
 import com.exae.memorialapp.bean.AlbumListResponse
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
+import com.exae.memorialapp.bean.ArticleDetailResponse
 import com.exae.memorialapp.bean.ArticleListResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.CommentListResponse
+import com.exae.memorialapp.bean.CreateArticleResponse
 import com.exae.memorialapp.bean.CreateIntroduceResponse
+import com.exae.memorialapp.bean.DeleteArticleResponse
 import com.exae.memorialapp.bean.DeleteCommentResponse
 import com.exae.memorialapp.bean.DeleteIntroduceResponse
 import com.exae.memorialapp.bean.DeleteMemorialResponse
@@ -17,6 +20,7 @@ import com.exae.memorialapp.bean.HandleApplyListResponse
 import com.exae.memorialapp.bean.HandleApplyMemorialResponse
 import com.exae.memorialapp.bean.IntroduceResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
+import com.exae.memorialapp.bean.ModifyArticleResponse
 import com.exae.memorialapp.bean.ModifyIntroduceResponse
 import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.SingleMemorialResponse
@@ -24,10 +28,12 @@ import com.exae.memorialapp.bean.StyleMemorialResponse
 import com.exae.memorialapp.bean.UploadImageResponse
 import com.exae.memorialapp.requestData.AddCommentRequest
 import com.exae.memorialapp.requestData.ApplyMemorialRequest
+import com.exae.memorialapp.requestData.CreateArticleRequest
 import com.exae.memorialapp.requestData.CreateIntroduceRequest
 import com.exae.memorialapp.requestData.DeleteCommentRequest
 import com.exae.memorialapp.requestData.DeleteIntroduceRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
+import com.exae.memorialapp.requestData.ModifyArticleRequest
 import com.exae.memorialapp.requestData.ModifyIntroduceRequest
 import com.exae.memorialapp.requestData.MoreMemorialRequest
 import com.exae.memorialapp.requestData.SingleMemorialRequest
@@ -339,6 +345,38 @@ interface MemorialService {
         @Query("pageSize") pageSize: Int,
     ): ArticleListResponse
 
+    @GET("{path}")
+    suspend fun getArticleDetailRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+    ): ArticleDetailResponse
+
+    @POST("{path}")
+    suspend fun createArticleRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: CreateArticleRequest,
+    ): CreateArticleResponse
+
+    @PUT("{path}")
+    suspend fun modifyArticleRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: ModifyArticleRequest,
+    ): ModifyArticleResponse
+    @DELETE("{path}")
+    suspend fun deleteArticleRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+    ): DeleteArticleResponse
     @GET("{path}")
     suspend fun getAlbumListRequest(
         @Path(

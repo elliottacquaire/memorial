@@ -308,6 +308,35 @@ data class ArticleLisRequest(
     var pageSize: Int,
 ) : BaseRequest("/prod-api/user/memorial/article/list")
 
+data class ArticleDetailRequest(
+    @SerializedName("id")
+    var articleId: Int,
+) : BaseRequest("/prod-api/user/memorial/article/$articleId")
+
+data class CreateArticleRequest(
+    @SerializedName("memorialNo")
+    var memorialNo: Int,
+    @SerializedName("content")
+    var content: String,
+    @SerializedName("title")
+    var title: String,
+) : BaseRequest("/prod-api/user/memorial/article")
+
+data class ModifyArticleRequest(
+    @SerializedName("memorialNo")
+    var memorialNo: Int,
+    @SerializedName("id")
+    var articleId: Int,
+    @SerializedName("content")
+    var content: String,
+    @SerializedName("title")
+    var title: String,
+) : BaseRequest("/prod-api/user/memorial/article")
+
+data class DeleteArticleRequest(
+    @SerializedName("id")
+    var articleId: Int,
+) : BaseRequest("/prod-api/user/memorial/article/$articleId")
 
 data class AlbumLisRequest(
     @SerializedName("memorialNo")

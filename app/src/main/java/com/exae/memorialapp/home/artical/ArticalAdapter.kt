@@ -14,7 +14,7 @@ class ArticalAdapter @Inject constructor() :
     override fun convert(holder: BaseViewHolder, item: ArticleListModel) {
         holder.setText(R.id.nickName, item.title)
             .setText(R.id.createTime, getSplitTime(item.createTime))
-            .setText(R.id.content, item.comment)
+            .setText(R.id.content, item.content)
 
     }
 }

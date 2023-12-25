@@ -473,8 +473,8 @@ class ArticleListModel(
     val picUrl: String?,
     @SerializedName("title")
     val title: String = "",
-    @SerializedName("comment")
-    val comment: String = "",
+    @SerializedName("content")
+    val content: String = "",
     @SerializedName("memorialNo")
     val memorialNo: Int?,
     @SerializedName("createTime")
@@ -483,6 +483,60 @@ class ArticleListModel(
     val repeatUse: Int = 0
 )
 
+class ArticleDetailResponse : ProtocolResponse<ArticleDetailModel>()
+class ArticleDetailModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("title")
+    val title: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("memorialNo")
+    val memorialNo: Int?,
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)
+
+class CreateArticleResponse : ProtocolResponse<CreateArticleModel>()
+class CreateArticleModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("title")
+    val title: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("memorialNo")
+    val memorialNo: Int?,
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)
+
+class ModifyArticleResponse : ProtocolResponse<ModifyArticleModel>()
+class ModifyArticleModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("title")
+    val title: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("memorialNo")
+    val memorialNo: Int?,
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)
+class DeleteArticleResponse : ProtocolResponse<Boolean>()
 class AlbumListResponse : ProtocolResponse<ArrayList<AlbumListModel>>()
 class AlbumListModel(
     @SerializedName("id")

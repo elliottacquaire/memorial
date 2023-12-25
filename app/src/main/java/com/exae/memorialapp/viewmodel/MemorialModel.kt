@@ -8,11 +8,14 @@ import com.exae.memorialapp.bean.AddCommentResponse
 import com.exae.memorialapp.bean.AlbumListResponse
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
+import com.exae.memorialapp.bean.ArticleDetailResponse
 import com.exae.memorialapp.bean.ArticleListResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.CommentListResponse
+import com.exae.memorialapp.bean.CreateArticleResponse
 import com.exae.memorialapp.bean.CreateIntroduceResponse
+import com.exae.memorialapp.bean.DeleteArticleResponse
 import com.exae.memorialapp.bean.DeleteCommentResponse
 import com.exae.memorialapp.bean.DeleteIntroduceResponse
 import com.exae.memorialapp.bean.DeleteMemorialResponse
@@ -21,6 +24,7 @@ import com.exae.memorialapp.bean.HandleApplyListResponse
 import com.exae.memorialapp.bean.HandleApplyMemorialResponse
 import com.exae.memorialapp.bean.IntroduceResponse
 import com.exae.memorialapp.bean.ManageMemorialResponse
+import com.exae.memorialapp.bean.ModifyArticleResponse
 import com.exae.memorialapp.bean.ModifyIntroduceResponse
 import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.ResultBean
@@ -32,6 +36,7 @@ import com.exae.memorialapp.requestData.AddCommentRequest
 import com.exae.memorialapp.requestData.AlbumLisRequest
 import com.exae.memorialapp.requestData.ApplyMemorialListAllRequest
 import com.exae.memorialapp.requestData.ApplyMemorialRequest
+import com.exae.memorialapp.requestData.ArticleDetailRequest
 import com.exae.memorialapp.requestData.ArticleLisRequest
 import com.exae.memorialapp.requestData.AttentionListRequest
 import com.exae.memorialapp.requestData.BannerRequest
@@ -39,7 +44,9 @@ import com.exae.memorialapp.requestData.ChooseHallRequest
 import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
 import com.exae.memorialapp.requestData.CommentLisRequest
+import com.exae.memorialapp.requestData.CreateArticleRequest
 import com.exae.memorialapp.requestData.CreateIntroduceRequest
+import com.exae.memorialapp.requestData.DeleteArticleRequest
 import com.exae.memorialapp.requestData.DeleteCommentRequest
 import com.exae.memorialapp.requestData.DeleteIntroduceRequest
 import com.exae.memorialapp.requestData.DeleteMemorialRequest
@@ -48,6 +55,7 @@ import com.exae.memorialapp.requestData.HandleApplyMemorialListAllRequest
 import com.exae.memorialapp.requestData.HandleApplyMemorialRequest
 import com.exae.memorialapp.requestData.IntroduceRequest
 import com.exae.memorialapp.requestData.MemorialListAllRequest
+import com.exae.memorialapp.requestData.ModifyArticleRequest
 import com.exae.memorialapp.requestData.ModifyIntroduceRequest
 import com.exae.memorialapp.requestData.MoreDetailRequest
 import com.exae.memorialapp.requestData.MoreMemorialRequest
@@ -447,6 +455,60 @@ class MemorialModel @Inject constructor(
             },
             {
                 getArticleListResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var getArticleDetailResponse = MutableLiveData<ResultBean<ArticleDetailResponse>>()
+    fun getArticleDetailRequest(articleId: Int) {
+        launch(
+            {
+                getArticleDetailResponse.value =
+                    repository.getArticleDetailRequest(ArticleDetailRequest(articleId))
+            },
+            {
+                getArticleDetailResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var createArticleResponse = MutableLiveData<ResultBean<CreateArticleResponse>>()
+    fun createArticleRequest(ememorialNo: Int, content: String,title:String) {
+        launch(
+            {
+                createArticleResponse.value = repository.createArticleRequest(
+                    CreateArticleRequest(ememorialNo, content,title)
+                )
+            },
+            {
+                createArticleResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var modifyArticleResponse = MutableLiveData<ResultBean<ModifyArticleResponse>>()
+    fun modifyArticleRequest(ememorialNo: Int,articleId:Int, content: String,title:String) {
+        launch(
+            {
+                modifyArticleResponse.value = repository.modifyArticleRequest(
+                    ModifyArticleRequest(ememorialNo, articleId,content,title)
+                )
+            },
+            {
+                modifyArticleResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var deleteArticleResponse = MutableLiveData<ResultBean<DeleteArticleResponse>>()
+    fun deleteArticleRequest(articleId: Int) {
+        launch(
+            {
+                deleteArticleResponse.value =
+                    repository.deleteArticleRequest(DeleteArticleRequest(articleId))
+            },
+            {
+                deleteArticleResponse.value = errorHandle(it)
             }
         )
     }

@@ -34,6 +34,9 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".home.artical.EditArticleActivity"
+            android:exported="false" />
+        <activity
             android:name=".home.introduce.EditIntroduceActivity"
             android:exported="false" />
         <activity
