@@ -2,6 +2,7 @@ package com.exae.memorialapp.api
 
 import com.exae.memorialapp.bean.AddCommentResponse
 import com.exae.memorialapp.bean.AlbumListResponse
+import com.exae.memorialapp.bean.AllMaterialOfferListResponse
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
 import com.exae.memorialapp.bean.ArticleDetailResponse
@@ -9,8 +10,10 @@ import com.exae.memorialapp.bean.ArticleListResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.CommentListResponse
+import com.exae.memorialapp.bean.CreateAlbumResponse
 import com.exae.memorialapp.bean.CreateArticleResponse
 import com.exae.memorialapp.bean.CreateIntroduceResponse
+import com.exae.memorialapp.bean.DeleteAlbumResponse
 import com.exae.memorialapp.bean.DeleteArticleResponse
 import com.exae.memorialapp.bean.DeleteCommentResponse
 import com.exae.memorialapp.bean.DeleteIntroduceResponse
@@ -28,6 +31,7 @@ import com.exae.memorialapp.bean.StyleMemorialResponse
 import com.exae.memorialapp.bean.UploadImageResponse
 import com.exae.memorialapp.requestData.AddCommentRequest
 import com.exae.memorialapp.requestData.ApplyMemorialRequest
+import com.exae.memorialapp.requestData.CreateAlbumRequest
 import com.exae.memorialapp.requestData.CreateArticleRequest
 import com.exae.memorialapp.requestData.CreateIntroduceRequest
 import com.exae.memorialapp.requestData.DeleteCommentRequest
@@ -387,5 +391,30 @@ interface MemorialService {
         @Query("pageNum") pageNum: Int,
         @Query("pageSize") pageSize: Int,
     ): AlbumListResponse
+
+    @POST("{path}")
+    suspend fun createAlbumRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: CreateAlbumRequest,
+    ): CreateAlbumResponse
+
+    @DELETE("{path}")
+    suspend fun deleteAlbumRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+    ): DeleteAlbumResponse
+
+    @GET("{path}")
+    suspend fun getAllMaterialOfferRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+    ): AllMaterialOfferListResponse
 
 }

@@ -12,7 +12,7 @@ import com.exae.memorialapp.bean.AlbumListModel
 import javax.inject.Inject
 
 class AlbumAdapter @Inject constructor() :
-    BaseQuickAdapter<AlbumListModel, BaseViewHolder>(R.layout.item_memorial_style), LoadMoreModule {
+    BaseQuickAdapter<AlbumListModel, BaseViewHolder>(R.layout.item_album), LoadMoreModule {
 
     override fun convert(holder: BaseViewHolder, item: AlbumListModel) {
         holder.setText(R.id.userNum, item.repeatUse.toString())

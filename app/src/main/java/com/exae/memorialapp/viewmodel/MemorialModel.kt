@@ -6,6 +6,7 @@ import com.exae.memorialapp.base.errorHandle
 import com.exae.memorialapp.base.launch
 import com.exae.memorialapp.bean.AddCommentResponse
 import com.exae.memorialapp.bean.AlbumListResponse
+import com.exae.memorialapp.bean.AllMaterialOfferListResponse
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
 import com.exae.memorialapp.bean.ArticleDetailResponse
@@ -13,8 +14,10 @@ import com.exae.memorialapp.bean.ArticleListResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.CommentListResponse
+import com.exae.memorialapp.bean.CreateAlbumResponse
 import com.exae.memorialapp.bean.CreateArticleResponse
 import com.exae.memorialapp.bean.CreateIntroduceResponse
+import com.exae.memorialapp.bean.DeleteAlbumResponse
 import com.exae.memorialapp.bean.DeleteArticleResponse
 import com.exae.memorialapp.bean.DeleteCommentResponse
 import com.exae.memorialapp.bean.DeleteIntroduceResponse
@@ -34,6 +37,7 @@ import com.exae.memorialapp.bean.UploadImageResponse
 import com.exae.memorialapp.repository.MemorialRepository
 import com.exae.memorialapp.requestData.AddCommentRequest
 import com.exae.memorialapp.requestData.AlbumLisRequest
+import com.exae.memorialapp.requestData.AllMaterialOfferRequest
 import com.exae.memorialapp.requestData.ApplyMemorialListAllRequest
 import com.exae.memorialapp.requestData.ApplyMemorialRequest
 import com.exae.memorialapp.requestData.ArticleDetailRequest
@@ -44,8 +48,10 @@ import com.exae.memorialapp.requestData.ChooseHallRequest
 import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
 import com.exae.memorialapp.requestData.CommentLisRequest
+import com.exae.memorialapp.requestData.CreateAlbumRequest
 import com.exae.memorialapp.requestData.CreateArticleRequest
 import com.exae.memorialapp.requestData.CreateIntroduceRequest
+import com.exae.memorialapp.requestData.DeleteAlbumRequest
 import com.exae.memorialapp.requestData.DeleteArticleRequest
 import com.exae.memorialapp.requestData.DeleteCommentRequest
 import com.exae.memorialapp.requestData.DeleteIntroduceRequest
@@ -525,5 +531,45 @@ class MemorialModel @Inject constructor(
             }
         )
     }
+
+    var createAlbumResponse = MutableLiveData<ResultBean<CreateAlbumResponse>>()
+    fun createAlbumRequest(memorialNo: Int, name: String) {
+        launch(
+            {
+                createAlbumResponse.value = repository.createAlbumRequest(
+                    CreateAlbumRequest(memorialNo, name)
+                )
+            },
+            {
+                createAlbumResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var deleteAlbumResponse = MutableLiveData<ResultBean<DeleteAlbumResponse>>()
+    fun deleteAlbumRequest(albumId: Int) {
+        launch(
+            {
+                deleteAlbumResponse.value =
+                    repository.deleteAlbumRequest(DeleteAlbumRequest(albumId))
+            },
+            {
+                deleteAlbumResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var allMaterialOfferResponse = MutableLiveData<ResultBean<AllMaterialOfferListResponse>>()
+    fun getAllMaterialOfferRequest(type: String) {
+        launch(
+            {
+                allMaterialOfferResponse.value = repository.getAllMaterialOfferRequest(AllMaterialOfferRequest(type))
+            },
+            {
+                allMaterialOfferResponse.value = errorHandle(it)
+            }
+        )
+    }
+
 
 }

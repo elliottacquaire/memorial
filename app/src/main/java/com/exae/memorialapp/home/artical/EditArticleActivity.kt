@@ -92,7 +92,6 @@ class EditArticleActivity : PosBaseActivity<ActivityEditArticleBinding>() {
 
     private fun getArticleDetail() {
         if (articleId < 0) return
-//        articleId = 1
         viewModel.getArticleDetailRequest(articleId)
     }
 

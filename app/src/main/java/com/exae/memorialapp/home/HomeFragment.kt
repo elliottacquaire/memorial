@@ -51,7 +51,6 @@ class HomeFragment : CoreFragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i("sss","===HomeFragment=====")
         viewModel.getSingleMemorialDetailRequest(memorialNo ?: -1)
 
         viewModel.singleMemorialDetailResponse.observe(this, Observer { resources ->
@@ -61,7 +60,7 @@ class HomeFragment : CoreFragment(R.layout.fragment_home) {
                     if (!result?.birthDate.isNullOrEmpty() && !result?.leaveDate.isNullOrEmpty()) {
                         tvData.text = CommonUtils.getSplitTime(
                             result?.birthDate ?: ""
-                        ) + " - " + CommonUtils.getSplitTime(result?.leaveDate ?: "")
+                        ) + " ～ " + CommonUtils.getSplitTime(result?.leaveDate ?: "")
                     }
                     tvName.text = result?.name ?: ""
                     tvEpitaph.text = result?.epitaph ?: ""

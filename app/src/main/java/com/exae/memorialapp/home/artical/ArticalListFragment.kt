@@ -131,6 +131,7 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
 
     override fun onResume() {
         super.onResume()
+        pageNum = 1
         requestNetData()
     }
 

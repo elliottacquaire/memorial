@@ -552,3 +552,52 @@ class AlbumListModel(
     @SerializedName("repeatUse")
     val repeatUse: Int = 0
 )
+
+class CreateAlbumResponse : ProtocolResponse<CreateAlbumModel>()
+class CreateAlbumModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("title")
+    val title: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("memorialNo")
+    val memorialNo: Int?,
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)
+class DeleteAlbumResponse : ProtocolResponse<Boolean>()
+
+class AllMaterialOfferListResponse : ProtocolResponse<ArrayList<AllMaterialOfferModel>>()
+class AllMaterialOfferModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("title")
+    val title: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("memorialNo")
+    val memorialNo: Int?,
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0
+)
+
+class StyleLongLightModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("repeatUse")
+    val repeatUse: Int = 0,
+    var isChoose: Boolean = false,
+)

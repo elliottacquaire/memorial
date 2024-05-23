@@ -34,6 +34,12 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".home.ChooseOfferingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".home.PLongLightInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".home.artical.EditArticleActivity"
             android:exported="false" />
         <activity

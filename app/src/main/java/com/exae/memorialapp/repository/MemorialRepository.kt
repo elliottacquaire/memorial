@@ -5,6 +5,7 @@ import com.exae.memorialapp.api.MemorialService
 import com.exae.memorialapp.api.VerificationCodeService
 import com.exae.memorialapp.bean.AddCommentResponse
 import com.exae.memorialapp.bean.AlbumListResponse
+import com.exae.memorialapp.bean.AllMaterialOfferListResponse
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
 import com.exae.memorialapp.bean.ArticleDetailResponse
@@ -12,8 +13,10 @@ import com.exae.memorialapp.bean.ArticleListResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.CommentListResponse
+import com.exae.memorialapp.bean.CreateAlbumResponse
 import com.exae.memorialapp.bean.CreateArticleResponse
 import com.exae.memorialapp.bean.CreateIntroduceResponse
+import com.exae.memorialapp.bean.DeleteAlbumResponse
 import com.exae.memorialapp.bean.DeleteArticleResponse
 import com.exae.memorialapp.bean.DeleteCommentResponse
 import com.exae.memorialapp.bean.DeleteIntroduceResponse
@@ -33,6 +36,7 @@ import com.exae.memorialapp.bean.StyleMemorialResponse
 import com.exae.memorialapp.bean.UploadImageResponse
 import com.exae.memorialapp.requestData.AddCommentRequest
 import com.exae.memorialapp.requestData.AlbumLisRequest
+import com.exae.memorialapp.requestData.AllMaterialOfferRequest
 import com.exae.memorialapp.requestData.ApplyMemorialListAllRequest
 import com.exae.memorialapp.requestData.ApplyMemorialRequest
 import com.exae.memorialapp.requestData.ArticleDetailRequest
@@ -44,8 +48,10 @@ import com.exae.memorialapp.requestData.ChooseHallRequest
 import com.exae.memorialapp.requestData.ChooseMemorialRequest
 import com.exae.memorialapp.requestData.ChooseTableRequest
 import com.exae.memorialapp.requestData.CommentLisRequest
+import com.exae.memorialapp.requestData.CreateAlbumRequest
 import com.exae.memorialapp.requestData.CreateArticleRequest
 import com.exae.memorialapp.requestData.CreateIntroduceRequest
+import com.exae.memorialapp.requestData.DeleteAlbumRequest
 import com.exae.memorialapp.requestData.DeleteArticleRequest
 import com.exae.memorialapp.requestData.DeleteCommentRequest
 import com.exae.memorialapp.requestData.DeleteIntroduceRequest
@@ -332,6 +338,29 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
                     request.pageNum,
                     request.pageSize
                 )
+        )
+    }
+
+    suspend fun createAlbumRequest(request: CreateAlbumRequest): ResultBean<CreateAlbumResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .createAlbumRequest(request.path, request)
+        )
+    }
+
+    suspend fun deleteAlbumRequest(request: DeleteAlbumRequest): ResultBean<DeleteAlbumResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .deleteAlbumRequest(
+                    request.path,
+                )
+        )
+    }
+
+    suspend fun getAllMaterialOfferRequest(request: AllMaterialOfferRequest): ResultBean<AllMaterialOfferListResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .getAllMaterialOfferRequest(request.path)
         )
     }
 

@@ -346,3 +346,21 @@ data class AlbumLisRequest(
     @SerializedName("pageSize")
     var pageSize: Int,
 ) : BaseRequest("/prod-api/user/memorial/album/list")
+
+data class CreateAlbumRequest(
+    @SerializedName("memorialNo")
+    var memorialNo: Int,
+    @SerializedName("name")
+    var name: String,
+) : BaseRequest("/prod-api/user/memorial/album")
+
+data class DeleteAlbumRequest(
+    @SerializedName("id")
+    var albumId: Int,
+) : BaseRequest("/prod-api/user/memorial/album/$albumId")
+
+data class AllMaterialOfferRequest(
+    @SerializedName("type")
+    var type: String,
+) : BaseRequest("/prod-api/material/listAll/$type")
+
