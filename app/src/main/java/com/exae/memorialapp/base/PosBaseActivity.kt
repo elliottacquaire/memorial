@@ -17,6 +17,7 @@ abstract class PosBaseActivity<T : ViewBinding>: AppCompatActivity() {
     private var imgHead: ImageView? = null
     private var toolbarTitle: TextView? = null
     private var tvCancel : TextView? = null
+    private var tvRecord : TextView? = null
 
     var mLoadingDialog: MMLoading? = null
 
@@ -43,7 +44,7 @@ abstract class PosBaseActivity<T : ViewBinding>: AppCompatActivity() {
         imgHead = _binding.root.findViewById(R.id.img_head)
         toolbarTitle = _binding.root.findViewById(R.id.toolbar_title)
         tvCancel = _binding.root.findViewById(R.id.tv_cancel)
-
+        tvRecord = _binding.root.findViewById(R.id.tv_record)
 
         topToolbar?.fitsSystemWindows = true
         //利用Toolbar代替ActionBar
@@ -61,9 +62,13 @@ abstract class PosBaseActivity<T : ViewBinding>: AppCompatActivity() {
             leftTvClick()
             onBackPressed()
         }
+        tvRecord?.setOnClickListener {
+            rightTvClick()
+        }
         setSettingImage(false)
         setCancelState(false)
         setBackState(true) //back 箭头 默认显示
+        setRightTv(false)
     }
 
     open fun setNavigationIcon(resourceId: Int){
@@ -105,7 +110,19 @@ abstract class PosBaseActivity<T : ViewBinding>: AppCompatActivity() {
         }
     }
 
+    open fun setRightTv(isShow: Boolean){
+        if (isShow){
+            tvRecord?.visibility = View.VISIBLE
+        }else{
+            tvRecord?.visibility = View.GONE
+        }
+    }
+
     open fun rightImageClick(){
+
+    }
+
+    open fun rightTvClick(){
 
     }
 

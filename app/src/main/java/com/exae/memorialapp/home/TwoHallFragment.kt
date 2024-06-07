@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.FragmentMoreFamilyBinding
 import com.exae.memorialapp.databinding.FragmentTwoHallBinding
+import com.exae.memorialapp.utils.CommonUtils
 import com.exae.memorialapp.viewmodel.MemorialModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -61,22 +63,34 @@ class TwoHallFragment : CoreFragment(R.layout.fragment_two_hall) {
             handleResponse(resources, {
                 val result = it.data
                 binding.apply {
-//                    if (!result?.birthDate.isNullOrEmpty() && !result?.leaveDate.isNullOrEmpty()) {
-//                        tvData.text = CommonUtils.getSplitTime(
-//                            result?.birthDate ?: ""
-//                        ) + " - " + CommonUtils.getSplitTime(result?.leaveDate ?: "")
-//                    }
-//                    tvName.text = result?.name ?: ""
-//                    tvEpitaph.text = result?.epitaph ?: ""
-//                    Glide.with(requireActivity())
-//                        .load(result?.picUrlPrefix + result?.memorialPicUrl)
-//                        .into(binding.memorialPic)
-//
-//                    Glide.with(requireActivity())
-//                        .load(result?.picUrlPrefix + result?.avatarPicUrl)
-//                        .placeholder(R.mipmap.headdd)
-//                        .error(R.mipmap.headdd)
-//                        .into(binding.headImg)
+                    if (!result?.birthDate1.isNullOrEmpty() && !result?.leaveDate1.isNullOrEmpty()) {
+                        tvData0.text = CommonUtils.getSplitTime(
+                            result?.birthDate1 ?: ""
+                        ) + " - " + CommonUtils.getSplitTime(result?.leaveDate1 ?: "")
+                    }
+                    tvName0.text = result?.name1 ?: ""
+                    Glide.with(requireActivity())
+                        .load(result?.picUrlPrefix + result?.avatarPicUrl1)
+                        .placeholder(R.mipmap.headdd)
+                        .error(R.mipmap.headdd)
+                        .into(binding.headImg0)
+
+                    Glide.with(requireActivity())
+                        .load(result?.picUrlPrefix + result?.memorialPicUrl)
+                        .into(binding.memorialPic)
+
+
+                    if (!result?.birthDate2.isNullOrEmpty() && !result?.leaveDate2.isNullOrEmpty()) {
+                        tvData1.text = CommonUtils.getSplitTime(
+                            result?.birthDate2 ?: ""
+                        ) + " - " + CommonUtils.getSplitTime(result?.leaveDate2 ?: "")
+                    }
+                    tvName1.text = result?.name2 ?: ""
+                    Glide.with(requireActivity())
+                        .load(result?.picUrlPrefix + result?.avatarPicUrl2)
+                        .placeholder(R.mipmap.headdd)
+                        .error(R.mipmap.headdd)
+                        .into(binding.headImg1)
                 }
             },
                 {

@@ -36,7 +36,7 @@ class MainActivity : PosBaseActivity<ActivityMainBinding>() {
                 mMainTabLayout.newTab().setCustomView(
                     getTabView(
                         getString(R.string.tab_to_do),
-                        R.drawable.tab_icon_home
+                        R.drawable.tab_icon_love
                     )
                 )
             )
@@ -44,7 +44,7 @@ class MainActivity : PosBaseActivity<ActivityMainBinding>() {
                 mMainTabLayout.newTab().setCustomView(
                     getTabView(
                         getString(R.string.tab_drive),
-                        R.drawable.tab_icon_message_drawable
+                        R.drawable.tab_icon_briefcase_drawable
                     )
                 )
             )

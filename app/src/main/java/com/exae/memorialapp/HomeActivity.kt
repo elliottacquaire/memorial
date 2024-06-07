@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.exae.memorialapp.base.PosBaseActivity
 import com.exae.memorialapp.databinding.ActivityHomeBinding
 import com.exae.memorialapp.home.CommentFragment
@@ -53,7 +54,7 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
                 mMainTabLayout.newTab().setCustomView(
                     getTabView(
                         getString(R.string.tab_introduce),
-                        R.drawable.tab_icon_message_drawable
+                        R.drawable.tab_book_drawable
                     )
                 )
             )
@@ -61,7 +62,7 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
                 mMainTabLayout.newTab().setCustomView(
                     getTabView(
                         getString(R.string.tab_memorial),
-                        R.drawable.tab_icon_message_drawable
+                        R.drawable.tab_icon_photo_drawable
                     )
                 )
             )
@@ -69,7 +70,7 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
                 mMainTabLayout.newTab().setCustomView(
                     getTabView(
                         getString(R.string.tab_to_comment),
-                        R.drawable.tab_icon_message_drawable
+                        R.drawable.tab_message_drawable
                     )
                 )
             )
@@ -77,7 +78,7 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
                 mMainTabLayout.newTab().setCustomView(
                     getTabView(
                         getString(R.string.tab_to_worship),
-                        R.drawable.tab_icon_profile_drawable
+                        R.drawable.tab_icon_human_drawable
                     )
                 )
             )
@@ -112,10 +113,12 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
                 override fun onPageSelected(position: Int) {
                     mMainTabLayout.selectTab(mMainTabLayout.getTabAt(position))
                     setToolTitle(mMainViewPager.adapter?.getPageTitle(position).toString())
-                    if (position == 2) {
-                        setSettingImage(true)
+                    setSettingImage(false)
+
+                    if (position == 4) {
+                        setRightTv(true)
                     } else {
-                        setSettingImage(false)
+                        setRightTv(false)
                     }
                 }
             })
@@ -172,6 +175,13 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
                 }
             }
         }
+    }
+
+    override fun rightTvClick() {
+        super.rightTvClick()
+        ARouter.getInstance().build("/app/long/light")
+            .withInt("memorialNo", memorialNo ?: -1)
+            .navigation(this)
     }
 
     private fun getTabView(title: String?, image_src: Int): View? {
