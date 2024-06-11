@@ -15,20 +15,20 @@ import dagger.hilt.android.AndroidEntryPoint
 @Route(path = "/app/edit/article")
 class EditArticleActivity : PosBaseActivity<ActivityEditArticleBinding>() {
     private var memorialNo = -1
-    private var introduceText = ""
+    private var content = ""
     private var articleId = -1
+    private var type = -1
     private var showMessage = ""
     private val viewModel: MemorialModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_edit_article)
         setToolTitle("文选")
         setBackState(true)
 
         memorialNo = intent.getIntExtra("memorialNo", -1)
-        introduceText = intent.getStringExtra("introduceText") ?: ""
-//        memorialType = intent.getStringExtra("memorialType") ?: ""
+        content = intent.getStringExtra("content") ?: ""
+        type = intent.getIntExtra("type", -1)
         articleId = intent.getIntExtra("articleId", -1)
 
         initCallBack()
@@ -39,7 +39,6 @@ class EditArticleActivity : PosBaseActivity<ActivityEditArticleBinding>() {
                     showMessage = "发布"
                     createIntroduce()
                 }
-//                1 -> modifyIntroduce()
                 else -> {
                     showMessage = "修改"
                     modifyIntroduce()

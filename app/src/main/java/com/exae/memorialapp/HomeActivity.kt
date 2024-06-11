@@ -179,7 +179,7 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
 
     override fun rightTvClick() {
         super.rightTvClick()
-        ARouter.getInstance().build("/app/long/light")
+        ARouter.getInstance().build("/app/worship/record")
             .withInt("memorialNo", memorialNo ?: -1)
             .navigation(this)
     }

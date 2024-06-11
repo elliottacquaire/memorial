@@ -34,6 +34,18 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".home.worship.AllMerioTypeListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".home.artical.AlbumPicModifyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".home.artical.AlbumPublishActivity"
+            android:exported="false" />
+        <activity
+            android:name=".home.worship.WorshipRecordActivity"
+            android:exported="false" />
+        <activity
             android:name=".home.ChooseOfferingsActivity"
             android:exported="false" />
         <activity

@@ -10,12 +10,19 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.chad.library.adapter.base.listener.OnItemLongClickListener
 import com.exae.memorialapp.R
 import com.exae.memorialapp.adapter.MemorialCommentAdapter
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
+import com.exae.memorialapp.bean.ArticleListModel
+import com.exae.memorialapp.bean.CommentListModel
+import com.exae.memorialapp.bean.ManageMemorialModel
 import com.exae.memorialapp.databinding.FragmentArticalListBinding
+import com.exae.memorialapp.utils.ToastUtil
 import com.exae.memorialapp.viewmodel.MemorialModel
+import com.lxj.xpopup.XPopup
 import com.scwang.smart.refresh.header.BezierRadarHeader
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -84,9 +91,8 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
             commit.setOnClickListener {
                 ARouter.getInstance().build("/app/edit/article")
                     .withInt("memorialNo", memorialNo ?: -1)
-                    .withInt("articleId", articleId)
-//                    .withString("introduceText",introduceText)
-//                .withInt("type", 1)
+                    .withInt("articleId", -1)
+                    .withInt("type", 0)
                     .navigation(activity)
             }
         }
@@ -94,16 +100,17 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
         viewModel.getArticleListResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 if (!it.data.isNullOrEmpty()) {
-                    if (pageNum == 1){
+                    if (pageNum == 1) {
                         listAdapter.data.clear()
                         binding.smartRefreshLayout.finishRefresh(true)
-                    }else{
+                    } else {
 
                     }
-                    listAdapter.data.addAll(it.data)
-                    if (it.data.size < 20){
+//                    listAdapter.data.addAll(it.data)
+                    listAdapter.setNewInstance(it.data)
+                    if (it.data.size < 20) {
                         listAdapter.loadMoreModule.loadMoreEnd()
-                    }else{
+                    } else {
                         listAdapter.loadMoreModule.loadMoreComplete()
                     }
                     pageNum++
@@ -127,6 +134,45 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
             requestNetData()
         }
 
+        listAdapter.setOnItemClickListener { adapter, _, position ->
+            val item = adapter.getItem(position) as ArticleListModel
+            ARouter.getInstance().build("/app/edit/article")
+                .withInt("memorialNo", memorialNo ?: -1)
+                .withInt("articleId", item.ids)
+                .withString("content", item.content)
+                .withInt("type", 1)
+                .navigation(activity)
+        }
+
+        listAdapter.setOnItemLongClickListener { adapter, _, position ->
+            val data = adapter.getItem(position) as ArticleListModel
+            XPopup.Builder(requireContext())
+                .hasStatusBarShadow(false)
+                .hasNavigationBar(false)
+                .isDestroyOnDismiss(true)
+                .isDarkTheme(true)
+                .asConfirm("温馨提示", "确定要删除此文章吗？") {
+                    deleteArticle(data.ids)
+                }.show()
+            true
+        }
+
+        viewModel.deleteArticleResponse.observe(this, Observer { resources ->
+            handleResponse(resources, {
+                ToastUtil.showCenter("操作成功")
+                pageNum = 1
+                requestNetData()
+            },
+                {
+                    ToastUtil.showCenter("操作失败，请重试")
+                }
+            )
+        })
+
+    }
+
+    private fun deleteArticle(article: Int) {
+        viewModel.deleteArticleRequest(article)
     }
 
     override fun onResume() {

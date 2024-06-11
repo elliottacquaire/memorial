@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemLongClickListener
 import com.exae.memorialapp.R
@@ -95,7 +96,12 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
                 requestNetData()
             }
             commit.setOnClickListener {
-                inputAlbumDialog()
+                ARouter.getInstance().build("/app/album/publish")
+                    .withInt("memorialNo", memorialNo ?: -1)
+//                    .withInt("albumId", item.ids)
+//                    .withString("content", item.content)
+                    .withInt("type", 1)
+                    .navigation(activity)
             }
         }
 
@@ -108,7 +114,7 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
                     } else {
 
                     }
-                    listAdapter.data.addAll(it.data)
+                    listAdapter.setNewInstance(it.data)
                     if (it.data.size < 20) {
                         listAdapter.data.addAll(it.data)
                         listAdapter.loadMoreModule.loadMoreEnd()
@@ -159,6 +165,11 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
 
         initListClickEvent()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requestNetData()
     }
 
     private fun requestNetData() {
