@@ -359,8 +359,48 @@ data class DeleteAlbumRequest(
     var albumId: Int,
 ) : BaseRequest("/prod-api/user/memorial/album/$albumId")
 
+data class ModifyAlbumRequest(
+    @SerializedName("id")
+    var albumId: Int,
+    @SerializedName("name")
+    var name: String,
+) : BaseRequest("/prod-api/user/memorial/album")
+
 data class AllMaterialOfferRequest(
     @SerializedName("type")
     var type: String,
 ) : BaseRequest("/prod-api/material/listAll/$type")
 
+data class AlbumPicLisRequest(
+    @SerializedName("albumId")
+    var albumId: Int,
+    @SerializedName("pageNum")
+    var pageNum: Int,
+    @SerializedName("pageSize")
+    var pageSize: Int,
+) : BaseRequest("/prod-api/user/memorial/photo/list")
+
+data class UploadAlbumPicRequest(
+    @SerializedName("albumId")
+    var albumId: Int,
+    @SerializedName("picDesc")
+    var picDesc: String,
+    @SerializedName("picUrl")
+    var picUrl: String,
+) : BaseRequest("/prod-api/user/memorial/photo")
+
+data class ModifyAlbumPicRequest(
+    @SerializedName("albumId")
+    var albumId: Int,
+    @SerializedName("id")
+    var id: Int,
+    @SerializedName("picDesc")
+    var picDesc: String,
+    @SerializedName("picUrl")
+    var picUrl: String,
+) : BaseRequest("/prod-api/user/memorial/photo")
+
+data class DeletePicRequest(
+    @SerializedName("id")
+    var id: Int,
+) : BaseRequest("/prod-api/user/memorial/photo/$id")

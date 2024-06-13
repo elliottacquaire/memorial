@@ -103,19 +103,16 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
                     if (pageNum == 1) {
                         listAdapter.data.clear()
                         binding.smartRefreshLayout.finishRefresh(true)
+                        listAdapter.setNewInstance(it.data)
                     } else {
-
+                        listAdapter.addData(it.data)
                     }
-//                    listAdapter.data.addAll(it.data)
-                    listAdapter.setNewInstance(it.data)
                     if (it.data.size < 20) {
                         listAdapter.loadMoreModule.loadMoreEnd()
                     } else {
                         listAdapter.loadMoreModule.loadMoreComplete()
+                        pageNum++
                     }
-                    pageNum++
-//                    listAdapter.data.clear()
-//                    listAdapter.data.addAll(it.data)
                     listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
                     binding.emptyView.visibility = View.GONE
                     binding.smartRefreshLayout.visibility = View.VISIBLE

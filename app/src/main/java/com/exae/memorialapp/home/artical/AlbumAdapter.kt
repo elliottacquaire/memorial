@@ -8,15 +8,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.exae.memorialapp.R
-import com.exae.memorialapp.bean.AlbumListModel
+import com.exae.memorialapp.bean.AlbumPicListModel
 import javax.inject.Inject
 
 class AlbumAdapter @Inject constructor() :
-    BaseQuickAdapter<AlbumListModel, BaseViewHolder>(R.layout.item_album), LoadMoreModule {
+    BaseQuickAdapter<AlbumPicListModel, BaseViewHolder>(R.layout.item_album), LoadMoreModule {
 
-    override fun convert(holder: BaseViewHolder, item: AlbumListModel) {
-        holder.setText(R.id.userNum, item.repeatUse.toString())
-            .setText(R.id.name, item.name)
+    override fun convert(holder: BaseViewHolder, item: AlbumPicListModel) {
+        holder.setText(R.id.desc, item.picDesc)
 
         val img = holder.getView<ImageView>(R.id.headerPic)
         Glide.with(holder.itemView)

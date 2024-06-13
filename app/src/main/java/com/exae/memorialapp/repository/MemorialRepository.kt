@@ -5,6 +5,7 @@ import com.exae.memorialapp.api.MemorialService
 import com.exae.memorialapp.api.VerificationCodeService
 import com.exae.memorialapp.bean.AddCommentResponse
 import com.exae.memorialapp.bean.AlbumListResponse
+import com.exae.memorialapp.bean.AlbumPicListResponse
 import com.exae.memorialapp.bean.AllMaterialOfferListResponse
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
@@ -21,6 +22,7 @@ import com.exae.memorialapp.bean.DeleteArticleResponse
 import com.exae.memorialapp.bean.DeleteCommentResponse
 import com.exae.memorialapp.bean.DeleteIntroduceResponse
 import com.exae.memorialapp.bean.DeleteMemorialResponse
+import com.exae.memorialapp.bean.DeletePicResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
 import com.exae.memorialapp.bean.HandleApplyListResponse
 import com.exae.memorialapp.bean.HandleApplyMemorialResponse
@@ -33,9 +35,11 @@ import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.ResultBean
 import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
+import com.exae.memorialapp.bean.UploadAlbumPicResponse
 import com.exae.memorialapp.bean.UploadImageResponse
 import com.exae.memorialapp.requestData.AddCommentRequest
 import com.exae.memorialapp.requestData.AlbumLisRequest
+import com.exae.memorialapp.requestData.AlbumPicLisRequest
 import com.exae.memorialapp.requestData.AllMaterialOfferRequest
 import com.exae.memorialapp.requestData.ApplyMemorialListAllRequest
 import com.exae.memorialapp.requestData.ApplyMemorialRequest
@@ -56,11 +60,14 @@ import com.exae.memorialapp.requestData.DeleteArticleRequest
 import com.exae.memorialapp.requestData.DeleteCommentRequest
 import com.exae.memorialapp.requestData.DeleteIntroduceRequest
 import com.exae.memorialapp.requestData.DeleteMemorialRequest
+import com.exae.memorialapp.requestData.DeletePicRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
 import com.exae.memorialapp.requestData.HandleApplyMemorialListAllRequest
 import com.exae.memorialapp.requestData.HandleApplyMemorialRequest
 import com.exae.memorialapp.requestData.IntroduceRequest
 import com.exae.memorialapp.requestData.MemorialListAllRequest
+import com.exae.memorialapp.requestData.ModifyAlbumPicRequest
+import com.exae.memorialapp.requestData.ModifyAlbumRequest
 import com.exae.memorialapp.requestData.ModifyArticleRequest
 import com.exae.memorialapp.requestData.ModifyIntroduceRequest
 import com.exae.memorialapp.requestData.MoreDetailRequest
@@ -68,6 +75,7 @@ import com.exae.memorialapp.requestData.MoreMemorialRequest
 import com.exae.memorialapp.requestData.SingleDetailRequest
 import com.exae.memorialapp.requestData.SingleMemorialRequest
 import com.exae.memorialapp.requestData.TwoDetailRequest
+import com.exae.memorialapp.requestData.UploadAlbumPicRequest
 import com.exae.memorialapp.requestData.UploadImageRequest
 import com.exae.memorialapp.requestData.VerificationCodeLoginRequest
 import dagger.hilt.android.scopes.ActivityScoped
@@ -272,7 +280,7 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
     suspend fun createMemorialIntroduceRequest(request: CreateIntroduceRequest): ResultBean<CreateIntroduceResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .createMemorialIntroduceRequest(request.path,request)
+                .createMemorialIntroduceRequest(request.path, request)
         )
     }
 
@@ -286,7 +294,7 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
     suspend fun modifyMemorialIntroduceRequest(request: ModifyIntroduceRequest): ResultBean<ModifyIntroduceResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .modifyMemorialIntroduceRequest(request.path,request)
+                .modifyMemorialIntroduceRequest(request.path, request)
         )
     }
 
@@ -312,15 +320,17 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
     suspend fun createArticleRequest(request: CreateArticleRequest): ResultBean<CreateArticleResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .createArticleRequest(request.path,request)
+                .createArticleRequest(request.path, request)
         )
     }
+
     suspend fun modifyArticleRequest(request: ModifyArticleRequest): ResultBean<ModifyArticleResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
-                .modifyArticleRequest(request.path,request)
+                .modifyArticleRequest(request.path, request)
         )
     }
+
     suspend fun deleteArticleRequest(request: DeleteArticleRequest): ResultBean<DeleteArticleResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
@@ -329,6 +339,7 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
                 )
         )
     }
+
     suspend fun getAlbumListRequest(request: AlbumLisRequest): ResultBean<AlbumListResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
@@ -357,11 +368,60 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
         )
     }
 
+    suspend fun modifyAlbumRequest(request: ModifyAlbumRequest): ResultBean<CreateAlbumResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .modifyAlbumRequest(
+                    request.path,
+                    request,
+                )
+        )
+    }
+
     suspend fun getAllMaterialOfferRequest(request: AllMaterialOfferRequest): ResultBean<AllMaterialOfferListResponse> {
         return ResultBean.success(
             retrofit.create(MemorialService::class.java)
                 .getAllMaterialOfferRequest(request.path)
         )
     }
+
+    suspend fun getAlbumPicListRequest(request: AlbumPicLisRequest): ResultBean<AlbumPicListResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .getAlbumPicListRequest(
+                    request.path,
+                    request.albumId,
+                    request.pageNum,
+                    request.pageSize
+                )
+        )
+    }
+
+    suspend fun uploadAlbumPicRequest(request: UploadAlbumPicRequest): ResultBean<UploadAlbumPicResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .uploadAlbumPicRequest(
+                    request.path,
+                    request,
+                )
+        )
+    }
+
+    suspend fun modifyAlbumPicRequest(request: ModifyAlbumPicRequest): ResultBean<UploadAlbumPicResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .ModifyAlbumPicRequest(request.path, request)
+        )
+    }
+
+    suspend fun deletePicRequest(request: DeletePicRequest): ResultBean<DeletePicResponse> {
+        return ResultBean.success(
+            retrofit.create(MemorialService::class.java)
+                .deletePicRequest(
+                    request.path,
+                )
+        )
+    }
+
 
 }

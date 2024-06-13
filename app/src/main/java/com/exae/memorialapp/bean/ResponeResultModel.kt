@@ -549,8 +549,8 @@ class AlbumListModel(
     val content: String = "",
     @SerializedName("createTime")
     val createTime: String = "",
-    @SerializedName("repeatUse")
-    val repeatUse: Int = 0
+    @SerializedName("userId")
+    val userId: Int = 0
 )
 
 class CreateAlbumResponse : ProtocolResponse<CreateAlbumModel>()
@@ -578,16 +578,32 @@ class AllMaterialOfferModel(
     val ids: Int,
     @SerializedName("picUrl")
     val picUrl: String?,
-    @SerializedName("title")
-    val title: String = "",
-    @SerializedName("content")
-    val content: String = "",
-    @SerializedName("memorialNo")
-    val memorialNo: Int?,
-    @SerializedName("createTime")
-    val createTime: String = "",
-    @SerializedName("repeatUse")
-    val repeatUse: Int = 0
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("materialTypeName")
+    val materialTypeName: String = "",
+    @SerializedName("memorialTypeNo")
+    val memorialTypeNo: Int?,
+    @SerializedName("qianChengB")
+    val qianChengB: Int = 0,
+    @SerializedName("children")
+    val children: ArrayList<AllMaterialOfferItemModel> = ArrayList()
+)
+
+class AllMaterialOfferItemModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("materialTypeName")
+    val materialTypeName: String = "",
+    @SerializedName("memorialTypeNo")
+    val memorialTypeNo: Int?,
+    @SerializedName("qianChengB")
+    val qianChengB: Int = 0,
+    var isChoose: Boolean = false,
 )
 
 class StyleLongLightModel(
@@ -601,3 +617,37 @@ class StyleLongLightModel(
     val repeatUse: Int = 0,
     var isChoose: Boolean = false,
 )
+
+class AlbumPicListResponse : ProtocolResponse<ArrayList<AlbumPicListModel>>()
+class AlbumPicListModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("albumId")
+    val albumId: Int = -1,
+    @SerializedName("picDesc")
+    val picDesc: String = "",
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("userId")
+    val userId: Int = 0
+)
+
+class UploadAlbumPicResponse : ProtocolResponse<UploadAlbumPicModel>()
+class UploadAlbumPicModel(
+    @SerializedName("id")
+    val ids: Int,
+    @SerializedName("picUrl")
+    val picUrl: String?,
+    @SerializedName("name")
+    val name: String = "",
+    @SerializedName("content")
+    val content: String = "",
+    @SerializedName("createTime")
+    val createTime: String = "",
+    @SerializedName("userId")
+    val userId: Int = 0
+)
+
+class DeletePicResponse : ProtocolResponse<Boolean>()

@@ -14,6 +14,7 @@ import com.exae.memorialapp.R
 import com.exae.memorialapp.adapter.LongLightStyleAdapter
 import com.exae.memorialapp.base.PosBaseActivity
 import com.exae.memorialapp.base.handleResponse
+import com.exae.memorialapp.bean.AllMaterialOfferItemModel
 import com.exae.memorialapp.bean.StyleLongLightModel
 import com.exae.memorialapp.databinding.ActivityPlongLightInfoBinding
 import com.exae.memorialapp.viewmodel.MemorialModel
@@ -43,18 +44,19 @@ class PLongLightInfoActivity : PosBaseActivity<ActivityPlongLightInfoBinding>() 
         setBackState(true)
         setSettingImage(false)
         initView()
+        requestNetData()
     }
 
     private fun initView() {
         binding.apply {
-            smartRefreshLayout.setRefreshHeader(BezierRadarHeader(this@PLongLightInfoActivity))
+//            smartRefreshLayout.setRefreshHeader(BezierRadarHeader(this@PLongLightInfoActivity))
             mListView.layoutManager = GridLayoutManager(this@PLongLightInfoActivity, 2)
             mListView.adapter = listAdapter
             //下拉刷新
-            smartRefreshLayout.setOnRefreshListener {
-                requestNetData()
-                smartRefreshLayout.finishRefresh(true)
-            }
+//            smartRefreshLayout.setOnRefreshListener {
+//                requestNetData()
+//                smartRefreshLayout.finishRefresh(true)
+//            }
             emptyView.setOnClickListener {
                 requestNetData()
             }
@@ -62,25 +64,29 @@ class PLongLightInfoActivity : PosBaseActivity<ActivityPlongLightInfoBinding>() 
         listAdapter.setOnItemChildClickListener(this)
         listAdapter.addChildClickViewIds(R.id.choose)
 
-        viewModel.manageMerioResponse.observe(this, Observer { resources ->
+        viewModel.allMaterialOfferResponse.observe(this, Observer { resources ->
             handleResponse(resources) {
-                if (it.data != null && it.data.isNotEmpty()) {
-                    listAdapter.data.clear()
+                if (!it.data.isNullOrEmpty()) {
+//                    listAdapter.data.clear()
 //                    listAdapter.data.addAll(it.data)
-                    listAdapter.notifyDataSetChanged()
+//                    listAdapter.notifyDataSetChanged()
+                    listAdapter.setNewInstance(it.data.get(0).children)
                     listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
                     binding.emptyView.visibility = View.GONE
-                    binding.smartRefreshLayout.visibility = View.VISIBLE
+                    binding.mListView.visibility = View.VISIBLE
                 } else {
                     binding.emptyView.visibility = View.VISIBLE
-                    binding.smartRefreshLayout.visibility = View.GONE
+                    binding.mListView.visibility = View.GONE
                 }
             }
         })
     }
 
     private fun requestNetData() {
-//        viewModel.styleMerioRequest(clickType)
+        viewModel.getAllMaterialOfferRequest("1")
+//        viewModel.getAllMaterialOfferRequest("2")
+//        viewModel.getAllMaterialOfferRequest("3")
+//        viewModel.getAllMaterialOfferRequest("4")
     }
 
     override fun getViewBinding(): ActivityPlongLightInfoBinding {
@@ -88,7 +94,7 @@ class PLongLightInfoActivity : PosBaseActivity<ActivityPlongLightInfoBinding>() 
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val itemData = adapter.data[position] as StyleLongLightModel
+        val itemData = adapter.data[position] as AllMaterialOfferItemModel
         when(view.id){
             R.id.choose -> {
 //                val intent = Intent()
@@ -99,8 +105,10 @@ class PLongLightInfoActivity : PosBaseActivity<ActivityPlongLightInfoBinding>() 
                 if (position != listAdapter.selectPos) {
                     itemData.isChoose = true
                     listAdapter.notifyItemChanged(position)
-                    (adapter.data.get(listAdapter.selectPos) as StyleLongLightModel).isChoose = false
-                    listAdapter.notifyItemChanged(listAdapter.selectPos)
+                    if (listAdapter.selectPos != -1){
+                        (adapter.data.get(listAdapter.selectPos) as AllMaterialOfferItemModel).isChoose = false
+                        listAdapter.notifyItemChanged(listAdapter.selectPos)
+                    }
                     listAdapter.selectPos = position
                 }
             }

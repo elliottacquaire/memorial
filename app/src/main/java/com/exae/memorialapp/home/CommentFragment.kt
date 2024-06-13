@@ -119,24 +119,19 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
                     if (pageNum == 1){
                         listAdapter.data.clear()
                         binding.smartRefreshLayout.finishRefresh(true)
-//                        if (it.data.size < 20){
-//                            listAdapter.data.addAll(it.data)
-////                        listAdapter.setNewInstance(it.data)
-//                            listAdapter.loadMoreModule.loadMoreEnd()
-//                        }else{
-//                            listAdapter.loadMoreModule.loadMoreComplete()
-//                        }
+                        listAdapter.setNewInstance(it.data)
                     }else{
-
+                        listAdapter.addData(it.data)
                     }
-                    listAdapter.data.addAll(it.data)
+
                     if (it.data.size < 20){
 //                        listAdapter.data.addAll(it.data)
                         listAdapter.loadMoreModule.loadMoreEnd()
                     }else{
                         listAdapter.loadMoreModule.loadMoreComplete()
+                        pageNum++
                     }
-                    pageNum++
+
 //                    listAdapter.data.clear()
 //                    list.addAll(it.data)
 //                    listAdapter.data.addAll(it.data)

@@ -9,14 +9,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemLongClickListener
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
+import com.exae.memorialapp.bean.AlbumListModel
+import com.exae.memorialapp.bean.ArticleListModel
 import com.exae.memorialapp.bean.CommentListModel
 import com.exae.memorialapp.databinding.FragmentAlbumBinding
+import com.exae.memorialapp.dialog.CancelDialog
 import com.exae.memorialapp.util.GlideEngine
 import com.exae.memorialapp.utils.ToastUtil
 import com.exae.memorialapp.viewmodel.MemorialModel
@@ -57,7 +61,7 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
     private var memorialNo: Int? = -1
 
     @Inject
-    lateinit var listAdapter: AlbumAdapter
+    lateinit var listAdapter: AlbumItemAdapter
 
     private val viewModel: MemorialModel by viewModels()
     private var pageNum: Int = 1
@@ -83,7 +87,7 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             smartRefreshLayout.setRefreshHeader(BezierRadarHeader(activity))
-            mListView.layoutManager = GridLayoutManager(activity, 2)
+            mListView.layoutManager = LinearLayoutManager(activity)
             mListView.adapter = listAdapter
             //下拉刷新
             smartRefreshLayout.setOnRefreshListener {
@@ -96,12 +100,7 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
                 requestNetData()
             }
             commit.setOnClickListener {
-                ARouter.getInstance().build("/app/album/publish")
-                    .withInt("memorialNo", memorialNo ?: -1)
-//                    .withInt("albumId", item.ids)
-//                    .withString("content", item.content)
-                    .withInt("type", 1)
-                    .navigation(activity)
+                inputAlbumDialog()
             }
         }
 
@@ -111,18 +110,16 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
                     if (pageNum == 1) {
                         listAdapter.data.clear()
                         binding.smartRefreshLayout.finishRefresh(true)
+                        listAdapter.setNewInstance(it.data)
                     } else {
-
+                        listAdapter.addData(it.data)
                     }
-                    listAdapter.setNewInstance(it.data)
                     if (it.data.size < 20) {
-                        listAdapter.data.addAll(it.data)
                         listAdapter.loadMoreModule.loadMoreEnd()
                     } else {
                         listAdapter.loadMoreModule.loadMoreComplete()
+                        pageNum++
                     }
-                    pageNum++
-//                    listAdapter.data.addAll(it.data)
                     listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
                     binding.emptyView.visibility = View.GONE
                     binding.smartRefreshLayout.visibility = View.VISIBLE
@@ -145,6 +142,7 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
             handleResponse(resources, {
                 val result = it.data
                 ToastUtil.showCenter("操作成功")
+                requestNetData()
             },
                 {
                     ToastUtil.showCenter("操作失败，请重试")
@@ -153,6 +151,17 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
         })
 
         viewModel.deleteAlbumResponse.observe(viewLifecycleOwner, Observer { resources ->
+            handleResponse(resources, {
+                val result = it.data
+                requestNetData()
+                ToastUtil.showCenter(it.message)
+            },
+                {
+                }
+            )
+        })
+
+        viewModel.modifyAlbumResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 val result = it.data
                 requestNetData()
@@ -184,16 +193,48 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
 
     private fun initListClickEvent() {
         listAdapter.setOnItemLongClickListener { p0, p1, position ->
-            val data = listAdapter.data.get(position) as CommentListModel
-            XPopup.Builder(requireContext())
-                .hasStatusBarShadow(false)
-                .hasNavigationBar(false)
-                .isDestroyOnDismiss(true)
-                .isDarkTheme(true)
-                .asConfirm("温馨提示", "确定要删除此相册吗？") {
+            val data = listAdapter.data.get(position) as AlbumListModel
+//            XPopup.Builder(requireContext())
+//                .hasStatusBarShadow(false)
+//                .hasNavigationBar(false)
+//                .isDestroyOnDismiss(true)
+//                .isDarkTheme(true)
+//                .asConfirm("温馨提示", "确定要删除此相册吗？") {
+//                    deleteAlbum(data.ids)
+//                }.show()
+//            fragmentManager?.let {
+//                CancelDialog().show(it, block = {
+//                    ToastUtil.showCenter("ddd")
+//                }, blockModify = {
+//
+//                })
+//            }
+
+            CancelDialog.getInstants(
+                data.name,
+                deleteClick = {
                     deleteAlbum(data.ids)
-                }.show()
+                },
+                modifyClick = {
+                    if (it.isBlank()) {
+                        ToastUtil.showCenter("请输入相册名")
+                        return@getInstants
+                    }
+                    viewModel.modifyAlbumRequest(data.ids, it)
+                },
+            ).show(childFragmentManager, "dialog")
+
             true
+        }
+
+        listAdapter.setOnItemClickListener { adapter, _, position ->
+            val item = adapter.getItem(position) as AlbumListModel
+            ARouter.getInstance().build("/app/album/pic")
+                .withInt("memorialNo", memorialNo ?: -1)
+                .withInt("albumId", item.ids)
+                .withString("name", item.name)
+//                .withInt("type", 1)
+                .navigation(activity)
         }
     }
 
@@ -203,8 +244,8 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
             .hasNavigationBar(false)
             .isDestroyOnDismiss(true)
             .isDarkTheme(true)
-            .asInputConfirm("新建相册", "") {text ->
-                if (text.isNullOrBlank()){
+            .asInputConfirm("新建相册", "") { text ->
+                if (text.isNullOrBlank()) {
                     ToastUtil.showCenter("输入内容不能为空")
                     return@asInputConfirm
                 }
@@ -237,108 +278,4 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
             }
     }
 
-    var chooseImageUrl = ""
-    fun chooseImage() {
-        val pop = XPopup.Builder(context)
-            .asBottomList("请选择一项", arrayOf("拍照", "相册")) { position, text ->
-                when (position) {
-                    0 -> openCamera()
-                    1 -> openGallery()
-                }
-            }.show()
-    }
-
-    fun upLoadImgToService() {
-
-    }
-
-    private fun openGallery() {
-        PictureSelector.create(this)
-            .openGallery(SelectMimeType.ofImage())
-            .setSelectionMode(SelectModeConfig.SINGLE)
-            .setMaxSelectNum(1)
-            .setImageSpanCount(3)
-            .setImageEngine(GlideEngine.createGlideEngine())
-            .setCropEngine { fragment, srcUri, destinationUri, dataSource, requestCode ->
-                val uCrop = UCrop.of(srcUri, destinationUri, dataSource)
-                uCrop.withAspectRatio(1f, 1f)
-                fragment.activity?.let { uCrop.start(it, fragment, requestCode) }
-            }
-            .setCompressEngine(CompressFileEngine { context, source, call ->
-                Luban.with(context).load(source).ignoreBy(100)
-                    .setCompressListener(object : OnNewCompressListener {
-                        override fun onStart() {
-                            Log.i("sss", "----compress-----start-------")
-                        }
-
-                        override fun onSuccess(source: String?, compressFile: File?) {
-                            call?.onCallback(source, compressFile?.absolutePath)
-                            Log.i(
-                                "sss",
-                                "----compress-----success---${compressFile?.absolutePath}----"
-                            )
-                        }
-
-                        override fun onError(source: String?, e: Throwable?) {
-                            call?.onCallback(source, null)
-                            Log.i("sss", "----compress-----error-------")
-                        }
-
-                    }).launch()
-            })
-            .isGif(false)
-            .isDisplayCamera(false)
-            .forResult(object : OnResultCallbackListener<LocalMedia> {
-                override fun onResult(result: ArrayList<LocalMedia>?) {
-                    chooseImageUrl = result?.get(0)?.compressPath ?: ""
-                    upLoadImgToService()
-                }
-
-                override fun onCancel() {
-//                    ToastUtils.showToast(this@UploadImageActivity, "cancel")
-                }
-
-            })
-    }
-
-    private fun openCamera() {
-        PictureSelector.create(this)
-            .openCamera(SelectMimeType.ofImage())
-            .setCropEngine { fragment, srcUri, destinationUri, dataSource, requestCode ->
-                val uCrop = UCrop.of(srcUri, destinationUri, dataSource)
-                fragment.activity?.let { uCrop.start(it, fragment, requestCode) }
-            }
-            .setCompressEngine(CompressFileEngine { context, source, call ->
-                Luban.with(context).load(source).ignoreBy(100)
-                    .setCompressListener(object : OnNewCompressListener {
-                        override fun onStart() {
-                            Log.i("sss", "----compress-----start-------")
-                        }
-
-                        override fun onSuccess(source: String?, compressFile: File?) {
-                            call?.onCallback(source, compressFile?.absolutePath)
-                            Log.i(
-                                "sss",
-                                "----compress-----success---${compressFile?.absolutePath}----"
-                            )
-                        }
-
-                        override fun onError(source: String?, e: Throwable?) {
-                            call?.onCallback(source, null)
-                            Log.i("sss", "----compress-----error-------")
-                        }
-
-                    }).launch()
-            })
-            .forResult(object : OnResultCallbackListener<LocalMedia> {
-                override fun onResult(result: ArrayList<LocalMedia>?) {
-                    chooseImageUrl = result?.get(0)?.compressPath ?: ""
-                    upLoadImgToService()
-                }
-
-                override fun onCancel() {
-
-                }
-            })
-    }
 }

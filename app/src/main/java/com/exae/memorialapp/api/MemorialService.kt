@@ -2,6 +2,7 @@ package com.exae.memorialapp.api
 
 import com.exae.memorialapp.bean.AddCommentResponse
 import com.exae.memorialapp.bean.AlbumListResponse
+import com.exae.memorialapp.bean.AlbumPicListResponse
 import com.exae.memorialapp.bean.AllMaterialOfferListResponse
 import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
@@ -18,6 +19,7 @@ import com.exae.memorialapp.bean.DeleteArticleResponse
 import com.exae.memorialapp.bean.DeleteCommentResponse
 import com.exae.memorialapp.bean.DeleteIntroduceResponse
 import com.exae.memorialapp.bean.DeleteMemorialResponse
+import com.exae.memorialapp.bean.DeletePicResponse
 import com.exae.memorialapp.bean.DoubleMemorialResponse
 import com.exae.memorialapp.bean.HandleApplyListResponse
 import com.exae.memorialapp.bean.HandleApplyMemorialResponse
@@ -28,6 +30,7 @@ import com.exae.memorialapp.bean.ModifyIntroduceResponse
 import com.exae.memorialapp.bean.MoreMemorialResponse
 import com.exae.memorialapp.bean.SingleMemorialResponse
 import com.exae.memorialapp.bean.StyleMemorialResponse
+import com.exae.memorialapp.bean.UploadAlbumPicResponse
 import com.exae.memorialapp.bean.UploadImageResponse
 import com.exae.memorialapp.requestData.AddCommentRequest
 import com.exae.memorialapp.requestData.ApplyMemorialRequest
@@ -37,10 +40,13 @@ import com.exae.memorialapp.requestData.CreateIntroduceRequest
 import com.exae.memorialapp.requestData.DeleteCommentRequest
 import com.exae.memorialapp.requestData.DeleteIntroduceRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
+import com.exae.memorialapp.requestData.ModifyAlbumPicRequest
+import com.exae.memorialapp.requestData.ModifyAlbumRequest
 import com.exae.memorialapp.requestData.ModifyArticleRequest
 import com.exae.memorialapp.requestData.ModifyIntroduceRequest
 import com.exae.memorialapp.requestData.MoreMemorialRequest
 import com.exae.memorialapp.requestData.SingleMemorialRequest
+import com.exae.memorialapp.requestData.UploadAlbumPicRequest
 import com.exae.memorialapp.requestData.UploadImageRequest
 import okhttp3.MultipartBody
 import retrofit2.http.Body
@@ -409,6 +415,15 @@ interface MemorialService {
         ) url: String,
     ): DeleteAlbumResponse
 
+    @PUT("{path}")
+    suspend fun modifyAlbumRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: ModifyAlbumRequest,
+    ): CreateAlbumResponse
+
     @GET("{path}")
     suspend fun getAllMaterialOfferRequest(
         @Path(
@@ -416,5 +431,42 @@ interface MemorialService {
             encoded = true
         ) url: String,
     ): AllMaterialOfferListResponse
+
+    @GET("{path}")
+    suspend fun getAlbumPicListRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Query("albumId") albumId: Int,
+        @Query("pageNum") pageNum: Int,
+        @Query("pageSize") pageSize: Int,
+    ): AlbumPicListResponse
+
+    @POST("{path}")
+    suspend fun uploadAlbumPicRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: UploadAlbumPicRequest,
+    ): UploadAlbumPicResponse
+
+    @PUT("{path}")
+    suspend fun ModifyAlbumPicRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+        @Body request: ModifyAlbumPicRequest,
+    ): UploadAlbumPicResponse
+
+    @DELETE("{path}")
+    suspend fun deletePicRequest(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String,
+    ): DeletePicResponse
 
 }

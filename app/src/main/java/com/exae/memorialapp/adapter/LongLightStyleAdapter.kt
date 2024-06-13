@@ -8,15 +8,16 @@ import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.exae.memorialapp.R
+import com.exae.memorialapp.bean.AllMaterialOfferItemModel
 import com.exae.memorialapp.bean.StyleLongLightModel
 import com.exae.memorialapp.bean.StyleMemorialModel
 import javax.inject.Inject
 
 class LongLightStyleAdapter @Inject constructor() :
-    BaseQuickAdapter<StyleLongLightModel, BaseViewHolder>(R.layout.item_long_light_style) {
-    var selectPos = 0
+    BaseQuickAdapter<AllMaterialOfferItemModel, BaseViewHolder>(R.layout.item_long_light_style) {
+    var selectPos = -1
 
-    override fun convert(holder: BaseViewHolder, item: StyleLongLightModel) {
+    override fun convert(holder: BaseViewHolder, item: AllMaterialOfferItemModel) {
 //        holder.setText(R.id.userNum, item.repeatUse.toString())
 //            .setText(R.id.name, item.name)
 

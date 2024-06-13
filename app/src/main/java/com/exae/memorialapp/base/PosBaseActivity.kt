@@ -81,6 +81,12 @@ abstract class PosBaseActivity<T : ViewBinding>: AppCompatActivity() {
         }
     }
 
+    open fun setRecordTitle(title: String?){
+        title.let {
+            tvRecord?.text = it
+        }
+    }
+
     open fun setBackState(isShow: Boolean){
         if (isShow){
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
