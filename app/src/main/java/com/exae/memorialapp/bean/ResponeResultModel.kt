@@ -385,7 +385,8 @@ class AddCommentModel(
     val repeatUse: Int = 0
 )
 
-class DeleteCommentResponse : ProtocolResponse<DeleteCommentModel>()
+class DeleteCommentResponse : ProtocolResponse<Boolean>()
+//class DeleteCommentResponse : ProtocolResponse<DeleteCommentModel>()
 class DeleteCommentModel(
     @SerializedName("id")
     val ids: Int,

@@ -18,13 +18,14 @@ import com.exae.memorialapp.bean.AllMaterialOfferItemModel
 import com.exae.memorialapp.bean.StyleLongLightModel
 import com.exae.memorialapp.databinding.ActivityPlongLightInfoBinding
 import com.exae.memorialapp.viewmodel.MemorialModel
+import com.lxj.xpopup.XPopup
 import com.scwang.smart.refresh.header.BezierRadarHeader
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 @Route(path = "/app/long/light")
-class PLongLightInfoActivity : PosBaseActivity<ActivityPlongLightInfoBinding>() ,
+class PLongLightInfoActivity : PosBaseActivity<ActivityPlongLightInfoBinding>(),
     OnItemChildClickListener {
     private val viewModel: MemorialModel by viewModels()
 
@@ -60,6 +61,9 @@ class PLongLightInfoActivity : PosBaseActivity<ActivityPlongLightInfoBinding>() 
             emptyView.setOnClickListener {
                 requestNetData()
             }
+            light.setOnClickListener {
+//                chooseWay()
+            }
         }
         listAdapter.setOnItemChildClickListener(this)
         listAdapter.addChildClickViewIds(R.id.choose)
@@ -74,9 +78,11 @@ class PLongLightInfoActivity : PosBaseActivity<ActivityPlongLightInfoBinding>() 
                     listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
                     binding.emptyView.visibility = View.GONE
                     binding.mListView.visibility = View.VISIBLE
+                    binding.light.visibility = View.VISIBLE
                 } else {
                     binding.emptyView.visibility = View.VISIBLE
                     binding.mListView.visibility = View.GONE
+                    binding.light.visibility = View.GONE
                 }
             }
         })
@@ -84,9 +90,6 @@ class PLongLightInfoActivity : PosBaseActivity<ActivityPlongLightInfoBinding>() 
 
     private fun requestNetData() {
         viewModel.getAllMaterialOfferRequest("1")
-//        viewModel.getAllMaterialOfferRequest("2")
-//        viewModel.getAllMaterialOfferRequest("3")
-//        viewModel.getAllMaterialOfferRequest("4")
     }
 
     override fun getViewBinding(): ActivityPlongLightInfoBinding {
@@ -95,23 +98,28 @@ class PLongLightInfoActivity : PosBaseActivity<ActivityPlongLightInfoBinding>() 
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val itemData = adapter.data[position] as AllMaterialOfferItemModel
-        when(view.id){
+        when (view.id) {
             R.id.choose -> {
-//                val intent = Intent()
-//                intent.putExtra("name", itemData.name)
-//                intent.putExtra("ids", itemData.ids)
-//                setResult(1, intent)
-//                finish()
                 if (position != listAdapter.selectPos) {
                     itemData.isChoose = true
                     listAdapter.notifyItemChanged(position)
-                    if (listAdapter.selectPos != -1){
-                        (adapter.data.get(listAdapter.selectPos) as AllMaterialOfferItemModel).isChoose = false
+                    if (listAdapter.selectPos != -1) {
+                        (adapter.data.get(listAdapter.selectPos) as AllMaterialOfferItemModel).isChoose =
+                            false
                         listAdapter.notifyItemChanged(listAdapter.selectPos)
                     }
                     listAdapter.selectPos = position
                 }
             }
         }
+    }
+   private fun chooseWay() {
+        val pop = XPopup.Builder(this)
+            .asBottomList("请选择一项", arrayOf("拍照", "相册")) { position, text ->
+                when (position) {
+                    0 -> {}
+                    1 -> {}
+                }
+            }.show()
     }
 }

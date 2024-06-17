@@ -41,6 +41,7 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
     // TODO: Rename and change types of parameters
     private var memorialNo: Int? = -1
     private var param2: String? = null
+    private var checkPosition = -1
 
     private var commentTips: String? = ""
 
@@ -116,18 +117,18 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
         viewModel.getCommentListResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 if (!it.data.isNullOrEmpty()) {
-                    if (pageNum == 1){
+                    if (pageNum == 1) {
                         listAdapter.data.clear()
                         binding.smartRefreshLayout.finishRefresh(true)
                         listAdapter.setNewInstance(it.data)
-                    }else{
+                    } else {
                         listAdapter.addData(it.data)
                     }
 
-                    if (it.data.size < 20){
+                    if (it.data.size < 20) {
 //                        listAdapter.data.addAll(it.data)
                         listAdapter.loadMoreModule.loadMoreEnd()
-                    }else{
+                    } else {
                         listAdapter.loadMoreModule.loadMoreComplete()
                         pageNum++
                     }
@@ -152,6 +153,7 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
         viewModel.addCommenResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 val result = it.data
+                pageNum = 1
                 requestNetData()
                 ToastUtil.showCenter("留言发表成功")
             },
@@ -164,8 +166,14 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
         viewModel.deleteCommenResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 val result = it.data
-                requestNetData()
-                ToastUtil.showCenter("留言删除成功")
+                if (result == true) {
+                    pageNum = 1
+                    requestNetData()
+                    ToastUtil.showCenter("留言删除成功")
+//                    listAdapter.data.removeAt(checkPosition)
+//                    listAdapter.notifyItemChanged(checkPosition)
+
+                }
             },
                 {
                     ToastUtil.showCenter("留言发表失败，请重试")
@@ -181,7 +189,7 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
 
     private fun requestNetData() {
         if ((memorialNo ?: -1) == -1) return
-        memorialNo?.let { viewModel.getCommentListRequest(it,pageNum) }
+        memorialNo?.let { viewModel.getCommentListRequest(it, pageNum) }
     }
 
     private fun addComment(content: String) {
@@ -189,7 +197,7 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
         memorialNo?.let { viewModel.addCommentRequest(it, content) }
     }
 
-    private fun deleteComment(commentId: String) {
+    private fun deleteComment(commentId: Int) {
         if ((memorialNo ?: -1) == -1) return
         memorialNo?.let { viewModel.deleteCommentRequest(it, commentId) }
     }
@@ -231,7 +239,8 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
             .isDestroyOnDismiss(true)
             .isDarkTheme(true)
             .asConfirm("温馨提示", "确定要删除此留言吗？") {
-                deleteComment(data.comment)
+                deleteComment(data.ids)
+                checkPosition = position
             }.show()
 
         return true

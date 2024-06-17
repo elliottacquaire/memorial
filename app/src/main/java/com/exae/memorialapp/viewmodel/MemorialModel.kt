@@ -370,7 +370,7 @@ class MemorialModel @Inject constructor(
         launch(
             {
                 getCommentListResponse.value =
-                    repository.getCommentListRequest(CommentLisRequest(memorialNo,pageNum,20))
+                    repository.getCommentListRequest(CommentLisRequest(memorialNo, pageNum, 20))
             },
             {
                 getCommentListResponse.value = errorHandle(it)
@@ -379,11 +379,11 @@ class MemorialModel @Inject constructor(
     }
 
     var deleteCommenResponse = MutableLiveData<ResultBean<DeleteCommentResponse>>()
-    fun deleteCommentRequest(memorialNo: Int, commentId: String) {
+    fun deleteCommentRequest(memorialNo: Int, commentId: Int) {
         launch(
             {
                 deleteCommenResponse.value =
-                    repository.deleteCommentRequest(DeleteCommentRequest(memorialNo, commentId))
+                    repository.deleteCommentRequest(DeleteCommentRequest(commentId))
             },
             {
                 deleteCommenResponse.value = errorHandle(it)
@@ -487,11 +487,11 @@ class MemorialModel @Inject constructor(
     }
 
     var createArticleResponse = MutableLiveData<ResultBean<CreateArticleResponse>>()
-    fun createArticleRequest(ememorialNo: Int, content: String,title:String) {
+    fun createArticleRequest(ememorialNo: Int, content: String, title: String) {
         launch(
             {
                 createArticleResponse.value = repository.createArticleRequest(
-                    CreateArticleRequest(ememorialNo, content,title)
+                    CreateArticleRequest(ememorialNo, content, title)
                 )
             },
             {
@@ -501,11 +501,11 @@ class MemorialModel @Inject constructor(
     }
 
     var modifyArticleResponse = MutableLiveData<ResultBean<ModifyArticleResponse>>()
-    fun modifyArticleRequest(ememorialNo: Int,articleId:Int, content: String,title:String) {
+    fun modifyArticleRequest(ememorialNo: Int, articleId: Int, content: String, title: String) {
         launch(
             {
                 modifyArticleResponse.value = repository.modifyArticleRequest(
-                    ModifyArticleRequest(ememorialNo, articleId,content,title)
+                    ModifyArticleRequest(ememorialNo, articleId, content, title)
                 )
             },
             {
@@ -568,11 +568,11 @@ class MemorialModel @Inject constructor(
     }
 
     var modifyAlbumResponse = MutableLiveData<ResultBean<CreateAlbumResponse>>()
-    fun modifyAlbumRequest(albumId: Int,name: String) {
+    fun modifyAlbumRequest(albumId: Int, name: String) {
         launch(
             {
                 modifyAlbumResponse.value =
-                    repository.modifyAlbumRequest(ModifyAlbumRequest(albumId,name))
+                    repository.modifyAlbumRequest(ModifyAlbumRequest(albumId, name))
             },
             {
                 modifyAlbumResponse.value = errorHandle(it)
@@ -584,7 +584,8 @@ class MemorialModel @Inject constructor(
     fun getAllMaterialOfferRequest(type: String) {
         launch(
             {
-                allMaterialOfferResponse.value = repository.getAllMaterialOfferRequest(AllMaterialOfferRequest(type))
+                allMaterialOfferResponse.value =
+                    repository.getAllMaterialOfferRequest(AllMaterialOfferRequest(type))
             },
             {
                 allMaterialOfferResponse.value = errorHandle(it)
@@ -606,11 +607,17 @@ class MemorialModel @Inject constructor(
     }
 
     var uploadAlbumPicResponse = MutableLiveData<ResultBean<UploadAlbumPicResponse>>()
-    fun uploadAlbumPicRequest(albumId: Int, picDesc: String,picUrl:String) {
+    fun uploadAlbumPicRequest(albumId: Int, picDesc: String, picUrl: String) {
         launch(
             {
                 uploadAlbumPicResponse.value =
-                    repository.uploadAlbumPicRequest(UploadAlbumPicRequest(albumId, picDesc, picUrl))
+                    repository.uploadAlbumPicRequest(
+                        UploadAlbumPicRequest(
+                            albumId,
+                            picDesc,
+                            picUrl
+                        )
+                    )
             },
             {
                 uploadAlbumPicResponse.value = errorHandle(it)
@@ -619,11 +626,11 @@ class MemorialModel @Inject constructor(
     }
 
     var modifyPicResponse = MutableLiveData<ResultBean<UploadAlbumPicResponse>>()
-    fun modifyPicRequest(albumId: Int, id: Int,picDesc: String,picUrl:String) {
+    fun modifyPicRequest(albumId: Int, id: Int, picDesc: String, picUrl: String) {
         launch(
             {
                 modifyPicResponse.value = repository.modifyAlbumPicRequest(
-                    ModifyAlbumPicRequest(albumId,id,picDesc,picUrl)
+                    ModifyAlbumPicRequest(albumId, id, picDesc, picUrl)
                 )
             },
             {

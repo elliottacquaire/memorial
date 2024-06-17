@@ -265,10 +265,10 @@ data class AddCommentRequest(
 ) : BaseRequest("/prod-api/user/memorial/comment")
 
 data class DeleteCommentRequest(
-    @SerializedName("memorialNo")
-    var memorialNo: Int,
+//    @SerializedName("memorialNo")
+//    var memorialNo: Int,
     @SerializedName("id")
-    var commentId: String,
+    var commentId: Int,
 ) : BaseRequest("/prod-api/user/memorial/comment/$commentId")
 
 data class IntroduceRequest(

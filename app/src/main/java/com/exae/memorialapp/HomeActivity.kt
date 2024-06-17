@@ -143,7 +143,6 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
                                 HomeFragment.newInstance(memorialNo, "")
                             }
                         }
-//                        HomeFragment.newInstance(memorialNo, "")
                     }
                     1 -> IntroduceFragment.newInstance(memorialNo, "")
                     2 -> MemorialFragment.newInstance(memorialNo, "")

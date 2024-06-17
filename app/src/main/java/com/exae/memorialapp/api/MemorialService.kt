@@ -37,8 +37,6 @@ import com.exae.memorialapp.requestData.ApplyMemorialRequest
 import com.exae.memorialapp.requestData.CreateAlbumRequest
 import com.exae.memorialapp.requestData.CreateArticleRequest
 import com.exae.memorialapp.requestData.CreateIntroduceRequest
-import com.exae.memorialapp.requestData.DeleteCommentRequest
-import com.exae.memorialapp.requestData.DeleteIntroduceRequest
 import com.exae.memorialapp.requestData.DoubleMemorialRequest
 import com.exae.memorialapp.requestData.ModifyAlbumPicRequest
 import com.exae.memorialapp.requestData.ModifyAlbumRequest
@@ -297,7 +295,7 @@ interface MemorialService {
             value = "path",
             encoded = true
         ) url: String,
-        @Body request: DeleteCommentRequest,
+//        @Body request: DeleteCommentRequest,
     ): DeleteCommentResponse
 
     @POST("{path}")

@@ -265,7 +265,7 @@ class MemorialRepository @Inject constructor(@RetrofitAnno var retrofit: Retrofi
             retrofit.create(MemorialService::class.java)
                 .deleteCommentRequest(
                     request.path,
-                    request,
+//                    request,
                 )
         )
     }
