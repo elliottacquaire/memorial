@@ -1,8 +1,11 @@
 package com.exae.memorialapp
 
 import android.app.Activity
+import android.app.ActivityManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.exae.memorialapp.utils.CommonUtils
@@ -24,17 +27,18 @@ class PosVerificationCodeLoginActivity :
     CodeInputView.CodeGetListener {
 
     private val longViewModel: PosLoginModel by viewModels()
-//    private lateinit var binding: ActivityPosVerificationCodeLoginBinding
+
+    //    private lateinit var binding: ActivityPosVerificationCodeLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        binding = ActivityPosVerificationCodeLoginBinding.inflate(layoutInflater)
 //        setContentView(binding.root)
-        binding.codeInput.setCodeGetListener(this)
+//        binding.codeInput.setCodeGetListener(this)
 //        tv_tips.porscheNextBold()
         longViewModel.getCodeResponse.observe(this, Observer { resources ->
             handleResponse(resources) {
                 ToastUtil.showCenter("验证码发送成功")
-                binding.codeInput.starTime()
+//                binding.codeInput.starTime()
             }
         })
 
@@ -48,7 +52,7 @@ class PosVerificationCodeLoginActivity :
                 dismissLoading()
                 ToastUtil.showCenter("登录成功")
                 longViewModel.handleLoginResult(it.data)
-                ShareUtil.putToken("token-sssss")
+//                ShareUtil.putToken("token-sssss")
                 ARouter.getInstance()
                     .build("/app/main")
                     .navigation()
@@ -72,7 +76,7 @@ class PosVerificationCodeLoginActivity :
             val editContent = binding.phoneInput.getEditText()
             val codeContent = binding.codeInput.getEditText()
             if (editContent.isBlank() || codeContent.isBlank()) {
-                ToastUtil.showCenter("手机或验证码不能为空")
+                ToastUtil.showCenter("手机或密码不能为空")
                 return@setOnClickListener
             }
             if (editContent.length != 11) {
@@ -84,7 +88,7 @@ class PosVerificationCodeLoginActivity :
 
         }
 
-    binding.phoneInput.setEditText(longViewModel.getUser().trim())
+        binding.phoneInput.setEditText(longViewModel.getUser().trim())
 
     }
 
@@ -147,15 +151,26 @@ class PosVerificationCodeLoginActivity :
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.codeInput.endTime()
+//        binding.codeInput.endTime()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
 //        EventBus.getDefault().post(BackEvent())
+        Log.i("sss", "-----------exit-------")
+        exitApp()
     }
 
     override fun getViewBinding(): ActivityPosVerificationCodeLoginBinding {
         return ActivityPosVerificationCodeLoginBinding.inflate(layoutInflater)
+    }
+
+    private fun exitApp() {
+        val activityManage = applicationContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val listTask = activityManage.appTasks
+        for (item in listTask){
+            item.finishAndRemoveTask()
+        }
+        System.exit(0)
     }
 }

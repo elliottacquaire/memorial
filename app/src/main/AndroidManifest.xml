@@ -34,6 +34,12 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".AboutUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingActivity"
+            android:exported="false" />
+        <activity
             android:name=".home.artical.AlbumPicActivity"
             android:exported="false" />
         <activity
@@ -61,7 +67,7 @@
             android:name=".home.introduce.EditIntroduceActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateHallResultActivity"
+            android:name=".hall.CreateHallResultActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"

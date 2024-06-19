@@ -2,6 +2,7 @@ package com.exae.memorialapp.hall
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -44,12 +45,14 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
                     binding.layoutOneView.viewOne.visibility = View.VISIBLE
                     binding.layoutTwoView.viewTwo.visibility = View.GONE
                 }
+
                 R.id.moreHall -> {
                     chooseType = HallType.MORE_HALL.type
                     binding.layoutMoreView.viewMore.visibility = View.VISIBLE
                     binding.layoutOneView.viewOne.visibility = View.GONE
                     binding.layoutTwoView.viewTwo.visibility = View.GONE
                 }
+
                 R.id.twoHall -> {
                     chooseType = HallType.TWO_HALL.type
                     binding.layoutMoreView.viewMore.visibility = View.GONE
@@ -103,9 +106,11 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
                 "男" -> {
                     requestDouble.sex1 = "0"
                 }
+
                 "女" -> {
                     requestDouble.sex1 = "1"
                 }
+
                 else -> {
                     requestDouble.sex1 = "2"
                 }
@@ -114,9 +119,11 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
                 "男" -> {
                     requestDouble.sex2 = "0"
                 }
+
                 "女" -> {
                     requestDouble.sex2 = "1"
                 }
+
                 else -> {
                     requestDouble.sex2 = "2"
                 }
@@ -133,10 +140,12 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
                             binding.layoutTwoView.tvGender.text = "男"
                             requestDouble.sex1 = "0"
                         }
+
                         1 -> {
                             binding.layoutTwoView.tvGender.text = "女"
                             requestDouble.sex1 = "1"
                         }
+
                         2 -> {
                             binding.layoutTwoView.tvGender.text = "保密"
                             requestDouble.sex1 = "2"
@@ -152,10 +161,12 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
                             binding.layoutTwoView.tvGender1.text = "男"
                             requestDouble.sex2 = "0"
                         }
+
                         1 -> {
                             binding.layoutTwoView.tvGender1.text = "女"
                             requestDouble.sex2 = "1"
                         }
+
                         2 -> {
                             binding.layoutTwoView.tvGender1.text = "保密"
                             requestDouble.sex2 = "2"
@@ -237,7 +248,7 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
         viewModel.twoMemorialResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
                 dismissLoading()
-                ARouter.getInstance().build("/app/create/result")
+                ARouter.getInstance().build("/create/result")
                     .withInt("memorialNo", it.data?.memorialNo ?: -1)
                     .withString("memorialName", it.data?.memorialName)
                     .withString("memorialType", chooseType.toString())
@@ -270,15 +281,17 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
         binding.layoutMoreView.butCreateOne.setOnClickListener {
             requestMore.name = binding.layoutMoreView.edtMemorialName.text.trim().toString()
             requestMore.theme = binding.layoutMoreView.edtMemorialTheme.text.trim().toString()
-            requestMore.monumentMaker = binding.layoutMoreView.edtMemorialCreateName.text.trim().toString()
-            requestMore.ancestralHome = binding.layoutMoreView.edtMemorialLocal.text.trim().toString()
+            requestMore.monumentMaker =
+                binding.layoutMoreView.edtMemorialCreateName.text.trim().toString()
+            requestMore.ancestralHome =
+                binding.layoutMoreView.edtMemorialLocal.text.trim().toString()
             viewModel.moreMemorialRequest(requestMore)
             showLoading()
         }
         viewModel.moreMemorialResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
                 dismissLoading()
-                ARouter.getInstance().build("/app/create/result")
+                ARouter.getInstance().build("/create/result")
                     .withInt("memorialNo", it.data?.memorialNo ?: -1)
                     .withString("memorialName", it.data?.memorialName)
                     .withString("memorialType", chooseType.toString())
@@ -353,11 +366,12 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
         viewModel.singleMemorialResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
                 dismissLoading()
-                ARouter.getInstance().build("/app/create/result")
+                ARouter.getInstance().build("/create/result")
                     .withInt("memorialNo", it.data?.memorialNo ?: -1)
                     .withString("memorialName", it.data?.memorialName)
                     .withString("memorialType", chooseType.toString())
-                    .navigation(this)
+                    .navigation()
+
                 finish()
             },
                 {
@@ -372,52 +386,52 @@ class CreateHallActivity : PosBaseActivity<ActivityCreateHallBinding>() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == requestCodeMemorialStyle && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
-            val ids = data?.getIntExtra("ids",-1) ?: -1
+            val ids = data?.getIntExtra("ids", -1) ?: -1
             binding.layoutMoreView.tvMemorialStyle.text = name
             requestMore.memorialId = ids
         } else if (requestCode == requestCodeHallStyle && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
-            val ids = data?.getIntExtra("ids",-1) ?: -1
+            val ids = data?.getIntExtra("ids", -1) ?: -1
             binding.layoutMoreView.tvHallStyle.text = name
             requestMore.hallId = ids
         } else if (requestCode == requestCodeTableStyle && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
-            val ids = data?.getIntExtra("ids",-1) ?: -1
+            val ids = data?.getIntExtra("ids", -1) ?: -1
             binding.layoutMoreView.tvTableStyle.text = name
             requestMore.tabletId = ids
         } else if (requestCode == requestCodeMemorialStyleOne && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
-            val ids = data?.getIntExtra("ids",-1) ?: -1
+            val ids = data?.getIntExtra("ids", -1) ?: -1
             binding.layoutOneView.tvMemorialStyle.text = name
             requestOne.memorialId = ids
         } else if (requestCode == requestCodeHallStyleOne && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
-            val ids = data?.getIntExtra("ids",-1) ?: -1
+            val ids = data?.getIntExtra("ids", -1) ?: -1
             binding.layoutOneView.tvHallStyle.text = name
             requestOne.hallId = ids
         } else if (requestCode == requestCodeTableStyleOne && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
-            val ids = data?.getIntExtra("ids",-1) ?: -1
+            val ids = data?.getIntExtra("ids", -1) ?: -1
             binding.layoutOneView.tvTableStyle.text = name
             requestOne.tabletId = ids
-        }else if (requestCode == requestCodeMemorialStyleDouble && resultCode == 1) {
+        } else if (requestCode == requestCodeMemorialStyleDouble && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
-            val ids = data?.getIntExtra("ids",-1) ?: -1
+            val ids = data?.getIntExtra("ids", -1) ?: -1
             binding.layoutTwoView.tvMemorialStyle.text = name
             requestDouble.memorialId = ids
         } else if (requestCode == requestCodeHallStyleDouble && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
-            val ids = data?.getIntExtra("ids",-1) ?: -1
+            val ids = data?.getIntExtra("ids", -1) ?: -1
             binding.layoutTwoView.tvHallStyle.text = name
             requestDouble.hallId = ids
         } else if (requestCode == requestCodeTableStyleDouble && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
-            val ids = data?.getIntExtra("ids",-1) ?: -1
+            val ids = data?.getIntExtra("ids", -1) ?: -1
             binding.layoutTwoView.tvTableStyle.text = name
             requestDouble.tabletId1 = ids
-        }else if (requestCode == requestCodeTableStyleDouble1 && resultCode == 1) {
+        } else if (requestCode == requestCodeTableStyleDouble1 && resultCode == 1) {
             val name = data?.getStringExtra("name") ?: ""
-            val ids = data?.getIntExtra("ids",-1) ?: -1
+            val ids = data?.getIntExtra("ids", -1) ?: -1
             binding.layoutTwoView.tvTableStyle1.text = name
             requestDouble.tabletId2 = ids
         }

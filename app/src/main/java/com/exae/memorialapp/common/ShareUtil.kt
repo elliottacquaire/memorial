@@ -30,13 +30,13 @@ object ShareUtil {
 
     fun getToken(): String?{
         val mSharedPreferences = CusApplication.instance().getSharedPreferences(
-            "TRACK_RECORD",
+            "USER_TOKEN",
             Context.MODE_PRIVATE)
         return mSharedPreferences.getString("token","")
     }
 
     fun putToken(token:String){
-        val mSharedPreferences = CusApplication.instance().getSharedPreferences("TRACK_RECORD", Context.MODE_PRIVATE)
+        val mSharedPreferences = CusApplication.instance().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE)
         mSharedPreferences?.edit()?.putString("token", token)?.apply()
     }
 

@@ -45,7 +45,7 @@ class PosLoginModel @Inject constructor(
             tokenPref.set(it.token)
 //            tokenPref.set("eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjlmZmZiNmE2LTEyNzctNDVlMC1iMmZhLTU3NDVjZTY1OGU5NCJ9.J9fUWW96j7qUNGukJ4FCUPXTyVuZg532ApTUjssvTFlBrVmTf8huAITgR0yP16LLNh2Oig6JhCIvMwfQbqcouQ")
 //            ShareUtil.putToken("token-sssss")
-            Log.i("DealerApp", tokenPref.get())
+//            Log.i("DealerApp", tokenPref.get())
 //            state.registerDeviceRequest = DeviceRegsiterRequest(
 //                deviceId = devicePref.get(),
 //                userId = it.userDetailResource?.uid ?: ""

@@ -43,7 +43,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="15.3dp" />
 
-    <com.exae.memorialapp.widget.CodeInputView
+
+    <com.exae.memorialapp.widget.CipherInputView
         android:id="@+id/codeInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,17 +53,34 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="15.3dp" />
 
-
-    <TextView
+    <Button
         android:id="@+id/tv_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="20dp"
         android:layout_below="@+id/codeInput"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/pos_btn_confirm_bg"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/chip_check_bg"
+        android:text="@string/login_btn"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_login1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/codeInput"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/chip_check_bg"
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/login_btn"

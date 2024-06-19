@@ -24,7 +24,7 @@
     <string name="tab_contract">订单</string>
 
     <string name="login_tv_tips">MemorialApp</string>
-    <string name="login_code_tips">短信快捷登录</string>
+    <string name="login_code_tips">快捷登录</string>
     <string name="login_btn"> 立 即 登 录 </string>
 
     <string name="code_phone_tips">手机号格式不正确</string>

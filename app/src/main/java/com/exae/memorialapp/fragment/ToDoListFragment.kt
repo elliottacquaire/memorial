@@ -133,6 +133,11 @@ class ToDoListFragment : BaseFragment<FragmentIndexBinding>(), OnItemClickListen
         viewModel.attentionListRequest()
     }
 
+    override fun onResume() {
+        super.onResume()
+        requestNetData()
+    }
+
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
