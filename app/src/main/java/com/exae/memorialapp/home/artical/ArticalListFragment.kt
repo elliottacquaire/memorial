@@ -113,7 +113,6 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
                         listAdapter.loadMoreModule.loadMoreComplete()
                         pageNum++
                     }
-                    listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
                     binding.emptyView.visibility = View.GONE
                     binding.smartRefreshLayout.visibility = View.VISIBLE
                 } else {

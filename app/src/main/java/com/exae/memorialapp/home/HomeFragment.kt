@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
@@ -63,6 +65,20 @@ class HomeFragment : CoreFragment(R.layout.fragment_home) {
                         ) + " ～ " + CommonUtils.getSplitTime(result?.leaveDate ?: "")
                     }
                     tvName.text = result?.name ?: ""
+                    val sex = when (result?.sex) {
+                        "0" -> {
+                            "性别：男"
+                        }
+
+                        "1" -> {
+                            "性别：女"
+                        }
+
+                        else -> {
+                            "性别：保密"
+                        }
+                    }
+                    tvSex.text = sex
                     tvEpitaph.text = result?.epitaph ?: ""
                     Glide.with(requireActivity())
                         .load(result?.picUrlPrefix + result?.memorialPicUrl)
@@ -72,6 +88,7 @@ class HomeFragment : CoreFragment(R.layout.fragment_home) {
                         .load(result?.picUrlPrefix + result?.avatarPicUrl)
                         .placeholder(R.mipmap.headdd)
                         .error(R.mipmap.headdd)
+                        .apply(RequestOptions.bitmapTransform(CircleCrop()))
                         .into(binding.headImg)
                 }
             },

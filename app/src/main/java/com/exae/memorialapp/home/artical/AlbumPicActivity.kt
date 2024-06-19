@@ -10,7 +10,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.exae.memorialapp.base.PosBaseActivity
 import com.exae.memorialapp.base.handleResponse
-import com.exae.memorialapp.bean.AlbumListModel
 import com.exae.memorialapp.bean.AlbumPicListModel
 import com.exae.memorialapp.databinding.ActivityAlbumPicBinding
 import com.exae.memorialapp.utils.ToastUtil

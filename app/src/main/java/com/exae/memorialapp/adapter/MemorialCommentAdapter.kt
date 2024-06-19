@@ -16,7 +16,7 @@ class MemorialCommentAdapter @Inject constructor() :
     BaseQuickAdapter<CommentListModel, BaseViewHolder>(R.layout.item_comment), LoadMoreModule {
 
     override fun convert(holder: BaseViewHolder, item: CommentListModel) {
-        holder.setText(R.id.nickName, item.name)
+        holder.setText(R.id.nickName, item.createBy)
             .setText(R.id.createTime, getSplitTime(item.createTime))
             .setText(R.id.content, item.comment)
 

@@ -126,17 +126,12 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
                     }
 
                     if (it.data.size < 20) {
-//                        listAdapter.data.addAll(it.data)
                         listAdapter.loadMoreModule.loadMoreEnd()
                     } else {
                         listAdapter.loadMoreModule.loadMoreComplete()
                         pageNum++
                     }
 
-//                    listAdapter.data.clear()
-//                    list.addAll(it.data)
-//                    listAdapter.data.addAll(it.data)
-                    listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
                     binding.emptyView.visibility = View.GONE
                     binding.smartRefreshLayout.visibility = View.VISIBLE
                 } else {

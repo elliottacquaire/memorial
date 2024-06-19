@@ -361,6 +361,8 @@ class CommentListModel(
     val comment: String = "",
     @SerializedName("memorialNo")
     val memorialNo: Int?,
+    @SerializedName("createBy")
+    val createBy: String = "",
     @SerializedName("createTime")
     val createTime: String = "",
     @SerializedName("repeatUse")

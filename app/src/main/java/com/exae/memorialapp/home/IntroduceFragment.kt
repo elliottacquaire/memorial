@@ -36,6 +36,7 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
     private var param2: String? = null
     private var introduceId = -1
     private var introduceText: String? = ""
+    private var memorialType: String? = null
 
     private var _binding: FragmentIntroduceBinding? = null
     private val binding get() = _binding!!
@@ -46,7 +47,7 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             memorialNo = it.getInt(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            memorialType = it.getString(ARG_PARAM2)
         }
     }
 
@@ -61,7 +62,10 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        when (memorialType) {
+            "1" -> {}
+            else -> {}
+        }
         binding.fabMenu.setOnFloatingActionsMenuUpdateListener(object :
             FloatingActionMenu.OnFloatingActionsMenuUpdateListener {
 
@@ -85,7 +89,7 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
             ARouter.getInstance().build("/app/edit/introduce")
                 .withInt("memorialNo", memorialNo ?: -1)
                 .withInt("introduceId", introduceId)
-                .withString("introduceText",introduceText)
+                .withString("introduceText", introduceText)
 //                .withInt("type", 1)
                 .navigation(activity)
             binding.fabMenu.collapse()
@@ -109,11 +113,7 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
                     } else {
                         emptyView.visibility = View.GONE
                     }
-                    Glide.with(requireActivity())
-                        .load(result?.picUrl)
-                        .placeholder(R.mipmap.headdd)
-                        .error(R.mipmap.headdd)
-                        .into(binding.headImg)
+
                 }
             },
                 {
@@ -121,16 +121,18 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
             )
         })
 
-        viewModel.deleteMemorialIntroduceResponse.observe(viewLifecycleOwner, Observer { resources ->
-            handleResponse(resources, {
-                val result = it.data
-                viewModel.getMemorialIntroduceRequest(memorialNo ?: -1)
-                ToastUtil.showCenter(it.message)
-            },
-                {
-                }
-            )
-        })
+        viewModel.deleteMemorialIntroduceResponse.observe(
+            viewLifecycleOwner,
+            Observer { resources ->
+                handleResponse(resources, {
+                    val result = it.data
+                    viewModel.getMemorialIntroduceRequest(memorialNo ?: -1)
+                    ToastUtil.showCenter(it.message)
+                },
+                    {
+                    }
+                )
+            })
 
     }
 
@@ -170,11 +172,11 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(memorialNo: Int, param2: String) =
+        fun newInstance(memorialNo: Int, memorialType: String) =
             IntroduceFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_PARAM1, memorialNo)
-                    putString(ARG_PARAM2, param2)
+                    putString(ARG_PARAM2, memorialType)
                 }
             }
     }

@@ -33,7 +33,7 @@ class ChargeMoneyActivity : PosBaseActivity<ActivityChargeMoneyBinding>(),
                 11,
                 "套餐1：",
                 "500",
-                "（+1000）",
+                "（+100）",
                 "充值优惠100",
                 "11",
             )
@@ -43,14 +43,14 @@ class ChargeMoneyActivity : PosBaseActivity<ActivityChargeMoneyBinding>(),
                 12,
                 "套餐2：",
                 "800",
-                "（+2000）",
+                "（+200）",
                 "充值优惠200",
                 "66",
             )
         )
         binding.apply {
             tvAccount.text = "账号：3456789"
-            tvAccountCoin.text = "1000"
+            tvAccountCoin.text = "100"
             mListView.layoutManager = LinearLayoutManager(this@ChargeMoneyActivity)
             mListView.adapter = listAdapter
         }

@@ -13,19 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MyProfileFragment : BaseFragment<FragmentMyProfileBinding>(), View.OnClickListener {
 
-
-//    private var _binding: FragmentMyProfileBinding? = null
-//    private val binding get() = _binding!!
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?,
-//    ): View? {
-//        _binding = FragmentMyProfileBinding.inflate(inflater, container, false)
-//        return binding.root
-//    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        EventBus.getDefault().register(this)
@@ -45,7 +32,6 @@ class MyProfileFragment : BaseFragment<FragmentMyProfileBinding>(), View.OnClick
 
     override fun onDestroyView() {
         super.onDestroyView()
-//        EventBus.getDefault().unregister(this)
     }
 
     override fun onClick(v: View?) {

@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
@@ -79,9 +81,17 @@ class WorshipFragment : CoreFragment(R.layout.fragment_worship) {
 
     private fun initRequest() {
         when(memorialType){
-            "0" -> viewModel.getSingleMemorialDetailRequest(memorialNo ?: -1)
-            "1" -> viewModel.getMoreDetailMemorialRequest(memorialNo ?: -1)
-            "2" -> viewModel.getTwoMemorialDetailRequest(memorialNo ?: -1)
+            "0" -> {
+                viewModel.getSingleMemorialDetailRequest(memorialNo ?: -1)
+                binding.headImg1.visibility = View.GONE
+            }
+            "1" -> {
+                viewModel.getMoreDetailMemorialRequest(memorialNo ?: -1)
+                binding.linear.visibility = View.GONE
+            }
+            "2" -> {
+                viewModel.getTwoMemorialDetailRequest(memorialNo ?: -1)
+            }
             else -> {}
         }
 
@@ -98,7 +108,8 @@ class WorshipFragment : CoreFragment(R.layout.fragment_worship) {
                         .load(result?.picUrlPrefix + result?.avatarPicUrl)
                         .placeholder(R.mipmap.headdd)
                         .error(R.mipmap.headdd)
-                        .into(binding.headImg)
+                        .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                        .into(binding.headImg0)
                 }
             },
                 {
@@ -113,12 +124,6 @@ class WorshipFragment : CoreFragment(R.layout.fragment_worship) {
                     Glide.with(requireActivity())
                         .load(result?.picUrlPrefix + result?.hallPicUrl)
                         .into(binding.memorialPic)
-
-                    Glide.with(requireActivity())
-                        .load(result?.picUrlPrefix + result?.avatarPicUrl)
-                        .placeholder(R.mipmap.headdd)
-                        .error(R.mipmap.headdd)
-                        .into(binding.headImg)
                 }
             },
                 {
@@ -133,12 +138,20 @@ class WorshipFragment : CoreFragment(R.layout.fragment_worship) {
                     Glide.with(requireActivity())
                         .load(result?.picUrlPrefix + result?.hallPicUrl)
                         .into(binding.memorialPic)
-//
-//                    Glide.with(requireActivity())
-//                        .load(result?.picUrlPrefix + result?.avatarPicUrl)
-//                        .placeholder(R.mipmap.headdd)
-//                        .error(R.mipmap.headdd)
-//                        .into(binding.headImg)
+
+                    Glide.with(requireActivity())
+                        .load(result?.picUrlPrefix + result?.avatarPicUrl1)
+                        .placeholder(R.mipmap.headdd)
+                        .error(R.mipmap.headdd)
+                        .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                        .into(binding.headImg0)
+
+                    Glide.with(requireActivity())
+                        .load(result?.picUrlPrefix + result?.avatarPicUrl2)
+                        .placeholder(R.mipmap.headdd)
+                        .error(R.mipmap.headdd)
+                        .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                        .into(binding.headImg1)
                 }
             },
                 {

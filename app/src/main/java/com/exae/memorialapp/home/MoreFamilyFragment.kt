@@ -60,22 +60,13 @@ class MoreFamilyFragment : CoreFragment(R.layout.fragment_more_family) {
             handleResponse(resources, {
                 val result = it.data
                 binding.apply {
-//                    if (!result?.birthDate.isNullOrEmpty() && !result?.leaveDate.isNullOrEmpty()) {
-//                        tvData.text = CommonUtils.getSplitTime(
-//                            result?.birthDate ?: ""
-//                        ) + " - " + CommonUtils.getSplitTime(result?.leaveDate ?: "")
-//                    }
                     tvName.text = result?.name ?: ""
-                    tvEpitaph.text = result?.memorialName ?: ""
+                    tvMaker.text = "立碑人：" + result?.monumentMaker ?: ""
+                    tvEpitaph.text = "祖籍：" + result?.ancestralHome ?: ""
                     Glide.with(requireActivity())
                         .load(result?.picUrlPrefix + result?.memorialPicUrl)
                         .into(binding.memorialPic)
 
-                    Glide.with(requireActivity())
-                        .load(result?.picUrlPrefix + result?.avatarPicUrl)
-                        .placeholder(R.mipmap.headdd)
-                        .error(R.mipmap.headdd)
-                        .into(binding.headImg)
                 }
             },
                 {

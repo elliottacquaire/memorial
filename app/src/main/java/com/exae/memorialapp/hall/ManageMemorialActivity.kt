@@ -58,9 +58,7 @@ class ManageMemorialActivity : PosBaseActivity<ActivityManageMemorialBinding>() 
         viewModel.manageMerioResponse.observe(this, Observer { resources ->
             handleResponse(resources) {
                 if (it.data != null && it.data.isNotEmpty()) {
-                    listAdapter.data.clear()
-                    listAdapter.data.addAll(it.data)
-                    listAdapter.notifyDataSetChanged()
+                    listAdapter.setNewInstance(it.data)
                     listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
                     binding.emptyView.visibility = View.GONE
                     binding.smartRefreshLayout.visibility = View.VISIBLE

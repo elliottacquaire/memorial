@@ -47,7 +47,7 @@ class ModifyUserInfoActivity : PosBaseActivity<ActivityModifyUserInfoBinding>() 
         setToolTitle("修改个人资料")
         setBackState(true)
         binding.mAvatar.setOnClickListener {
-            val pop = XPopup.Builder(this)
+            XPopup.Builder(this)
                 .asBottomList("请选择一项", arrayOf("拍照", "相册")) { position, text ->
                     when (position) {
                         0 -> openCamera()
@@ -61,20 +61,7 @@ class ModifyUserInfoActivity : PosBaseActivity<ActivityModifyUserInfoBinding>() 
 
 
         binding.butSave.setOnClickListener {
-            CardDatePickerDialog.builder(this).setTitle("请选择日期")
-                .setLabelText("年", "月", "日")
-                .setDisplayType(
-                    mutableListOf(
-                        DateTimePicker.YEAR,
-                        DateTimePicker.MONTH,
-                        DateTimePicker.DAY
-                    )
-                )
-                .setOnChoose(listener = object : CardDatePickerDialog.OnChooseListener {
-                    override fun onChoose(millisecond: Long) {
-                        ToastUtils.showToast(this@ModifyUserInfoActivity, millisecond.toString())
-                    }
-                }).build().show()
+
         }
         binding.radioGroup.setOnCheckedChangeListener { _, id ->
             when (id) {
@@ -82,10 +69,12 @@ class ModifyUserInfoActivity : PosBaseActivity<ActivityModifyUserInfoBinding>() 
                     chooseType = SexType.MAN.type
 
                 }
+
                 R.id.woman -> {
                     chooseType = SexType.WOMAN.type
 
                 }
+
                 R.id.secret -> {
                     chooseType = SexType.SECRET.type
 
@@ -195,5 +184,22 @@ class ModifyUserInfoActivity : PosBaseActivity<ActivityModifyUserInfoBinding>() 
 
     override fun getViewBinding(): ActivityModifyUserInfoBinding {
         return ActivityModifyUserInfoBinding.inflate(layoutInflater)
+    }
+
+    private fun dataPicker() {
+        CardDatePickerDialog.builder(this).setTitle("请选择日期")
+            .setLabelText("年", "月", "日")
+            .setDisplayType(
+                mutableListOf(
+                    DateTimePicker.YEAR,
+                    DateTimePicker.MONTH,
+                    DateTimePicker.DAY
+                )
+            )
+            .setOnChoose(listener = object : CardDatePickerDialog.OnChooseListener {
+                override fun onChoose(millisecond: Long) {
+                    ToastUtils.showToast(this@ModifyUserInfoActivity, millisecond.toString())
+                }
+            }).build().show()
     }
 }

@@ -120,7 +120,6 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
                         listAdapter.loadMoreModule.loadMoreComplete()
                         pageNum++
                     }
-                    listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
                     binding.emptyView.visibility = View.GONE
                     binding.smartRefreshLayout.visibility = View.VISIBLE
                 } else {

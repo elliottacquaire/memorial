@@ -144,7 +144,7 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
                             }
                         }
                     }
-                    1 -> IntroduceFragment.newInstance(memorialNo, "")
+                    1 -> IntroduceFragment.newInstance(memorialNo, memorialType)
                     2 -> MemorialFragment.newInstance(memorialNo, "")
                     3 -> CommentFragment.newInstance(memorialNo, "")
                     else -> WorshipFragment.newInstance(memorialNo, memorialType)

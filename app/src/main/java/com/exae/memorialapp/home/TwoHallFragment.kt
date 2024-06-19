@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
@@ -69,8 +71,23 @@ class TwoHallFragment : CoreFragment(R.layout.fragment_two_hall) {
                         ) + " - " + CommonUtils.getSplitTime(result?.leaveDate1 ?: "")
                     }
                     tvName0.text = result?.name1 ?: ""
+                    tvSex0.text = when (result?.sex1) {
+                        "0" -> {
+                            "男"
+                        }
+
+                        "1" -> {
+                            "女"
+                        }
+
+                        else -> {
+                            "保密"
+                        }
+                    }
+
                     Glide.with(requireActivity())
                         .load(result?.picUrlPrefix + result?.avatarPicUrl1)
+                        .apply(RequestOptions.bitmapTransform(CircleCrop()))
                         .placeholder(R.mipmap.headdd)
                         .error(R.mipmap.headdd)
                         .into(binding.headImg0)
@@ -86,8 +103,22 @@ class TwoHallFragment : CoreFragment(R.layout.fragment_two_hall) {
                         ) + " - " + CommonUtils.getSplitTime(result?.leaveDate2 ?: "")
                     }
                     tvName1.text = result?.name2 ?: ""
+                    tvSex1.text = when (result?.sex2) {
+                        "0" -> {
+                            "男"
+                        }
+
+                        "1" -> {
+                            "女"
+                        }
+
+                        else -> {
+                            "保密"
+                        }
+                    }
                     Glide.with(requireActivity())
                         .load(result?.picUrlPrefix + result?.avatarPicUrl2)
+                        .apply(RequestOptions.bitmapTransform(CircleCrop()))
                         .placeholder(R.mipmap.headdd)
                         .error(R.mipmap.headdd)
                         .into(binding.headImg1)
