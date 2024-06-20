@@ -20,12 +20,16 @@ import com.exae.memorialapp.bean.ArticleListModel
 import com.exae.memorialapp.bean.CommentListModel
 import com.exae.memorialapp.bean.ManageMemorialModel
 import com.exae.memorialapp.databinding.FragmentArticalListBinding
+import com.exae.memorialapp.eventbus.AttentionEvent
 import com.exae.memorialapp.utils.ToastUtil
 import com.exae.memorialapp.viewmodel.MemorialModel
 import com.lxj.xpopup.XPopup
 import com.scwang.smart.refresh.header.BezierRadarHeader
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,6 +52,7 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
 
     private var memorialNo: Int? = -1
     private var articleId = -1
+    private var isEditable = false
 
     @Inject
     lateinit var listAdapter: ArticalAdapter
@@ -68,6 +73,7 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        EventBus.getDefault().register(this)
         _binding = FragmentArticalListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -93,6 +99,7 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
                     .withInt("memorialNo", memorialNo ?: -1)
                     .withInt("articleId", -1)
                     .withInt("type", 0)
+                    .withBoolean("isEdit", true)
                     .navigation(activity)
             }
         }
@@ -137,10 +144,12 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
                 .withInt("articleId", item.ids)
                 .withString("content", item.content)
                 .withInt("type", 1)
+                .withBoolean("isEdit", isEditable)
                 .navigation(activity)
         }
 
         listAdapter.setOnItemLongClickListener { adapter, _, position ->
+            if (!isEditable) return@setOnItemLongClickListener true
             val data = adapter.getItem(position) as ArticleListModel
             XPopup.Builder(requireContext())
                 .hasStatusBarShadow(false)
@@ -185,6 +194,17 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun attentionStatus(event: AttentionEvent) {
+        isEditable = event.edit
+        if (event.edit) {
+            binding.commit.visibility = View.VISIBLE
+        } else {
+            binding.commit.visibility = View.GONE
+        }
     }
 
     companion object {

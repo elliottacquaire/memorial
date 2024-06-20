@@ -27,6 +27,8 @@ class AlbumPicActivity : PosBaseActivity<ActivityAlbumPicBinding>() {
     private var name = ""
     private var albumId = -1
     private var pageNum: Int = 1
+    private var isEditable = false
+
     @Inject
     lateinit var listAdapter: AlbumAdapter
 
@@ -40,6 +42,7 @@ class AlbumPicActivity : PosBaseActivity<ActivityAlbumPicBinding>() {
         name = intent.getStringExtra("name") ?: ""
 //        memorialType = intent.getStringExtra("memorialType") ?: ""
         albumId = intent.getIntExtra("albumId", -1)
+        isEditable = intent.getBooleanExtra("isEdit", false)
         setToolTitle(name)
         setBackState(true)
         initView()
@@ -67,6 +70,9 @@ class AlbumPicActivity : PosBaseActivity<ActivityAlbumPicBinding>() {
                     .withString("name", name)
 //                    .withInt("type", 1)
                     .navigation(this@AlbumPicActivity)
+            }
+            if (!isEditable){
+                commit.visibility = View.GONE
             }
         }
 
@@ -109,10 +115,12 @@ class AlbumPicActivity : PosBaseActivity<ActivityAlbumPicBinding>() {
                 .withInt("id", item.ids)
                 .withString("desc", item.picDesc)
                 .withString("picUrl", item.picUrl)
+                .withBoolean("isEdit", isEditable)
                 .navigation(this)
         }
 
         listAdapter.setOnItemLongClickListener { p0, p1, position ->
+            if (!isEditable) return@setOnItemLongClickListener true
             val data = listAdapter.data.get(position) as AlbumPicListModel
             XPopup.Builder(this)
                 .hasStatusBarShadow(false)

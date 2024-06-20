@@ -14,10 +14,14 @@ import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.FragmentIntroduceBinding
+import com.exae.memorialapp.eventbus.AttentionEvent
 import com.exae.memorialapp.utils.ToastUtil
 import com.exae.memorialapp.viewmodel.MemorialModel
 import com.lxj.xpopup.XPopup
 import dagger.hilt.android.AndroidEntryPoint
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,6 +61,7 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentIntroduceBinding.inflate(inflater, container, false)
+        EventBus.getDefault().register(this)
         return binding.root
     }
 
@@ -148,6 +153,7 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        EventBus.getDefault().unregister(this)
     }
 
     private fun deleteDialog() {
@@ -159,6 +165,15 @@ class IntroduceFragment : CoreFragment(R.layout.fragment_introduce) {
             .asConfirm("温馨提示", "确定删除生平描述吗？") {
                 deleteIntroduce()
             }.show()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun attentionStatus(event: AttentionEvent) {
+        if (event.edit) {
+            binding.fabMenu.visibility = View.VISIBLE
+        } else {
+            binding.fabMenu.visibility = View.GONE
+        }
     }
 
     companion object {

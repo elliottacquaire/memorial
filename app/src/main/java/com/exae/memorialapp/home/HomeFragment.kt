@@ -60,7 +60,12 @@ class HomeFragment : CoreFragment(R.layout.fragment_home) {
         viewModel.singleMemorialDetailResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
                 val result = it.data
-                EventBus.getDefault().post(AttentionEvent(result?.attentionStatus ?: false))
+                EventBus.getDefault().post(
+                    AttentionEvent(
+                        result?.attentionStatus ?: false,
+                        result?.editable ?: false
+                    )
+                )
                 binding.apply {
                     if (!result?.birthDate.isNullOrEmpty() && !result?.leaveDate.isNullOrEmpty()) {
                         tvData.text = CommonUtils.getSplitTime(

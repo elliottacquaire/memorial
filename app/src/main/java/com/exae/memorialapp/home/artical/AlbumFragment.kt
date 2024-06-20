@@ -21,6 +21,7 @@ import com.exae.memorialapp.bean.ArticleListModel
 import com.exae.memorialapp.bean.CommentListModel
 import com.exae.memorialapp.databinding.FragmentAlbumBinding
 import com.exae.memorialapp.dialog.CancelDialog
+import com.exae.memorialapp.eventbus.AttentionEvent
 import com.exae.memorialapp.util.GlideEngine
 import com.exae.memorialapp.utils.ToastUtil
 import com.exae.memorialapp.viewmodel.MemorialModel
@@ -36,6 +37,9 @@ import com.yalantis.ucrop.UCrop
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import top.zibin.luban.Luban
 import top.zibin.luban.OnNewCompressListener
 
@@ -65,6 +69,7 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
 
     private val viewModel: MemorialModel by viewModels()
     private var pageNum: Int = 1
+    private var isEditable = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +84,7 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        EventBus.getDefault().register(this)
         _binding = FragmentAlbumBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -192,6 +198,7 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
 
     private fun initListClickEvent() {
         listAdapter.setOnItemLongClickListener { p0, p1, position ->
+            if (!isEditable) return@setOnItemLongClickListener true
             val data = listAdapter.data.get(position) as AlbumListModel
 //            XPopup.Builder(requireContext())
 //                .hasStatusBarShadow(false)
@@ -232,6 +239,7 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
                 .withInt("memorialNo", memorialNo ?: -1)
                 .withInt("albumId", item.ids)
                 .withString("name", item.name)
+                .withBoolean("isEdit", isEditable)
 //                .withInt("type", 1)
                 .navigation(activity)
         }
@@ -255,6 +263,17 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun attentionStatus(event: AttentionEvent) {
+        isEditable = event.edit
+        if (event.edit) {
+            binding.commit.visibility = View.VISIBLE
+        } else {
+            binding.commit.visibility = View.GONE
+        }
     }
 
     companion object {

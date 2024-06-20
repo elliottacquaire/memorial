@@ -1,6 +1,7 @@
 package com.exae.memorialapp.home.artical
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -19,6 +20,7 @@ class EditArticleActivity : PosBaseActivity<ActivityEditArticleBinding>() {
     private var articleId = -1
     private var type = -1
     private var showMessage = ""
+    private var isEditable = false
     private val viewModel: MemorialModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,9 +32,15 @@ class EditArticleActivity : PosBaseActivity<ActivityEditArticleBinding>() {
         content = intent.getStringExtra("content") ?: ""
         type = intent.getIntExtra("type", -1)
         articleId = intent.getIntExtra("articleId", -1)
+        isEditable = intent.getBooleanExtra("isEdit", false)
 
         initCallBack()
         getArticleDetail()
+        if (!isEditable){
+            binding.save.visibility = View.GONE
+        }
+        binding.edtTitle.isEnabled = isEditable
+        binding.edtContent.isEnabled = isEditable
         binding.save.setOnClickListener {
             when (articleId) {
                 -1 -> {

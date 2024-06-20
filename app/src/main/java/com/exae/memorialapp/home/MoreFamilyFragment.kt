@@ -68,7 +68,12 @@ class MoreFamilyFragment : CoreFragment(R.layout.fragment_more_family) {
                     Glide.with(requireActivity())
                         .load(result?.picUrlPrefix + result?.memorialPicUrl)
                         .into(binding.memorialPic)
-                    EventBus.getDefault().post(AttentionEvent(result?.attentionStatus ?: false))
+                    EventBus.getDefault().post(
+                        AttentionEvent(
+                            result?.attentionStatus ?: false,
+                            result?.editable ?: false
+                        )
+                    )
                 }
             },
                 {

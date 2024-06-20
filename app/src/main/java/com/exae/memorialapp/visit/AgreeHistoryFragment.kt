@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.exae.memorialapp.R
@@ -204,29 +205,21 @@ class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history),
         val item = adapter.getItem(position) as ApplyListModel
         when (view.id) {
             R.id.modify -> {
-//                ARouter.getInstance().build("/app/modify/hall")
-//                    .withInt("memorialNo", item.memorialNo)
-//                    .withString("memorialName", item.name)
-//                    .withString("memorialType", item.type)
-//                    .navigation(this)
                 when (item.status) {
-//                    ApplyType.ELSE.type -> ApplyType.ELSE.tips
                     ApplyType.APPLYING.type -> {
                         handleStatus(item.id ?: -1)
                     }
-//                    ApplyType.APPLYING_PASS.type -> ApplyType.APPLYING_PASS.tips
-//                    ApplyType.APPLYING_REJECT.type -> ApplyType.APPLYING_REJECT.tips
+
                     else -> {}
                 }
-
-//                viewModel.handleApplyMemorialRequest(item.id ?: -1, item.status ?: -1)
             }
+
             R.id.parent -> {
-//                ARouter.getInstance().build("/app/home")
-//                    .withInt("memorialNo", item.memorialNo)
-//                    .withString("memorialName", item.name)
-//                    .withString("memorialType", item.type)
-//                    .navigation(this)
+                ARouter.getInstance().build("/app/home")
+                    .withInt("memorialNo", item.memorialNo)
+                    .withString("memorialName", item.memorialName)
+                    .withString("memorialType", item.memorialType)
+                    .navigation(activity)
             }
         }
     }

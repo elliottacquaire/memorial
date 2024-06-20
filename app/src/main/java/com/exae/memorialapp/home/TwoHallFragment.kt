@@ -66,7 +66,12 @@ class TwoHallFragment : CoreFragment(R.layout.fragment_two_hall) {
         viewModel.twoMemorialDetailResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 val result = it.data
-                EventBus.getDefault().post(AttentionEvent(result?.attentionStatus ?: false))
+                EventBus.getDefault().post(
+                    AttentionEvent(
+                        result?.attentionStatus ?: false,
+                        result?.editable ?: false
+                    )
+                )
                 binding.apply {
                     if (!result?.birthDate1.isNullOrEmpty() && !result?.leaveDate1.isNullOrEmpty()) {
                         tvData0.text = CommonUtils.getSplitTime(

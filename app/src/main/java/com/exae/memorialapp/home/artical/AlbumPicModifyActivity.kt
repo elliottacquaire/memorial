@@ -26,6 +26,7 @@ class AlbumPicModifyActivity : PosBaseActivity<ActivityAlbumPicModifyBinding>() 
     private var picUrl = ""
     private var albumId = -1
     private var id = -1
+    private var isEditable = false
 
     private val viewModel: MemorialModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,10 +44,17 @@ class AlbumPicModifyActivity : PosBaseActivity<ActivityAlbumPicModifyBinding>() 
         picUrl = intent.getStringExtra("picUrl") ?: ""
         albumId = intent.getIntExtra("albumId", -1)
         id = intent.getIntExtra("id", -1)
-        setToolTitle("编辑")
+        isEditable = intent.getBooleanExtra("isEdit", false)
+
+        if (isEditable){
+            setToolTitle("编辑")
+            setRecordTitle("修改")
+            setRightTv(true)
+        }else{
+            setToolTitle("查看")
+            setRightTv(false)
+        }
         setBackState(true)
-        setRecordTitle("修改")
-        setRightTv(true)
         initView()
     }
 
@@ -63,6 +71,7 @@ class AlbumPicModifyActivity : PosBaseActivity<ActivityAlbumPicModifyBinding>() 
     }
 
     private fun initView() {
+        binding.edit.isEnabled = isEditable
         binding.edit.setText(desc)
         Glide.with(this)
             .load(picUrl)

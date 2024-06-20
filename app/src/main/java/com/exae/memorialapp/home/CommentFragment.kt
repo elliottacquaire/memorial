@@ -12,10 +12,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemLongClickListener
 import com.exae.memorialapp.R
 import com.exae.memorialapp.adapter.MemorialCommentAdapter
+import com.exae.memorialapp.animation.TokenPreference
+import com.exae.memorialapp.animation.UserPreference
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.bean.CommentListModel
 import com.exae.memorialapp.databinding.FragmentCommentBinding
+import com.exae.memorialapp.eventbus.AttentionEvent
+import com.exae.memorialapp.utils.StringPreferenceType
 import com.exae.memorialapp.utils.ToastUtil
 import com.exae.memorialapp.view.CustomEditTextBottomPopup
 import com.exae.memorialapp.viewmodel.MemorialModel
@@ -25,6 +29,9 @@ import com.lxj.xpopup.interfaces.SimpleCallback
 import com.scwang.smart.refresh.header.BezierRadarHeader
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,8 +49,12 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
     private var memorialNo: Int? = -1
     private var param2: String? = null
     private var checkPosition = -1
-
+    private var isEditable = false
     private var commentTips: String? = ""
+
+    @Inject
+    @UserPreference
+    lateinit var users: StringPreferenceType
 
     private var _binding: FragmentCommentBinding? = null
     private val binding get() = _binding!!
@@ -68,6 +79,7 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        EventBus.getDefault().register(this)
         _binding = FragmentCommentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -165,9 +177,6 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
                     pageNum = 1
                     requestNetData()
                     ToastUtil.showCenter("留言删除成功")
-//                    listAdapter.data.removeAt(checkPosition)
-//                    listAdapter.notifyItemChanged(checkPosition)
-
                 }
             },
                 {
@@ -200,6 +209,12 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun attentionStatus(event: AttentionEvent) {
+        isEditable = event.edit
     }
 
     companion object {
@@ -227,7 +242,8 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
         view: View,
         position: Int
     ): Boolean {
-        val data = listAdapter.data.get(position) as CommentListModel
+        val data = listAdapter.data.get(position)
+        if (!((users.get().trim() == data.createBy) || isEditable)) return true
         XPopup.Builder(requireContext())
             .hasStatusBarShadow(false)
             .hasNavigationBar(false)
