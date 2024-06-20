@@ -8,6 +8,7 @@ import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
 import com.exae.memorialapp.bean.ArticleDetailResponse
 import com.exae.memorialapp.bean.ArticleListResponse
+import com.exae.memorialapp.bean.AttentionCancelResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.CommentListResponse
@@ -75,6 +76,22 @@ interface MemorialService {
             encoded = true
         ) url: String
     ): AttentionListResponse
+
+    @POST("{path}")
+    suspend fun attention(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String
+    ): AttentionCancelResponse
+
+    @DELETE("{path}")
+    suspend fun attentionCancel(
+        @Path(
+            value = "path",
+            encoded = true
+        ) url: String
+    ): AttentionCancelResponse
 
     @GET("{path}")
     suspend fun manageMerioRequest(

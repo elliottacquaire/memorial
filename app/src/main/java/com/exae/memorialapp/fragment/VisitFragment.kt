@@ -58,9 +58,6 @@ class VisitFragment : CoreFragment(R.layout.fragment_test_drive) {
         isHistory = arguments?.getInt("isHistory", 0) ?: 0
         status = arguments?.getInt("status") ?: -1
 
-//        EventBus.getDefault().register(this)
-
-
 //        viewModel.listResponse.observe(this, Observer { resources ->
 //            handleResponse(resources) {
 //                if (it.data != null && !it.data.isNullOrEmpty()) {

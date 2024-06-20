@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.exae.memorialapp.R
@@ -16,7 +15,6 @@ import com.exae.memorialapp.adapter.AgreeHistoryAdapter
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.bean.ApplyListModel
-import com.exae.memorialapp.bean.ManageMemorialModel
 import com.exae.memorialapp.databinding.FragmentAgreeHistoryBinding
 import com.exae.memorialapp.requestData.ApplyType
 import com.exae.memorialapp.requestData.HandleApplyType
@@ -101,10 +99,7 @@ class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history),
         viewModel.handleApplyListMemorialResponse.observe(this, Observer { resources ->
             handleResponse(resources) {
                 if (it.data != null && it.data.isNotEmpty()) {
-                    listAdapter.data.clear()
-                    listAdapter.data.addAll(it.data)
-                    listAdapter.notifyDataSetChanged()
-                    listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
+                    listAdapter.setNewInstance(it.data)
                     binding.emptyView.visibility = View.GONE
                     binding.smartRefreshLayout.visibility = View.VISIBLE
                 } else {
@@ -117,6 +112,8 @@ class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history),
         viewModel.handleApplyMemorialResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
                 dismissLoading()
+                ToastUtil.showCenter(it.message)
+                requestNetData()
             },
                 {
                     dismissLoading()
@@ -124,7 +121,6 @@ class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history),
             )
         })
 
-        requestNetData()
     }
 
     private fun chooseStatus() {
@@ -155,6 +151,11 @@ class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history),
 
     private fun requestNetData() {
         viewModel.handleApplyListMemorialRequest(statusType)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requestNetData()
     }
 
     override fun onDestroyView() {
@@ -195,6 +196,7 @@ class AgreeHistoryFragment : CoreFragment(R.layout.fragment_agree_history),
                     else -> -1
                 }
                 viewModel.handleApplyMemorialRequest(id, type)
+                showLoading()
             }.show()
     }
 

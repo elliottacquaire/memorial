@@ -55,8 +55,11 @@ class AttentionListModel(
     @SerializedName("ownerNickName")
     val ownerNickName: String = ""
 )
-
-
+class AttentionCancelResponse : ProtocolResponse<AttentionResult>()
+class AttentionResult(
+    @SerializedName("result")
+    val result: Boolean,
+)
 class ManageMemorialResponse : ProtocolResponse<ArrayList<ManageMemorialModel>>()
 class ManageMemorialModel(
     @SerializedName("memorialNo")
@@ -320,12 +323,8 @@ class DeleteMemorialModel(
 
 class HandleApplyMemorialResponse : ProtocolResponse<HandleApplyMemorialModel>()
 class HandleApplyMemorialModel(
-    @SerializedName("id")
-    val ids: Int,
-    @SerializedName("fileName")
-    val fileName: String?,
-    @SerializedName("url")
-    val url: String = ""
+    @SerializedName("result")
+    val result: Boolean,
 )
 
 class ApplyHistoryListResponse : ProtocolResponse<ArrayList<ApplyListModel>>()
@@ -333,6 +332,10 @@ class HandleApplyListResponse : ProtocolResponse<ArrayList<ApplyListModel>>()
 class ApplyListModel(
     @SerializedName("memorialNo")
     val memorialNo: Int,
+    @SerializedName("memorialName")
+    val memorialName: String = "",
+    @SerializedName("memorialType")
+    val memorialType: String,
     @SerializedName("updateTime")
     val updateTime: String = "",
     @SerializedName("createTime")

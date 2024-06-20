@@ -12,9 +12,18 @@ class AgreeHistoryAdapter @Inject constructor() :
     BaseQuickAdapter<ApplyListModel, BaseViewHolder>(R.layout.item_agree_memorial) {
 
     override fun convert(holder: BaseViewHolder, item: ApplyListModel) {
-        holder.setText(R.id.hallNum, "馆号：" + item.memorialNo.toString())
-            .setText(R.id.hallTime, "建馆时间：" + getSplitTime(item.createTime))
+        holder.setText(R.id.hallNum, "纪念馆馆号：" + item.memorialNo.toString())
+            .setText(R.id.hallTime, "申请时间：" + getSplitTime(item.createTime))
             .setText(R.id.hallLevel, "Lv" + item.status)
+            .setText(R.id.hallName, item.memorialName)
+            .setText(R.id.reason, "理由：" + item.notes)
+        val typeText = when (item.memorialType) {
+            "0" -> "个"
+            "1" -> "家"
+            "2" -> "双"
+            else -> ""
+        }
+        holder.setText(R.id.hallType, typeText)
 
         val statusText = when (item.status) {
             ApplyType.ELSE.type -> ApplyType.ELSE.tips

@@ -15,9 +15,11 @@ import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.FragmentMoreFamilyBinding
 import com.exae.memorialapp.databinding.FragmentTwoHallBinding
+import com.exae.memorialapp.eventbus.AttentionEvent
 import com.exae.memorialapp.utils.CommonUtils
 import com.exae.memorialapp.viewmodel.MemorialModel
 import dagger.hilt.android.AndroidEntryPoint
+import org.greenrobot.eventbus.EventBus
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,6 +66,7 @@ class TwoHallFragment : CoreFragment(R.layout.fragment_two_hall) {
         viewModel.twoMemorialDetailResponse.observe(viewLifecycleOwner, Observer { resources ->
             handleResponse(resources, {
                 val result = it.data
+                EventBus.getDefault().post(AttentionEvent(result?.attentionStatus ?: false))
                 binding.apply {
                     if (!result?.birthDate1.isNullOrEmpty() && !result?.leaveDate1.isNullOrEmpty()) {
                         tvData0.text = CommonUtils.getSplitTime(
@@ -122,6 +125,7 @@ class TwoHallFragment : CoreFragment(R.layout.fragment_two_hall) {
                         .placeholder(R.mipmap.headdd)
                         .error(R.mipmap.headdd)
                         .into(binding.headImg1)
+
                 }
             },
                 {

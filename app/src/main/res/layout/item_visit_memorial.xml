@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginBottom="12dp"
     android:layout_marginTop="12dp"
-    android:padding="12dp"
-    android:orientation="vertical"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
     android:background="@color/card_view_background"
+    android:orientation="vertical"
+    android:padding="12dp"
     app:cardCornerRadius="3dp"
     app:cardElevation="10dp"
     app:contentPadding="10dp">
@@ -23,29 +23,96 @@
         android:textColor="@color/color_b0"
         android:textSize="16sp" />
 
-    <RelativeLayout
-        android:layout_marginTop="12dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       >
+        android:layout_marginTop="6dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/hallName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="纪念馆"
+                android:textColor="@color/color_b0"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/memorialNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="123456"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:layout_marginTop="4dp"
+            android:text=""
+            android:textColor="@color/color_b0"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/hallType"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@drawable/chip_type_bg"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/hallLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/chip_zongse_bg"
+                android:text="level"
+                android:visibility="invisible"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/reason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/color_b0"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:gravity="center"
-            android:text="123456"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:text=""
             android:textColor="@color/color_2ca"
             android:textSize="16sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

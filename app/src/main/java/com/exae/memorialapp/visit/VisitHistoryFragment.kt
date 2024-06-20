@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.exae.memorialapp.R
 import com.exae.memorialapp.adapter.ManageMemorialAdapter
 import com.exae.memorialapp.adapter.VisitHistoryAdapter
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
+import com.exae.memorialapp.bean.AlbumListModel
+import com.exae.memorialapp.bean.ApplyListModel
 import com.exae.memorialapp.databinding.FragmentGoVisitBinding
 import com.exae.memorialapp.databinding.FragmentVisitHistoryBinding
 import com.exae.memorialapp.requestData.ApplyType
@@ -36,7 +39,7 @@ private const val ARG_PARAM2 = "param2"
  */
 
 @AndroidEntryPoint
-class VisitHistoryFragment :  CoreFragment(R.layout.fragment_visit_history) {
+class VisitHistoryFragment : CoreFragment(R.layout.fragment_visit_history) {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -91,10 +94,7 @@ class VisitHistoryFragment :  CoreFragment(R.layout.fragment_visit_history) {
         viewModel.applyHistoryMemorialResponse.observe(this, Observer { resources ->
             handleResponse(resources) {
                 if (it.data != null && it.data.isNotEmpty()) {
-                    listAdapter.data.clear()
-                    listAdapter.data.addAll(it.data)
-                    listAdapter.notifyDataSetChanged()
-                    listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
+                    listAdapter.setNewInstance(it.data)
                     binding.emptyView.visibility = View.GONE
                     binding.smartRefreshLayout.visibility = View.VISIBLE
                 } else {
@@ -103,7 +103,20 @@ class VisitHistoryFragment :  CoreFragment(R.layout.fragment_visit_history) {
                 }
             }
         })
-        requestNetData()
+
+        listAdapter.setOnItemClickListener { adapter, _, position ->
+            val item = adapter.getItem(position) as ApplyListModel
+            when (item.status) {
+                ApplyType.APPLYING_PASS.type -> {
+                    ARouter.getInstance().build("/app/home")
+                        .withInt("memorialNo", item.memorialNo)
+                        .withString("memorialName", item.memorialName)
+                        .withString("memorialType", item.memorialType)
+                        .navigation(activity)
+                }
+                else -> {}
+            }
+        }
     }
 
     private fun requestNetData() {
@@ -134,6 +147,11 @@ class VisitHistoryFragment :  CoreFragment(R.layout.fragment_visit_history) {
                 }
                 requestNetData()
             }.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requestNetData()
     }
 
     override fun onDestroyView() {

@@ -95,14 +95,15 @@
                     android:textColor="@color/white"
                     android:gravity="center"
                     android:textSize="12sp"
-                    android:text="的" />
+                    android:text="" />
                 <TextView
                     android:id="@+id/hallLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:background="@drawable/chip_zongse_bg"
-                    android:text="level 1"
+                    android:text=""
+                    android:visibility="invisible"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     android:textStyle="bold" />

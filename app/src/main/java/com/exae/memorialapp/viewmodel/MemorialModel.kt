@@ -12,6 +12,7 @@ import com.exae.memorialapp.bean.ApplyHistoryListResponse
 import com.exae.memorialapp.bean.ApplyMemorialResponse
 import com.exae.memorialapp.bean.ArticleDetailResponse
 import com.exae.memorialapp.bean.ArticleListResponse
+import com.exae.memorialapp.bean.AttentionCancelResponse
 import com.exae.memorialapp.bean.AttentionListResponse
 import com.exae.memorialapp.bean.BannerResponse
 import com.exae.memorialapp.bean.CommentListResponse
@@ -46,7 +47,9 @@ import com.exae.memorialapp.requestData.ApplyMemorialListAllRequest
 import com.exae.memorialapp.requestData.ApplyMemorialRequest
 import com.exae.memorialapp.requestData.ArticleDetailRequest
 import com.exae.memorialapp.requestData.ArticleLisRequest
+import com.exae.memorialapp.requestData.AttentionCancelRequest
 import com.exae.memorialapp.requestData.AttentionListRequest
+import com.exae.memorialapp.requestData.AttentionRequest
 import com.exae.memorialapp.requestData.BannerRequest
 import com.exae.memorialapp.requestData.ChooseHallRequest
 import com.exae.memorialapp.requestData.ChooseMemorialRequest
@@ -112,6 +115,30 @@ class MemorialModel @Inject constructor(
             },
             {
                 attentionListResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var attentionResponse = MutableLiveData<ResultBean<AttentionCancelResponse>>()
+    fun attentionRequest(memorialNo:Int) {
+        launch(
+            {
+                attentionResponse.value = repository.attention(AttentionRequest(memorialNo))
+            },
+            {
+                attentionResponse.value = errorHandle(it)
+            }
+        )
+    }
+
+    var attentionCancelResponse = MutableLiveData<ResultBean<AttentionCancelResponse>>()
+    fun attentionCancelRequest(memorialNo:Int) {
+        launch(
+            {
+                attentionCancelResponse.value = repository.attentionCancel(AttentionCancelRequest(memorialNo))
+            },
+            {
+                attentionCancelResponse.value = errorHandle(it)
             }
         )
     }

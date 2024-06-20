@@ -12,8 +12,10 @@ import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.FragmentMoreFamilyBinding
+import com.exae.memorialapp.eventbus.AttentionEvent
 import com.exae.memorialapp.viewmodel.MemorialModel
 import dagger.hilt.android.AndroidEntryPoint
+import org.greenrobot.eventbus.EventBus
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,7 +68,7 @@ class MoreFamilyFragment : CoreFragment(R.layout.fragment_more_family) {
                     Glide.with(requireActivity())
                         .load(result?.picUrlPrefix + result?.memorialPicUrl)
                         .into(binding.memorialPic)
-
+                    EventBus.getDefault().post(AttentionEvent(result?.attentionStatus ?: false))
                 }
             },
                 {

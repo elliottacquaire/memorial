@@ -24,6 +24,12 @@ data class BannerRequest(var code: String = "") :
 data class AttentionListRequest(var code: String = "") :
     BaseRequest("/prod-api/user/memorial/attention/listAll")
 
+data class AttentionRequest(var memorialNo: Int) :
+    BaseRequest("/prod-api/user/memorial/attention/$memorialNo")
+
+data class AttentionCancelRequest(var memorialNo: Int) :
+    BaseRequest("/prod-api/user/memorial/attention/$memorialNo")
+
 data class MemorialListAllRequest(var code: String = "") :
     BaseRequest("/prod-api/user/memorial/listAll")
 

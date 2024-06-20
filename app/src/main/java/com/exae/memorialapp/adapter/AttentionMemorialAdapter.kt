@@ -15,12 +15,12 @@ import com.exae.memorialapp.utils.CommonUtils.getTime
 import javax.inject.Inject
 
 class AttentionMemorialAdapter @Inject constructor() :
-    BaseQuickAdapter<AttentionListModel, BaseViewHolder>(R.layout.item_attention_memorial)  {
+    BaseQuickAdapter<AttentionListModel, BaseViewHolder>(R.layout.item_attention_memorial) {
 
     override fun convert(holder: BaseViewHolder, item: AttentionListModel) {
-        holder.setText(R.id.hallNum, "馆号：" + item.memorialNo.toString())
+        holder.setText(R.id.hallNum, item.memorialNo.toString())
             .setText(R.id.hallName, item.name)
-            .setText(R.id.hallTime, "建馆时间：" + getSplitTime(item.createTime))
+            .setText(R.id.hallTime, getSplitTime(item.createTime))
             .setText(R.id.hallLevel, "Lv" + item.type)
         val typeText = when (item.type) {
             "0" -> "个"

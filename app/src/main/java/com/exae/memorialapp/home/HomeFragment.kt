@@ -14,9 +14,11 @@ import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.FragmentHomeBinding
+import com.exae.memorialapp.eventbus.AttentionEvent
 import com.exae.memorialapp.utils.CommonUtils
 import com.exae.memorialapp.viewmodel.MemorialModel
 import dagger.hilt.android.AndroidEntryPoint
+import org.greenrobot.eventbus.EventBus
 
 private const val ARG_PARAM1 = "memorialNo"
 private const val ARG_PARAM2 = "param2"
@@ -58,6 +60,7 @@ class HomeFragment : CoreFragment(R.layout.fragment_home) {
         viewModel.singleMemorialDetailResponse.observe(this, Observer { resources ->
             handleResponse(resources, {
                 val result = it.data
+                EventBus.getDefault().post(AttentionEvent(result?.attentionStatus ?: false))
                 binding.apply {
                     if (!result?.birthDate.isNullOrEmpty() && !result?.leaveDate.isNullOrEmpty()) {
                         tvData.text = CommonUtils.getSplitTime(

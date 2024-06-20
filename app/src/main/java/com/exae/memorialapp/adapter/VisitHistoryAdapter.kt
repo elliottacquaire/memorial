@@ -14,7 +14,16 @@ class VisitHistoryAdapter @Inject constructor() :
     override fun convert(holder: BaseViewHolder, item: ApplyListModel) {
         holder.setText(R.id.memorialNo, "纪念馆馆号：" + item.memorialNo.toString())
             .setText(R.id.applyTime, "申请时间：" + getSplitTime(item.createTime))
-
+            .setText(R.id.hallLevel, "Lv" + item.status)
+            .setText(R.id.hallName, item.memorialName)
+            .setText(R.id.reason, "理由：" + item.notes)
+        val typeText = when (item.memorialType) {
+            "0" -> "个"
+            "1" -> "家"
+            "2" -> "双"
+            else -> ""
+        }
+        holder.setText(R.id.hallType, typeText)
         val tips = when (item.status) {
             ApplyType.APPLYING.type -> ApplyType.APPLYING.tips
             ApplyType.APPLYING_PASS.type -> ApplyType.APPLYING_PASS.tips
