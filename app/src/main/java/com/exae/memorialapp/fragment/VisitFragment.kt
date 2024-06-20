@@ -16,6 +16,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.databinding.FragmentTestDriveBinding
+import com.exae.memorialapp.eventbus.AttentionEvent
+import com.exae.memorialapp.eventbus.ClickEvent
 import com.exae.memorialapp.home.CommentFragment
 import com.exae.memorialapp.home.HomeFragment
 import com.exae.memorialapp.home.IntroduceFragment
@@ -31,6 +33,9 @@ import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
 import com.youth.banner.indicator.CircleIndicator
 import dagger.hilt.android.AndroidEntryPoint
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 @AndroidEntryPoint
 class VisitFragment : CoreFragment(R.layout.fragment_test_drive) {
@@ -48,6 +53,7 @@ class VisitFragment : CoreFragment(R.layout.fragment_test_drive) {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+        EventBus.getDefault().register(this)
         _binding = FragmentTestDriveBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -57,27 +63,6 @@ class VisitFragment : CoreFragment(R.layout.fragment_test_drive) {
 
         isHistory = arguments?.getInt("isHistory", 0) ?: 0
         status = arguments?.getInt("status") ?: -1
-
-//        viewModel.listResponse.observe(this, Observer { resources ->
-//            handleResponse(resources) {
-//                if (it.data != null && !it.data.isNullOrEmpty()) {
-//                    listAdapter.data.clear()
-//                    listAdapter.data.addAll(listNode)
-//                    listAdapter.notifyDataSetChanged()
-//                    listAdapter.setAnimationWithDefault(BaseQuickAdapter.AnimationType.SlideInBottom)
-//                    emptyView.visibility = View.GONE
-//                    smartRefreshLayout.visibility = View.VISIBLE
-//                } else {
-//                    emptyView.visibility = View.VISIBLE
-//                    smartRefreshLayout.visibility = View.GONE
-//                }
-//            }
-//
-//        })
-
-//        when (viewModel.getRolePermission()) {
-//            0 -> viewModel.requestDriveRequest()
-//        }
 
         with(binding) {
             mViewPager.adapter = initPageAdapter()
@@ -109,7 +94,6 @@ class VisitFragment : CoreFragment(R.layout.fragment_test_drive) {
                     mTabLayout.selectTab(mTabLayout.getTabAt(position))
                 }
             })
-
             mTabLayout.selectTab(mTabLayout.getTabAt(0))
         }
 
@@ -135,23 +119,16 @@ class VisitFragment : CoreFragment(R.layout.fragment_test_drive) {
 
     override fun onResume() {
         super.onResume()
-        requestNetData()
     }
 
-    //刷新data
-    private fun requestNetData() {
-//        when(isHistory){
-//            1 -> {
-//                viewModel.state.requestHistory.status = status
-//                viewModel.requestTestDriveHistoryList()
-//            }
-//            else ->  viewModel.requestTestDriveList()
-//        }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun attentionStatus(event: ClickEvent) {
+        binding.mTabLayout.selectTab(binding.mTabLayout.getTabAt(1))
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-//        EventBus.getDefault().unregister(this)
+        EventBus.getDefault().unregister(this)
         _binding = null
     }
 

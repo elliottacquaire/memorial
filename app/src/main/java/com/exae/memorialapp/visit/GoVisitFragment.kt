@@ -12,10 +12,12 @@ import com.exae.memorialapp.R
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
 import com.exae.memorialapp.databinding.FragmentGoVisitBinding
+import com.exae.memorialapp.eventbus.ClickEvent
 import com.exae.memorialapp.utils.ToastUtil
 import com.exae.memorialapp.viewmodel.MemorialModel
 import com.lxj.xpopup.XPopup
 import dagger.hilt.android.AndroidEntryPoint
+import org.greenrobot.eventbus.EventBus
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,6 +60,7 @@ class GoVisitFragment : CoreFragment(R.layout.fragment_go_visit) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            tvCode.setSingleLine()
             butCreateOne.setOnClickListener {
                 val code = tvCode.text.trim().toString()
                 if (code.isNotEmpty()) {
@@ -79,6 +82,7 @@ class GoVisitFragment : CoreFragment(R.layout.fragment_go_visit) {
                     confirmDialog(it.data.memorialNo ?: -1, it.data.memorialType)
                 } else {
                     ToastUtil.showCenter("已申请，请等候结果")
+                    EventBus.getDefault().post(ClickEvent())
                 }
             },
                 {
@@ -101,16 +105,19 @@ class GoVisitFragment : CoreFragment(R.layout.fragment_go_visit) {
                             .withInt("memorialNo", memorialNo)
                             .navigation()
                     }
+
                     "1" -> {
                         ARouter.getInstance().build("/app/more/detail")
                             .withInt("memorialNo", memorialNo)
                             .navigation()
                     }
+
                     "2" -> {
                         ARouter.getInstance().build("/app/two/detail")
                             .withInt("memorialNo", memorialNo)
                             .navigation()
                     }
+
                     else -> ""
                 }
             }.show()

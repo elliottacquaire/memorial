@@ -23,6 +23,7 @@
         android:background="@drawable/chip_kuang_bg"
         android:hint="请输入邀请码"
         android:layout_marginTop="25dp"
+        android:inputType="textMultiLine"
         android:maxLength="20"
         android:maxLines="1"
         android:textColor="#959595"
