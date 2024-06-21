@@ -169,7 +169,7 @@ class ArticalListFragment : CoreFragment(R.layout.fragment_artical_list) {
                 requestNetData()
             },
                 {
-                    ToastUtil.showCenter("操作失败，请重试")
+//                    ToastUtil.showCenter("操作失败，请重试")
                 }
             )
         })

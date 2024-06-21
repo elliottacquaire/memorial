@@ -12,7 +12,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemLongClickListener
 import com.exae.memorialapp.R
 import com.exae.memorialapp.adapter.MemorialCommentAdapter
-import com.exae.memorialapp.animation.TokenPreference
 import com.exae.memorialapp.animation.UserPreference
 import com.exae.memorialapp.base.CoreFragment
 import com.exae.memorialapp.base.handleResponse
@@ -162,10 +161,10 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
                 val result = it.data
                 pageNum = 1
                 requestNetData()
-                ToastUtil.showCenter("留言发表成功")
+                ToastUtil.showCenter("发表成功")
             },
                 {
-                    ToastUtil.showCenter("留言发表失败，请重试")
+//                    ToastUtil.showCenter("留言发表失败，请重试")
                 }
             )
         })
@@ -176,11 +175,11 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
                 if (result == true) {
                     pageNum = 1
                     requestNetData()
-                    ToastUtil.showCenter("留言删除成功")
+                    ToastUtil.showCenter("删除成功")
                 }
             },
                 {
-                    ToastUtil.showCenter("留言发表失败，请重试")
+//                    ToastUtil.showCenter("留言删除失败，请重试")
                 }
             )
         })
@@ -243,7 +242,8 @@ class CommentFragment : CoreFragment(R.layout.fragment_comment), OnItemLongClick
         position: Int
     ): Boolean {
         val data = listAdapter.data.get(position)
-        if (!((users.get().trim() == data.createBy) || isEditable)) return true
+//        if (!((users.get().trim() == data.createBy) || isEditable)) return true
+        if ((users.get().trim() != data.createBy)) return true
         XPopup.Builder(requireContext())
             .hasStatusBarShadow(false)
             .hasNavigationBar(false)

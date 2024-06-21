@@ -150,7 +150,7 @@ class AlbumFragment : CoreFragment(R.layout.fragment_album) {
                 requestNetData()
             },
                 {
-                    ToastUtil.showCenter("操作失败，请重试")
+//                    ToastUtil.showCenter("操作失败，请重试")
                 }
             )
         })

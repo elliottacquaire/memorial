@@ -64,7 +64,7 @@ class EditArticleActivity : PosBaseActivity<ActivityEditArticleBinding>() {
                 binding.edtTitle.setText(result?.title)
             },
                 {
-                    ToastUtil.showCenter("${showMessage}失败，请重试")
+//                    ToastUtil.showCenter("${showMessage}失败，请重试")
                 }
             )
         })
@@ -75,7 +75,7 @@ class EditArticleActivity : PosBaseActivity<ActivityEditArticleBinding>() {
                 finish()
             },
                 {
-                    ToastUtil.showCenter("${showMessage}失败，请重试")
+//                    ToastUtil.showCenter("${showMessage}失败，请重试")
                 }
             )
         })
@@ -91,7 +91,7 @@ class EditArticleActivity : PosBaseActivity<ActivityEditArticleBinding>() {
                 finish()
             },
                 {
-                    ToastUtil.showCenter("${showMessage}失败，请重试")
+//                    ToastUtil.showCenter("${showMessage}失败，请重试")
                 }
             )
         })

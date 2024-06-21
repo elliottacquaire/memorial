@@ -100,7 +100,7 @@ class HomeActivity : PosBaseActivity<ActivityHomeBinding>() {
             )
 
             mMainViewPager.adapter = initPageAdapter()
-            mMainViewPager.offscreenPageLimit = 2
+            mMainViewPager.offscreenPageLimit = 3
             mMainTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabReselected(tab: TabLayout.Tab?) {
 
