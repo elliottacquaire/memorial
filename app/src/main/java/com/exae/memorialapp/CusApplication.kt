@@ -1,14 +1,12 @@
 package com.exae.memorialapp
 
 import android.app.Application
-import androidx.annotation.Keep
 import com.alibaba.android.arouter.BuildConfig
 import com.alibaba.android.arouter.launcher.ARouter
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.HiltAndroidApp
 
-@Keep
 @HiltAndroidApp //1
 class CusApplication : Application() {
 
