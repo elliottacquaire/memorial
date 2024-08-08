@@ -35,19 +35,5 @@ class LaunchActivity : AppCompatActivity() {
             }
             finish()
         }, 2000)
-
-//        binding.button.setOnClickListener {
-//            Handler(Looper.getMainLooper()).postDelayed({
-//                startActivity(Intent(this,MainActivity::class.java))
-//                startActivity(Intent(this,PosVerificationCodeLoginActivity::class.java))
-//                ARouter.getInstance()
-//                    .build("/login/login")
-//                    .build("/app/main")
-////            .withString("ROLE", role)
-//                    .withTransition(0, 0)
-//                    .navigation()
-//                finish()
-//            }, 2000)
-//        }
     }
 }

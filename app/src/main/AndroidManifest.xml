@@ -22,6 +22,10 @@
             <action android:name="android.media.action.ACTION_VIDEO_CAPTURE" />
         </intent>
     </queries>
+    <queries>
+        <package android:name="com.eg.android.AlipayGphone" /> <!-- 支付宝 -->
+        <package android:name="hk.alipay.wallet" /> <!-- AlipayHK -->
+    </queries>
 
     <application
         android:name=".CusApplication"

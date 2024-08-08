@@ -141,4 +141,5 @@ dependencies {
 
 //    implementation 'com.laocaixw.suspendbuttonlayout:suspendbuttonlayout:1.0.3'
     implementation 'com.ddz.materialdesign:FloatingActionButton:1.0.4'
+    api 'com.alipay.sdk:alipaysdk-android:15.8.17'
 }
